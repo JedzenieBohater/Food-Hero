@@ -6,5 +6,5 @@
 * Bartek Siwiński (Pyrrun)
 * Jakub Celuch
 * Łukasz Glapiak
-* Mateusz Ciupa
+* Mateusz Ciupa (MateuszCiupa)
 * Mateusz Smoliński
