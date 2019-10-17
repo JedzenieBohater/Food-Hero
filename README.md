@@ -5,6 +5,6 @@
 * Patryk Zaniewski (PatrykZaniewski)
 * Bartek Siwiński (Pyrrun)
 * Jakub Celuch
-* Łukasz Glapiak
+* Łukasz Glapiak (Lukas2018)
 * Mateusz Ciupa (MateuszCiupa)
 * Mateusz Smoliński (matsmolinski)
