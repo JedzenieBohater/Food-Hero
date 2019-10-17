@@ -7,4 +7,4 @@
 * Jakub Celuch
 * Łukasz Glapiak
 * Mateusz Ciupa (MateuszCiupa)
-* Mateusz Smoliński
+* Mateusz Smoliński (matsmolinski)
