@@ -3,7 +3,7 @@
 # Authors
 * Konrad Magiera
 * Patryk Zaniewski (PatrykZaniewski)
-* Bartek Siwiński
+* Bartek Siwiński (Pyrrun)
 * Jakub Celuch
 * Łukasz Glapiak
 * Mateusz Ciupa
