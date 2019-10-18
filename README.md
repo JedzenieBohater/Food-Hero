@@ -1,10 +1,10 @@
 # Food-Hero
 
 # Authors
-* Konrad Magiera
-* Patryk Zaniewski (PatrykZaniewski)
-* Bartek Siwiński (Pyrrun)
-* Jakub Celuch (JCeluch)
-* Łukasz Glapiak (Lukas2018)
-* Mateusz Ciupa (MateuszCiupa)
-* Mateusz Smoliński (matsmolinski)
+* [Konrad Magiera](https://github.com/KonradMagiera) (KonradMagiera)
+* [Patryk Zaniewski](https://github.com/PatrykZaniewski) (PatrykZaniewski)
+* [Bartek Siwiński](https://github.com/Pyrrun) (Pyrrun)
+* [Jakub Celuch](https://github.com/JCeluch) (JCeluch)
+* [Łukasz Glapiak](https://github.com/Lukas2018) (Lukas2018)
+* [Mateusz Ciupa](https://github.com/MateuszCiupa) (MateuszCiupa)
+* [Mateusz Smoliński](https://github.com/matsmolinski) (matsmolinski)
