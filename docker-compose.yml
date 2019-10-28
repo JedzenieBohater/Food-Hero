@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  nginx:
+   container_name: "some_nginx"
+   image: "nginx:1.13"
+   restart: unless-stopped
+   ports:
+   - "10080:80"
+   - "10443:443"
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+   depends_on:
+   - app
+
+  app:
+    container_name: "some_app"
+    image: "maven:3.5-jdk-8"
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+    expose:
+      - "8080"
+    depends_on:
+      - postgres
+    command: mvn clean spring-boot:run
+
+  postgres:
+    container_name: "some_postgres"
+    image: "postgres:latest"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=student
+      - POSTGRES_PASSWORD=zetis
+      - POSTGRES_DB=mydb
+    ports:
+      - "54320:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
