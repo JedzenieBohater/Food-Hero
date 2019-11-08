@@ -1,0 +1,21 @@
+﻿* {
+    color: #FFFFFF;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn-blue {
+    background-image: linear-gradient(#0073C6, #003857);
+    border: none;
+    font-size: 18px;
+    text-align: center;
+    padding: 2px 5px 2px 5px;
+    cursor: pointer;
+}
+
+.btn-blue:hover {
+    filter: brightness(120%);
+}
+
+.btn-blue:active{
+    filter: brightness(90%);
+}
