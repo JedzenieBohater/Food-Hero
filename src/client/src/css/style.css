@@ -1,0 +1,40 @@
+﻿* {
+	background-color: #213133;
+    color: #FFFFFF;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+button[class^="btn-"]{
+	border: none;
+    font-size: 18px;
+    text-align: center;
+    padding: 2px 5px 2px 5px;
+}
+button[class^="btn-blue"] {
+    background-image: linear-gradient(#0073C6, #003857);
+    cursor: pointer;
+}
+
+button[class^="btn-green"] {
+    background-image: linear-gradient(#10C600, #003857);
+    cursor: pointer;
+}
+
+button[class^="btn-white"] {
+    background-image: linear-gradient(#F1F1F1, #C8C8C8);
+	color: #000000;
+    cursor: pointer;
+}
+
+button[class^="btn-"]:hover {
+    filter: brightness(110%);
+}
+button[class^="btn-"]:active{
+    filter: brightness(90%);
+}
+
+button[class$="-disabled"], button[class$="-disabled"]:hover, button[class$="-disabled"]:active {
+	filter: brightness(75%);
+	cursor: default;
+}
+
