@@ -1,7 +1,26 @@
-﻿* {
+﻿#page {
 	background-color: #213133;
     color: #FFFFFF;
     font-family: 'Times New Roman', Times, serif;
+	margin: 0px;
+}
+
+.content-box {
+	padding: 15px;
+	background-color: #3B3B3B;
+	border: solid;
+	border-color: #0063A8;
+	border-width: 2px;
+}
+
+.top-bar {
+	background-image: linear-gradient(#0073C6, #003857);
+	padding: 5px;
+	height: 40px;
+	line-height: 40px;
+	top: 0;
+	position: -webkit-sticky;
+	position: sticky;
 }
 
 button[class^="btn-"]{
@@ -9,6 +28,7 @@ button[class^="btn-"]{
     font-size: 18px;
     text-align: center;
     padding: 2px 5px 2px 5px;
+	color: #FFFFFF;
 }
 button[class^="btn-blue"] {
     background-image: linear-gradient(#0073C6, #003857);
