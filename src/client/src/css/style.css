@@ -3,6 +3,7 @@
     color: #FFFFFF;
     font-family: 'Times New Roman', Times, serif;
 	margin: 0px;
+	font-size: 18px;
 
 }
 
@@ -12,6 +13,7 @@
 	border: solid;
 	border-color: #0063A8;
 	border-width: 2px;
+	margin: 2px;
 }
 
 .top-bar {
@@ -27,15 +29,15 @@
 
 .footer {
 	background-image: linear-gradient(#0073C6, #003857);
-	height: 40px;
+	height: 80px;
 	padding: 5px;
-	line-height: 40px;	
+	line-height: 80px;	
 	margin-top: 10px;
 }
 
+/* BUTTON */
 button[class^="btn-"]{
 	border: none;
-    font-size: 18px;
     text-align: center;
     padding: 2px 5px 2px 5px;
 	color: #FFFFFF;
@@ -70,3 +72,35 @@ button[class$="-disabled"], button[class$="-disabled"]:hover, button[class$="-di
 	cursor: default;
 }
 
+/* INPUT */
+input[type="text"], input[type="password"] {
+	border: solid;
+	border-radius: 10px;
+	background-color: #282828;
+	border-color: #959595;
+	padding: 2px 5px 2px 5px;
+	color: #FFFFFF;
+}
+/* PLACEHOLDER */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #D4D4D4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #D4D4D4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #D4D4D4;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #D4D4D4;
+}
+
+/* SELECT BOX */
+select {
+	border: solid;
+	border-radius: 10px;
+	background-color: #282828;
+	border-color: #959595;
+	padding: 2px 5px 2px 5px;
+	color: #FFFFFF;
+}
