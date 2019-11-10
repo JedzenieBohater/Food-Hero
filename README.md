@@ -8,3 +8,6 @@
 * [Łukasz Glapiak](https://github.com/Lukas2018) (Lukas2018)
 * [Mateusz Ciupa](https://github.com/MateuszCiupa) (MateuszCiupa)
 * [Mateusz Smoliński](https://github.com/matsmolinski) (matsmolinski)
+
+# Run docker
+`docker-compose -f Docker/docker-compose.yml build; docker-compose -f Docker/docker-compose.yml up` 
