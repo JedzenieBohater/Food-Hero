@@ -43,6 +43,27 @@ button[class^="btn-"]{
 	color: #FFFFFF;
 }
 
+button[class^="img"]{
+	height: 16px;
+	width: 16px;
+	background-repeat:no-repeat;
+	
+	background-color: Transparent;
+    border: none;
+    cursor:pointer;
+	background-size: cover;
+	position: relative;
+	right: 20px;
+	bottom: 5px;
+}
+.img-earth {
+	background-image: url("earth.bmp");
+}
+
+.img-search {
+	background-image: url("glass.bmp");
+}
+
 button[class^="btn-blue"] {
     background-image: linear-gradient(#0073C6, #003857);
     cursor: pointer;
@@ -78,9 +99,11 @@ input[type="text"], input[type="password"] {
 	border-radius: 10px;
 	background-color: #282828;
 	border-color: #959595;
+	border-width: 2px;
 	padding: 2px 5px 2px 5px;
 	color: #FFFFFF;
 }
+
 /* PLACEHOLDER */
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #D4D4D4;
@@ -101,6 +124,7 @@ select {
 	border-radius: 10px;
 	background-color: #282828;
 	border-color: #959595;
+	border-width: 2px;
 	padding: 2px 5px 2px 5px;
 	color: #FFFFFF;
 }
