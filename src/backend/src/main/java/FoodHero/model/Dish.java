@@ -14,7 +14,7 @@ public class Dish {
     private String name;
     private String category;
     private String type;
-    private Rating rating;
+    private double rating;
     // hours, days
     private String location;
     private String description;
