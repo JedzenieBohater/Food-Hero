@@ -1,11 +1,10 @@
 package FoodHero.dao;
 
-import FoodHero.model.Dish;
+import FoodHero.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DishRepository extends JpaRepository<Dish, Integer> {
-
+public interface AccountRepository extends JpaRepository<Account, Integer> {
     void deleteById(String id);
 }

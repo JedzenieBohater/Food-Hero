@@ -16,7 +16,6 @@ public class Dish {
     private String type;
     private double rating;
     // hours, days
-    private String location;
     private String description;
 
     public String getId() {
@@ -57,14 +56,6 @@ public class Dish {
 
     public void setRating(double rating) {
         this.rating = rating;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getDescription() {
