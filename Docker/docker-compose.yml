@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   nginx:
    container_name: some_nginx
    image: nginx:1.13
