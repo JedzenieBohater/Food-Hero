@@ -20,7 +20,7 @@ services:
     ports:
       - "13000:3000"
     volumes:
-      - ../src/client:/app
+      - /app/node_modules
     depends_on:
       - app
 
@@ -34,7 +34,6 @@ services:
       - "18080:8080"
     depends_on:
       - postgres
-    command: mvn clean spring-boot:run
 
   postgres:
     container_name: some_postgres

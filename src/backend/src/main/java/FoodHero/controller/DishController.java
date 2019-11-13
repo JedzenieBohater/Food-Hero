@@ -5,9 +5,10 @@ import FoodHero.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class DishController {
     @Autowired
     DishService dishService;
@@ -20,7 +21,7 @@ public class DishController {
 
     @RequestMapping(value = "/dishes/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Dish dish) {
-        dishService.updateDish(id, dish);
+        dishService.updateDish(dish);
         return new ResponseEntity<>("Dish updated successfully", HttpStatus.OK);
     }
 
