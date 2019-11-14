@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   nginx:
    container_name: some_nginx
    image: nginx:1.13
@@ -21,21 +22,18 @@ services:
       - "13000:3000"
     volumes:
       - ../src/client:/app
+      - /app/node_modules
     depends_on:
       - app
-       
+
   app:
     container_name: some_app
-    image: maven:3.5-jdk-8
+    build: ../src/backend
     restart: unless-stopped
-    working_dir: /app
-    volumes:
-      - ../src/backend:/app
-    expose:
-      - "8080"
+    ports:
+      - "18080:8080"
     depends_on:
       - postgres
-    command: mvn clean spring-boot:run
 
   postgres:
     container_name: some_postgres
