@@ -21,6 +21,7 @@ services:
     ports:
       - "13000:3000"
     volumes:
+      - ../src/client:/app
       - /app/node_modules
     depends_on:
       - app
@@ -29,8 +30,6 @@ services:
     container_name: some_app
     build: ../src/backend
     restart: unless-stopped
-    volumes:
-      - '/tmp'
     ports:
       - "18080:8080"
     depends_on:

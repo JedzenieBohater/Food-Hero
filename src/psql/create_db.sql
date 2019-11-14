@@ -5,7 +5,6 @@ CREATE TABLE public.login
     password character(128) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
-
 );
 
 CREATE TABLE public.konto
