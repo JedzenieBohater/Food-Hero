@@ -18,6 +18,10 @@ public class AccountService {
         }
     }
 
+    public Account getAccount(String id){
+        return accountRepository.getOne(Integer.parseInt(id));
+    }
+
     public void updateAccount(Account account) {
         accountRepository.save(account);
     }
@@ -26,7 +30,7 @@ public class AccountService {
         accountRepository.deleteById(id);
     }
 
-    public List<Account> getCooks() {
+    public List<Account> getAccounts() {
         return accountRepository.findAll();
     }
 }

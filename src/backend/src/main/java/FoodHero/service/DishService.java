@@ -15,6 +15,10 @@ public class DishService {
         dishRepository.save(dish);
     }
 
+    public Dish getDish(String id){
+        return dishRepository.getOne(Integer.parseInt(id));
+    }
+
     public void updateDish(Dish dish) {
         dishRepository.save(dish);
     }
