@@ -26,7 +26,7 @@ public class LoginController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getLogin(@PathVariable("id") String id) {
+    public ResponseEntity<Object> getLogin(@PathVariable("id") int id) {
         Login login = loginService.getLogin(id);
         return new ResponseEntity<>(login, HttpStatus.OK);
     }
@@ -38,7 +38,7 @@ public class LoginController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteAccount(@PathVariable("id") String id) {
+    public ResponseEntity<Object> deleteAccount(@PathVariable("id") int id) {
         loginService.deleteLogin(id);
         return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
     }

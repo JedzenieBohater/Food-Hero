@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/dishes")
+@RequestMapping("/dish")
 public class DishController {
     @Autowired
     DishService dishService;
@@ -21,19 +21,19 @@ public class DishController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Dish dish) {
+    public ResponseEntity<Object> updateProduct(@RequestBody Dish dish) {
         dishService.updateDish(dish);
         return new ResponseEntity<>("Dish updated successfully", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") String id) {
+    public ResponseEntity<Object> delete(@PathVariable("id") int id) {
         dishService.deleteDish(id);
         return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getDish(@PathVariable("id") String id) {
+    public ResponseEntity<Object> getDish(@PathVariable("id") int id) {
         Dish dish = dishService.getDish(id);
         return new ResponseEntity<>(dish, HttpStatus.OK);
     }

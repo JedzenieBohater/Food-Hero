@@ -15,15 +15,15 @@ public class DishService {
         dishRepository.save(dish);
     }
 
-    public Dish getDish(String id){
-        return dishRepository.getOne(Integer.parseInt(id));
+    public Dish getDish(int id){
+        return dishRepository.getOne(id);
     }
 
     public void updateDish(Dish dish) {
         dishRepository.save(dish);
     }
 
-    public void deleteDish(String id) {
+    public void deleteDish(int id) {
         dishRepository.deleteById(id);
     }
 

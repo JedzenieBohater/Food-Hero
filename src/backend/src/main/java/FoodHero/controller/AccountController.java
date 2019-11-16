@@ -21,7 +21,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getAccount(@PathVariable("id") String id) {
+    public ResponseEntity<Object> getAccount(@PathVariable("id") int id) {
         Account account = accountService.getAccount(id);
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
@@ -33,7 +33,7 @@ public class AccountController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteAccount(@PathVariable("id") String id) {
+    public ResponseEntity<Object> deleteAccount(@PathVariable("id") int id) {
         accountService.deleteAccount(id);
         return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
     }

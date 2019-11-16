@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginRepository extends JpaRepository<Login, Integer> {
-
-    void deleteById(String id);
+    @Override
+    void deleteById(Integer id);
 }

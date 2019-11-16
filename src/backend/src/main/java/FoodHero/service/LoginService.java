@@ -18,15 +18,15 @@ public class LoginService {
         }
     }
 
-    public Login getLogin(String id){
-        return loginRepository.getOne(Integer.parseInt(id));
+    public Login getLogin(int id){
+        return loginRepository.getOne(id);
     }
 
     public void updateLogin(Login account) {
         loginRepository.save(account);
     }
 
-    public void deleteLogin(String id) {
+    public void deleteLogin(int id) {
         loginRepository.deleteById(id);
     }
 

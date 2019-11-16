@@ -18,15 +18,15 @@ public class AccountService {
         }
     }
 
-    public Account getAccount(String id){
-        return accountRepository.getOne(Integer.parseInt(id));
+    public Account getAccount(int id){
+        return accountRepository.getOne(id);
     }
 
     public void updateAccount(Account account) {
         accountRepository.save(account);
     }
 
-    public void deleteAccount(String id) {
+    public void deleteAccount(int id) {
         accountRepository.deleteById(id);
     }
 
