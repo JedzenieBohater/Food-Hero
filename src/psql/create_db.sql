@@ -43,7 +43,6 @@ CREATE TABLE public.dish
     id_account bigint NOT NULL,
 	name text NOT NULL,
 	category text NOT NULL,
-	type text NOT NULL,
 	description character(256),
     grade real NOT NULL,
     PRIMARY KEY (id),
@@ -59,8 +58,9 @@ CREATE TABLE public.offers
 	day text NOT NULL,
 	localisation text NOT NULL,
     status boolean NOT NULL,
+    periodic boolean NOT NULL,
     PRIMARY KEY (id),
-	FOREIGN KEY (id_account) REFERENCES public.account (id)
+	FOREIGN KEY (id_account) REFERENCES public.account (id),
     FOREIGN KEY (id_dish) REFERENCES public.dish (id)
 
 );
