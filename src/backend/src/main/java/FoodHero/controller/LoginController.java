@@ -21,33 +21,29 @@ public class LoginController {
     }
 
     @PostMapping(value = "/find")
-    public ResponseEntity<Object> getLogin(@RequestBody Login login)
+    public ResponseEntity<Object> getLogin(@RequestBody Login loginToCheck)
     {
-        System.out.println(login.getEmail());
         boolean loginExists = false;
-        if(loginService.getLogin(login.getEmail()) != null)
+        Login login = null;
+        if(loginService.getLogin(loginToCheck.getEmail()) != null)
         {
+            login = loginService.getLogin(loginToCheck.getEmail());
             loginExists = true;
-            System.out.println("XD" + loginService.getLogin(login.getEmail()));
+        }
 
-        }
-        else
-        {
-            System.out.println("XD" + loginService.getLogin(login.getEmail()));
-        }
         if(loginExists)
         {
             boolean passCorect = false;
-            if(loginService.getLogin(login.getEmail()).getPassword().equals(login.getPassword()))
+            if(login.getPassword().trim().equals(loginToCheck.getPassword()))
             {
                 passCorect = true;
             }
             if(passCorect)
             {
-                return new ResponseEntity<>(login, HttpStatus.OK);
+                return new ResponseEntity<>(loginToCheck, HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(login, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(loginToCheck, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{id}")

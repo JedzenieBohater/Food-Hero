@@ -14,7 +14,7 @@ public class Login {
     @NotNull
     private String email;
     @NotNull
-    @Size(max = 128)
+    @Column(length = 128)
     private String password;
     @OneToOne(mappedBy = "login", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Account account;
