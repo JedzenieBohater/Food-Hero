@@ -7,14 +7,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class AccountRating extends Rating {
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private int id_account;
+    @JoinColumn(name = "idReceiver", referencedColumnName = "id")
+    private Account account;
 
-    public int getId_account() {
-        return id_account;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setId_account(int id_account) {
-        this.id_account = id_account;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

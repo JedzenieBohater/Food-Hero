@@ -15,8 +15,8 @@ public abstract class Rating {
     @Size(max = 256)
     private String comment;
     @ManyToOne // usunięcie konta = usunięcie wszystkich recenzji?
-    @JoinColumn(name = "reviwer_id")
-    private int id_reviewer;
+    @JoinColumn(name = "idReviever", referencedColumnName = "id")
+    private Account reviewer;
 
     public int getId() {
         return id;
@@ -42,11 +42,11 @@ public abstract class Rating {
         this.comment = comment;
     }
 
-    public int getId_reviewer() {
-        return id_reviewer;
+    public Account getReviewer() {
+        return reviewer;
     }
 
-    public void setId_reviewer(int id_reviewer) {
-        this.id_reviewer = id_reviewer;
+    public void seReviewer(Account reviewer) {
+        this.reviewer = reviewer;
     }
 }

@@ -14,19 +14,44 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @GetMapping(value = "/xd")
-    public String test() {
-        return "xd";
-    }
-
     @PostMapping(value = "/")
     public ResponseEntity<Object> createAccount(@RequestBody Login login) {
         loginService.createLogin(login);
         return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/find")
+    public ResponseEntity<Object> getLogin(@RequestBody Login login)
+    {
+        System.out.println(login.getEmail());
+        boolean loginExists = false;
+        if(loginService.getLogin(login.getEmail()) != null)
+        {
+            loginExists = true;
+            System.out.println("XD" + loginService.getLogin(login.getEmail()));
+
+        }
+        else
+        {
+            System.out.println("XD" + loginService.getLogin(login.getEmail()));
+        }
+        if(loginExists)
+        {
+            boolean passCorect = false;
+            if(loginService.getLogin(login.getEmail()).getPassword().equals(login.getPassword()))
+            {
+                passCorect = true;
+            }
+            if(passCorect)
+            {
+                return new ResponseEntity<>(login, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(login, HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getLogin(@PathVariable("id") int id) {
+    public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
         Login login = loginService.getLogin(id);
         return new ResponseEntity<>(login, HttpStatus.OK);
     }

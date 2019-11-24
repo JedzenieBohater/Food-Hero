@@ -16,6 +16,8 @@ public class Login {
     @NotNull
     @Size(max = 128)
     private String password;
+    @OneToOne(mappedBy = "login", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Account account;
 
     public int getId() {
         return id;

@@ -2,6 +2,7 @@ package FoodHero.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Dish {
@@ -14,6 +15,8 @@ public class Dish {
     private double rating;
     // hours, days
     private String description;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<DishRating> ratingList;
 
     public int getId() {
         return id;

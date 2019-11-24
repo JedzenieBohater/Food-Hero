@@ -7,14 +7,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class DishRating extends Rating {
     @ManyToOne
-    @JoinColumn(name = "dish_id")
-    private int id_dish;
+    @JoinColumn(name = "idDish", referencedColumnName = "id")
+    private Dish dish;
 
-    public int getId_dish() {
-        return id_dish;
+    public Dish getDish() {
+        return dish;
     }
 
-    public void setId_dish(int id_dish) {
-        this.id_dish = id_dish;
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 }

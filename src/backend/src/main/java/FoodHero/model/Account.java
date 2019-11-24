@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -26,9 +27,11 @@ public class Account {
     private Double grade;
     @NotNull
     private boolean cookStatus;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "id")
-    private Login id_login;
+    private Login login;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<AccountRating> ratingList;
 
     // private List<String> localization;
     // private Rating rating;
@@ -115,11 +118,11 @@ public class Account {
         this.cookStatus = cookStatus;
     }
 
-    public Login getId_login() {
-        return id_login;
+    public Login getLogin() {
+        return login;
     }
 
-    public void setId_login(Login id_login) {
-        this.id_login = id_login;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 }

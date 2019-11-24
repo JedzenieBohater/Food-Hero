@@ -3,7 +3,5 @@ package FoodHero.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/account")
-public class AccountRatingController extends RatingController {
+public class AccountRatingController{
 }
