@@ -4,7 +4,6 @@
 	font-family: 'Times New Roman', Times, serif;
 	margin: 0px;
 	font-size: 18px;
-
 }
 
 .content-box {
@@ -15,6 +14,7 @@
 	border-width: 2px;
 	margin: 2px;
 }
+
 .content-box-middle {
 	padding-top: 200px;
 	display: table;
@@ -25,17 +25,6 @@
 	width: 100%;
 	padding: 10px;
 	text-align: right;
-}
-
-.top-bar {
-	background-image: linear-gradient(#0073C6, #003857);
-	padding: 5px;
-	height: 40px;
-	line-height: 40px;
-	top: 0;
-	position: -webkit-sticky;
-	position: sticky;
-	z-index: 1;
 }
 
 .footer {
@@ -53,40 +42,6 @@ button[class^="btn-"]{
     padding: 2px 5px 2px 5px;
 	color: #FFFFFF;
 }
-
-
-/* input+BUTTON lub sam input (tylko onClick na obrazek do rozwiazania, 
-*	ale mniej niechcianych przesuniec miedzy obiektami) 
-*/
-button[class^="img-"]{
-	height: 16px;
-	width: 16px;
-	background-repeat:no-repeat;
-	background-color: Transparent;
-    border: none;
-    cursor:pointer;
-	background-size: cover;
-	position: relative;
-	right: 20px;
-	bottom: 5px;
-}
-
-input[class^="img-"] {
-	background-repeat:no-repeat;
-	background-size: 12px;
-	background-position: bottom 4px right 4px;
-}
-
-.img-earth {
-	background-image: url("earth.bmp");
-}
-
-.img-search {
-	background-image: url("glass.bmp");
-}
-/* KONIEC rozkminy*/
-
-
 
 button[class^="btn-blue"] {
     background-image: linear-gradient(#0073C6, #003857);
@@ -128,6 +83,20 @@ input[type="text"], input[type="password"] {
 	color: #FFFFFF;
 }
 
+input[class^="img-"] {
+	background-repeat:no-repeat;
+	background-size: 12px;
+	background-position: bottom 4px right 4px;
+}
+
+.img-earth {
+	background-image: url("earth.bmp");
+}
+
+.img-search {
+	background-image: url("glass.bmp");
+}
+
 /* PLACEHOLDER */
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #D4D4D4;
@@ -152,7 +121,6 @@ select {
 	padding: 2px 5px 2px 5px;
 	color: #FFFFFF;
 }
-
 
 /* CHECKBOX */
 input[type="checkbox"]{
