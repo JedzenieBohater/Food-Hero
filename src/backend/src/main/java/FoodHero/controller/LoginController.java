@@ -14,14 +14,14 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/register")
     public ResponseEntity<Object> createAccount(@RequestBody Login login) {
         loginService.createLogin(login);
         return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/find")
-    public ResponseEntity<Object> getLogin(@RequestBody Login loginToCheck)
+    @PostMapping(value = "/login")
+    public ResponseEntity<Object> logIn(@RequestBody Login loginToCheck)
     {
         boolean loginExists = false;
         Login login = null;
@@ -40,6 +40,7 @@ public class LoginController {
             }
             if(passCorect)
             {
+                //TODO Kreacja ciastek sesji
                 return new ResponseEntity<>(loginToCheck, HttpStatus.OK);
             }
         }

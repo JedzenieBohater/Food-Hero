@@ -2,11 +2,10 @@ package FoodHero.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "login")
-public class Login {
+public class Login{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
@@ -16,6 +15,8 @@ public class Login {
     @NotNull
     @Column(length = 128)
     private String password;
+    @NotNull
+    private boolean is_admin;
     @OneToOne(mappedBy = "login", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Account account;
 
@@ -41,5 +42,21 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(boolean is_admin) {
+        this.is_admin = is_admin;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

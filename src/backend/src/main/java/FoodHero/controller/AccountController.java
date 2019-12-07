@@ -39,7 +39,9 @@ public class AccountController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<Object> getAccounts() {
-        return new ResponseEntity<>(accountService.getAccounts(), HttpStatus.OK);
+    public int getAccounts() {
+        //TODO tutaj coś nie bangla bo wypluwa taką ilość damych, że aż java się zapycha
+        //return new ResponseEntity<>(accountService.getAccounts(), HttpStatus.OK);
+        return accountService.getAccounts().size();
     }
 }
