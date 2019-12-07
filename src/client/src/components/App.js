@@ -1,26 +1,26 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import Header from './Header'
-import Login from './Login'
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Header, Login, Register, ForgottenPassword, Home } from "./layouts";
 
-export default class App extends React.Component {
-    render(){
-        return (
-            <Router>
-                <Header />
-                <Switch>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/xd">
-                        <label>xd</label>
-                    </Route >
-                    <Route path='/'>
-                        <label>main</label>
-                    </Route >
-                </Switch>
-            </Router >
-            );
-    }
-    
-}
+export default () => {
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        console.log(`Użytkownik ${loggedIn ? "" : "nie"} zalogowany`);
+    }, [loggedIn]);
+
+    return (
+        <Router>
+            <Header />
+            <Switch>
+                <Route exact path="/" />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route
+                    path="/forgottenpassword"
+                    component={ForgottenPassword}
+                />
+            </Switch>
+        </Router>
+    );
+};

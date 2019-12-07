@@ -1,132 +1,157 @@
-﻿html, body {
-	background-color: #213133;
-	color: #FFFFFF;
-	font-family: 'Times New Roman', Times, serif;
-	margin: 0px;
-	font-size: 18px;
+html,
+body {
+  background-color: #213133;
+  color: #ffffff;
+  font-family: "Times New Roman", Times, serif;
+  margin: 0px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+a {
+  color: #027ed6;
+  font-size: 16px;
+}
+
+.middle {
+  text-align: center;
 }
 
 .content-box {
-	padding: 15px;
-	background-color: #3B3B3B;
-	border: solid;
-	border-color: #0063A8;
-	border-width: 2px;
-	margin: 2px;
+  padding: 15px;
+  background-color: #3b3b3b;
+  border: solid;
+  border-color: #0063a8;
+  border-width: 2px;
+  margin: 2px;
 }
 
 .content-box-middle {
-	padding-top: 200px;
-	display: table;
-	margin: auto;
+  max-width: 50%;
+  padding-top: 200px;
+  display: table;
+  margin: auto;
 }
 
 .content-box-middle table {
-	width: 100%;
-	padding: 10px;
-	text-align: right;
+  width: 100%;
+  padding: 10px;
+  text-align: right;
 }
 
 .footer {
-	background-image: linear-gradient(#0073C6, #003857);
-	height: 80px;
-	padding: 5px;
-	line-height: 80px;	
-	margin-top: 10px;
+  background-image: linear-gradient(#0073c6, #003857);
+  height: 80px;
+  padding: 5px;
+  line-height: 80px;
+  margin-top: 10px;
 }
 
 /* BUTTON */
-button[class^="btn-"]{
-	border: none;
-    text-align: center;
-    padding: 2px 5px 2px 5px;
-	color: #FFFFFF;
+button[class^="btn-"] {
+  border: none;
+  text-align: center;
+  padding: 2px 5px 2px 5px;
+  color: #ffffff;
 }
 
 button[class^="btn-blue"] {
-    background-image: linear-gradient(#0073C6, #003857);
-    cursor: pointer;
+  background-image: linear-gradient(#0073c6, #003857);
+  cursor: pointer;
 }
 
 button[class^="btn-green"] {
-    background-image: linear-gradient(#10C600, #003857);
-    cursor: pointer;
+  background-image: linear-gradient(#10c600, #003857);
+  cursor: pointer;
 }
 
 button[class^="btn-white"] {
-    background-image: linear-gradient(#F1F1F1, #C8C8C8);
-	color: #000000;
-    cursor: pointer;
+  background-image: linear-gradient(#f1f1f1, #c8c8c8);
+  color: #000000;
+  cursor: pointer;
+}
+
+.btn-no-background-login {
+  background-color: Transparent;
+  cursor: pointer;
+}
+
+.btn-no-background-register {
+  background-color: rgba(25, 51, 77, 0.5);
+  cursor: pointer;
 }
 
 button[class^="btn-"]:hover {
-    filter: brightness(110%);
+  filter: brightness(110%);
 }
 
-button[class^="btn-"]:active{
-    filter: brightness(90%);
+button[class^="btn-"]:active {
+  filter: brightness(90%);
 }
 
-button[class$="-disabled"], button[class$="-disabled"]:hover, button[class$="-disabled"]:active {
-	filter: brightness(75%);
-	cursor: default;
+button[class$="-disabled"],
+button[class$="-disabled"]:hover,
+button[class$="-disabled"]:active {
+  filter: brightness(75%);
+  cursor: default;
 }
 
 /* INPUT */
-input[type="text"], input[type="password"] {
-	border: solid;
-	border-radius: 10px;
-	background-color: #282828;
-	border-color: #959595;
-	border-width: 2px;
-	padding: 2px 5px 2px 5px;
-	color: #FFFFFF;
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  border: solid;
+  border-radius: 10px;
+  background-color: #282828;
+  border-color: #959595;
+  border-width: 2px;
+  padding: 2px 5px 2px 5px;
+  color: #ffffff;
 }
 
 input[class^="img-"] {
-	background-repeat:no-repeat;
-	background-size: 12px;
-	background-position: bottom 4px right 4px;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: bottom 4px right 4px;
 }
 
 .img-earth {
-	background-image: url("earth.bmp");
+  background-image: url("earth.bmp");
 }
 
 .img-search {
-	background-image: url("glass.bmp");
+  background-image: url("glass.bmp");
 }
 
 /* PLACEHOLDER */
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #D4D4D4;
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #d4d4d4;
 }
-::-moz-placeholder { /* Firefox 19+ */
-  color: #D4D4D4;
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #d4d4d4;
 }
-:-ms-input-placeholder { /* IE 10+ */
-  color: #D4D4D4;
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #d4d4d4;
 }
-:-moz-placeholder { /* Firefox 18- */
-  color: #D4D4D4;
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #d4d4d4;
 }
 
 /* SELECT BOX  TODO: strzalka*/
 select {
-	border: solid;
-	border-radius: 10px;
-	background-color: #282828;
-	border-color: #959595;
-	border-width: 2px;
-	padding: 2px 5px 2px 5px;
-	color: #FFFFFF;
+  border: solid;
+  border-radius: 10px;
+  background-color: #282828;
+  border-color: #959595;
+  border-width: 2px;
+  padding: 2px 5px 2px 5px;
+  color: #ffffff;
 }
 
 /* CHECKBOX */
-input[type="checkbox"]{
-
+input[type="checkbox"] {
 }
-
-
-
-
