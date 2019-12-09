@@ -4,6 +4,7 @@ CREATE TABLE public.login
     email text NOT NULL,
     password character(128) NOT NULL,
     is_admin boolean NOT NULL,
+    is_active boolean NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
 
@@ -78,17 +79,17 @@ CREATE TABLE public.dish_grades
     FOREIGN KEY (id_owner) REFERENCES public.account (id)
 );
 
-INSERT INTO login (email, password, is_admin) VALUES
-    ('a@pw.edu.pl', 'admin', true),
-    ('b@pw.edu.pl', '123', true ),
-    ('c@pw.edu.pl', 'qwer', true),
-    ('d@pw.edu.pl', 'tyuiop', false),
-    ('e@pw.edu.pl', 'qaz', false),
-    ('f@pw.edu.pl', 'edc', false),
-    ('g@pw.edu.pl', '321', false),
-    ('h@pw.edu.pl', 'baza', false),
-    ('i@pw.edu.pl', 'ronnie', false),
-    ('j@pw.edu.pl', 'baby yoda', false);
+INSERT INTO login (email, password, is_admin, is_active) VALUES
+    ('a@pw.edu.pl', '$2y$12$9XC0DhPuoNUhz4x49KNlSeqllSZljgslCHc498Xfv88SeQhczkg.y', true, true),
+    ('b@pw.edu.pl', '123', true, true),
+    ('c@pw.edu.pl', 'qwer', true, true),
+    ('d@pw.edu.pl', 'tyuiop', false, true),
+    ('e@pw.edu.pl', 'qaz', false, true),
+    ('f@pw.edu.pl', 'edc', false, true),
+    ('g@pw.edu.pl', '321', false, true),
+    ('h@pw.edu.pl', 'baza', false, true),
+    ('i@pw.edu.pl', 'ronnie', false, true),
+    ('j@pw.edu.pl', 'baby yoda', false, true);
 
 INSERT INTO account (firstname, lastname, description, bank_account, creation_date, phone, specialization, grade, cook_status, id_login) VALUES
     ('Andrzej', 'Nowak', 'Dobry kucharz, lubię włoską kuchnię', '12341234123412341234', '2019-11-25', '123456789', 'kuchnia włoska', '5', 'true', 1),

@@ -17,6 +17,8 @@ public class Login{
     private String password;
     @NotNull
     private boolean is_admin;
+    @NotNull
+    private boolean is_active;
     @OneToOne(mappedBy = "login", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Account account;
 
@@ -50,6 +52,14 @@ public class Login{
 
     public void setIs_admin(boolean is_admin) {
         this.is_admin = is_admin;
+    }
+
+    public boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
     }
 
     public Account getAccount() {
