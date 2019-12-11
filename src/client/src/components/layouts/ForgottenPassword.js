@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default () => {
   return (
@@ -15,7 +15,7 @@ export default () => {
                 <label htmlFor="email">Email:</label>
               </td>
               <td>
-                <input type="text" id="email" placeholder="email" />
+                <input type="email" id="email" placeholder="email" />
               </td>
             </tr>
             <tr>
@@ -30,5 +30,5 @@ export default () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}

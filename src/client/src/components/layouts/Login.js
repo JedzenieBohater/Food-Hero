@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default () => {
   return (
@@ -9,10 +9,10 @@ export default () => {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="username">Adres email:</label>
+                <label htmlFor="email">Adres email:</label>
               </td>
               <td>
-                <input type="email" id="username" placeholder="email" />
+                <input type="email" id="email" placeholder="email" />
               </td>
             </tr>
             <tr>
@@ -31,12 +31,12 @@ export default () => {
           </tbody>
         </table>
         <div className="middle">
-          <Link to="/register">Nie masz konta, zarejestruj się!</Link>
+          Nie masz konta?<Link to="/register"> Zarejestruj się!</Link>
         </div>
         <div className="middle">
           <Link to="/forgottenpassword">Zapomniałem hasła </Link>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}

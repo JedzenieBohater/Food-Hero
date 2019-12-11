@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 //import logo from "../static/logo.svg"
 
 export default () => {
@@ -17,5 +17,5 @@ export default () => {
         </Link>
       </nav>
     </header>
-  );
-};
+  )
+}

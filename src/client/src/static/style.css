@@ -109,6 +109,18 @@ input[type="email"] {
   color: #ffffff;
 }
 
+input[type="text"].invalid,
+input[type="password"].invalid,
+input[type="email"]:invalid {
+  border: solid;
+  border-radius: 10px;
+  background-color: #282828;
+  border-color: #ff0000;
+  border-width: 2px;
+  padding: 2px 5px 2px 5px;
+  color: #ffffff;
+}
+
 input[class^="img-"] {
   background-repeat: no-repeat;
   background-size: 12px;
