@@ -20,6 +20,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.2.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.2.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.1.RELEASE" level="project" />

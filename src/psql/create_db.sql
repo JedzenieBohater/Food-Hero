@@ -80,7 +80,7 @@ CREATE TABLE public.dish_grades
 );
 
 INSERT INTO login (email, password, is_admin, is_active) VALUES
-    ('a@pw.edu.pl', '$2y$12$9XC0DhPuoNUhz4x49KNlSeqllSZljgslCHc498Xfv88SeQhczkg.y', true, true),
+    ('a@pw.edu.pl', '$2a$10$ZefM61FiilnLQv2KRINMTuIqWLRv3VeWDcyaWs9DvgKcz/OrDsdMq', true, true),
     ('b@pw.edu.pl', '123', true, true),
     ('c@pw.edu.pl', 'qwer', true, true),
     ('d@pw.edu.pl', 'tyuiop', false, true),

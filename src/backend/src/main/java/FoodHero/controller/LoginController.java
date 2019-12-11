@@ -20,7 +20,7 @@ public class LoginController {
         return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/login")
+    /*@PostMapping(value = "/login")
     public ResponseEntity<Object> logIn(@RequestBody Login loginToCheck)
     {
         boolean loginExists = false;
@@ -45,7 +45,7 @@ public class LoginController {
             }
         }
         return new ResponseEntity<>(loginToCheck, HttpStatus.NOT_FOUND);
-    }
+    }*/
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {

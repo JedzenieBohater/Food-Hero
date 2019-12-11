@@ -23,9 +23,9 @@ public class LoginService{
         return loginRepository.getOne(id);
     }
 
-    public Login getLogin(String email){
+    /*public Login getLogin(String email){
         return loginRepository.getByEmail(email);
-    }
+    }*/
 
     public void updateLogin(Login account) {
         loginRepository.save(account);

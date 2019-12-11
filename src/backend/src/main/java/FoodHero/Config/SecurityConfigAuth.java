@@ -16,13 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService loginDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(loginDetailsService)
-                .passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService);
     }
 
     @Override
@@ -32,7 +30,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .antMatchers("/account/").hasAuthority("USER")
                 .antMatchers("/").hasAuthority("ADMIN")
                 .and()
-                .formLogin(); //W celach testowych hard code do logowania
+                .formLogin();
         httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .sessionFixation().migrateSession();
