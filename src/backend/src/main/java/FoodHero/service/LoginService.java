@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LoginService{
@@ -19,8 +20,8 @@ public class LoginService{
         }
     }
 
-    public Login getLogin(int id){
-        return loginRepository.getOne(id);
+    public Optional<Login> getLogin(int id){
+        return loginRepository.findById(id);
     }
 
     /*public Login getLogin(String email){
@@ -35,7 +36,8 @@ public class LoginService{
         loginRepository.deleteById(id);
     }
 
-    public List<Login> getLogins() {
-        return loginRepository.findAll();
+    public Optional<List<Login>> getLogins() {
+        return Optional.ofNullable(loginRepository.findAll());
     }
+
 }

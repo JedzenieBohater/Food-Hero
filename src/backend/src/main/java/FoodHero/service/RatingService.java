@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RatingService {
@@ -16,8 +17,8 @@ public class RatingService {
         ratingRepository.save(rating);
     }
 
-    public Rating getRating(int id){
-        return ratingRepository.getOne(id);
+    public Optional<Rating> getRating(int id){
+        return Optional.ofNullable(ratingRepository.getOne(id));
     }
 
     public void updateRating(Rating rating) {
@@ -28,7 +29,7 @@ public class RatingService {
         ratingRepository.deleteById(id);
     }
 
-    public List<Rating> getRatings() {
-        return ratingRepository.findAll();
+    public Optional<List<Rating>> getRatings() {
+        return Optional.ofNullable(ratingRepository.findAll());
     }
 }

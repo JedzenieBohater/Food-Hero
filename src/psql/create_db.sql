@@ -79,17 +79,30 @@ CREATE TABLE public.dish_grades
     FOREIGN KEY (id_owner) REFERENCES public.account (id)
 );
 
+/*hasla dla kolejnych userów to:
+  admin
+  123
+  qwer
+  tyuiop
+  qaz
+  edc
+  321
+  baza
+  ronnie
+  baby yoda
+ */
+
 INSERT INTO login (email, password, is_admin, is_active) VALUES
     ('a@pw.edu.pl', '$2a$10$ZefM61FiilnLQv2KRINMTuIqWLRv3VeWDcyaWs9DvgKcz/OrDsdMq', true, true),
-    ('b@pw.edu.pl', '123', true, true),
-    ('c@pw.edu.pl', 'qwer', true, true),
-    ('d@pw.edu.pl', 'tyuiop', false, true),
-    ('e@pw.edu.pl', 'qaz', false, true),
-    ('f@pw.edu.pl', 'edc', false, true),
-    ('g@pw.edu.pl', '321', false, true),
-    ('h@pw.edu.pl', 'baza', false, true),
-    ('i@pw.edu.pl', 'ronnie', false, true),
-    ('j@pw.edu.pl', 'baby yoda', false, true);
+    ('b@pw.edu.pl', '$2y$10$rV/k6bnMF/GyuuFyrTGb8OqCOujK8K8KOMc19tKVfdmbKjWKsaNRi', true, true),
+    ('c@pw.edu.pl', '$2y$10$ZdQ/cZsdjFAqjMeYOrRBk.7Vw7ETslHqgJ73OnotY7MlCn/cnSQOq', true, true),
+    ('d@pw.edu.pl', '$2y$10$2dHaLUJYbdDS8LLf60CDNevd4m90gDCQrYSYAngXkFtYY22Ebs4d.', false, true),
+    ('e@pw.edu.pl', '$2y$10$OF/qWEw5dy1B01eeXRUsbOLojMscUSmqjc2nsSwaiDOdxK3ZRHJeW', false, true),
+    ('f@pw.edu.pl', '$2y$10$Gl0lRcHjKiOr9HU2EMYxeujq5sA96FJrywhVf8h6vQYMmhI.zL2A2', false, true),
+    ('g@pw.edu.pl', '$2y$10$QuuPReeWSDKUmmJn8ws1ze4Ywox56D7LXZ4OGBiKwUJgwQ9eCg042', false, true),
+    ('h@pw.edu.pl', '$2y$10$wWmRizgqTvUJhSMDsKJOj.u6WF5E7qf0fPoGBphBTvgE4XDdBS0c2', false, true),
+    ('i@pw.edu.pl', '$2y$10$Obn8C5.0T4lYaPf.d3kA5e63lYMWWCa/uUEPJIESh0Vb78Jv8b39G', false, true),
+    ('j@pw.edu.pl', '$2y$10$7Df5RhaqNxlEOUv54lD0l.RJcA4TiQlW3aGy6MlPxJ1ZedmpdKfFS', false, true);
 
 INSERT INTO account (firstname, lastname, description, bank_account, creation_date, phone, specialization, grade, cook_status, id_login) VALUES
     ('Andrzej', 'Nowak', 'Dobry kucharz, lubię włoską kuchnię', '12341234123412341234', '2019-11-25', '123456789', 'kuchnia włoska', '5', 'true', 1),

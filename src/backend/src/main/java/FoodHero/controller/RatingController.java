@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RequestMapping("/rating")
 public abstract class RatingController {
     @Autowired
@@ -32,7 +34,7 @@ public abstract class RatingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getRating(@PathVariable("id") int id) {
-        Rating rating = ratingService.getRating(id);
+        Optional<Rating> rating = ratingService.getRating(id);
         return new ResponseEntity<>(rating, HttpStatus.OK);
     }
 

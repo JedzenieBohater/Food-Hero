@@ -3,9 +3,13 @@ package FoodHero.controller;
 import FoodHero.model.Login;
 import FoodHero.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -49,8 +53,13 @@ public class LoginController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
-        Login login = loginService.getLogin(id);
-        return new ResponseEntity<>(login, HttpStatus.OK);
+        Optional<Login> account = loginService.getLogin(100);
+        System.out.println(account.isPresent());
+        if (account.isPresent()) {
+            return new ResponseEntity<>(account.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(value = "/")

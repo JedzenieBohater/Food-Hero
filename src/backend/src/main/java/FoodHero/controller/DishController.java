@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/dish")
@@ -34,7 +36,7 @@ public class DishController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getDish(@PathVariable("id") int id) {
-        Dish dish = dishService.getDish(id);
+        Optional<Dish> dish = dishService.getDish(id);
         return new ResponseEntity<>(dish, HttpStatus.OK);
     }
 

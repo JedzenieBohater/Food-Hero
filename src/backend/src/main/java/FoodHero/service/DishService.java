@@ -5,6 +5,7 @@ import FoodHero.model.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DishService {
@@ -15,8 +16,8 @@ public class DishService {
         dishRepository.save(dish);
     }
 
-    public Dish getDish(int id){
-        return dishRepository.getOne(id);
+    public Optional<Dish> getDish(int id){
+        return Optional.ofNullable(dishRepository.getOne(id));
     }
 
     public void updateDish(Dish dish) {
@@ -27,7 +28,7 @@ public class DishService {
         dishRepository.deleteById(id);
     }
 
-    public List<Dish> getDishes() {
-        return dishRepository.findAll();
+    public Optional<List<Dish>> getDishes() {
+        return Optional.ofNullable(dishRepository.findAll());
     }
 }

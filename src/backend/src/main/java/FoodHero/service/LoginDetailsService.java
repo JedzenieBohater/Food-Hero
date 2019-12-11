@@ -2,15 +2,17 @@ package FoodHero.service;
 
 import FoodHero.dao.LoginRepository;
 import FoodHero.model.Login;
+import FoodHero.model.LoginDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class LoginDetailsService implements UserDetailsService {
 
     @Autowired
     private LoginRepository loginRepository;
@@ -19,8 +21,8 @@ public class UserDetailsService implements org.springframework.security.core.use
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Login> login = loginRepository.getByEmail(email);
 
-        login.orElseThrow(() -> new UsernameNotFoundException("Not found: " + email));
+        login.orElseThrow(() -> new UsernameNotFoundException("Not found account associated : " + email));
 
-        return login.map(FoodHero.service.UserDetails::new).get();
+        return login.map(LoginDetails::new).get();
     }
 }

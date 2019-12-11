@@ -34,8 +34,6 @@ public class Account {
     private List<AccountRating> ratingList;
 
     // private List<String> localization;
-    // private Rating rating;
-    // private Login login;
 
 
     public int getId() {
@@ -124,5 +122,13 @@ public class Account {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public List<AccountRating> getRatingList() {
+        return ratingList;
+    }
+
+    public void setRatingList(List<AccountRating> ratingList) {
+        this.ratingList = ratingList;
     }
 }

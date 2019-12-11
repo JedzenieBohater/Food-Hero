@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/account")
 public class AccountController {
+
     @Autowired
     AccountService accountService;
 
@@ -22,8 +25,16 @@ public class AccountController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getAccount(@PathVariable("id") int id) {
-        Account account = accountService.getAccount(id);
-        return new ResponseEntity<>(account, HttpStatus.OK);
+        Optional<Account> account = accountService.getAccount(id);
+        System.out.println(account.isPresent());
+        Account acc = account.get();
+        System.out.println(acc.toString());
+       /* if (account.isPresent()) {
+            return ResponseEntity.ok(acc);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }*/
+       return null;
     }
 
     @PutMapping(value = "/")
@@ -39,9 +50,9 @@ public class AccountController {
     }
 
     @GetMapping(value = "/")
-    public int getAccounts() {
+    public String getAccounts() {
         //TODO tutaj coś nie bangla bo wypluwa taką ilość damych, że aż java się zapycha
         //return new ResponseEntity<>(accountService.getAccounts(), HttpStatus.OK);
-        return accountService.getAccounts().size();
+        return null;
     }
 }
