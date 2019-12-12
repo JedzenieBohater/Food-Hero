@@ -24,17 +24,13 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> getAccount(@PathVariable("id") int id) {
+    public ResponseEntity<Account> getAccount(@PathVariable("id") int id) {
         Optional<Account> account = accountService.getAccount(id);
-        System.out.println(account.isPresent());
-        Account acc = account.get();
-        System.out.println(acc.toString());
-       /* if (account.isPresent()) {
-            return ResponseEntity.ok(acc);
+        if (account.isPresent()) {
+            return new ResponseEntity<>(account.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }*/
-       return null;
+        }
     }
 
     @PutMapping(value = "/")

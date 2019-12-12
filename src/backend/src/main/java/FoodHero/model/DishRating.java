@@ -1,11 +1,14 @@
 package FoodHero.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class DishRating extends Rating {
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idDish", referencedColumnName = "id")
     private Dish dish;

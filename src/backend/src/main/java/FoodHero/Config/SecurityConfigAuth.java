@@ -23,7 +23,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-       /* httpSecurity
+        httpSecurity
                 .authorizeRequests()
                 .antMatchers("/account/").hasAuthority("USER")
                 .antMatchers("/").hasAuthority("ADMIN")
@@ -31,6 +31,6 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .formLogin();
         httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .sessionFixation().migrateSession();*/
+                .sessionFixation().migrateSession();
     }
 }

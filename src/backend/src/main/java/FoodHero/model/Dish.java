@@ -1,6 +1,8 @@
 package FoodHero.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Dish {
     private double rating;
     // hours, days
     private String description;
+    @JsonIgnore
     @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<DishRating> ratingList;
 

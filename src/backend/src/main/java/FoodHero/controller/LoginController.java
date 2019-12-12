@@ -53,7 +53,7 @@ public class LoginController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
-        Optional<Login> account = loginService.getLogin(100);
+        Optional<Login> account = loginService.getLogin(id);
         System.out.println(account.isPresent());
         if (account.isPresent()) {
             return new ResponseEntity<>(account.get(), HttpStatus.OK);

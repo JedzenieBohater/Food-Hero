@@ -1,5 +1,7 @@
 package FoodHero.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -12,6 +14,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
+    @Column(name = "id")
     private int id;
     private String firstname;
     private String lastname;
@@ -27,9 +30,11 @@ public class Account {
     private Double grade;
     @NotNull
     private boolean cookStatus;
-    @OneToOne
-    @JoinColumn(name = "id")
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_login")
     private Login login;
+    @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountRating> ratingList;
 
@@ -132,13 +137,4 @@ public class Account {
         this.ratingList = ratingList;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

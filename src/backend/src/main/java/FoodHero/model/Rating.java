@@ -1,5 +1,7 @@
 package FoodHero.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,7 +16,8 @@ public abstract class Rating {
     private int rating;
     @Size(max = 256)
     private String comment;
-    @ManyToOne // usunięcie konta = usunięcie wszystkich recenzji?
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "idReviever", referencedColumnName = "id")
     private Account reviewer;
 

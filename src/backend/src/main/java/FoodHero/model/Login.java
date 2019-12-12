@@ -1,5 +1,7 @@
 package FoodHero.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +21,8 @@ public class Login{
     private boolean is_admin;
     @NotNull
     private boolean is_active;
-    @OneToOne(mappedBy = "login", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToOne(mappedBy = "login", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Account account;
 
     public int getId() {
