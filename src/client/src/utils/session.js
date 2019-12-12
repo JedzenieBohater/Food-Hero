@@ -19,7 +19,7 @@ export const login = user =>
 export const logout = () => fetch('/api/user/logout', { method: 'DELETE' })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch('/api/user')
+  const response = await fetch('https://pamw-backend.herokuapp.com/api/user')
   const { user } = await response.json()
   preloadedState = {}
   if (user) {
