@@ -131,4 +131,14 @@ public class Account {
     public void setRatingList(List<AccountRating> ratingList) {
         this.ratingList = ratingList;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
