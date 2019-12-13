@@ -40,6 +40,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .logout();
+        //test
 
         httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
