@@ -74,8 +74,8 @@ public class LoginController {
         return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/")
+    /*@GetMapping(value = "/")
     public ResponseEntity<Object> getAccounts() {
         return new ResponseEntity<>(loginService.getLogins(), HttpStatus.OK);
-    }
+    }*/
 }

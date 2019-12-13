@@ -10,17 +10,6 @@ CREATE TABLE public.login
 
 );
 
-CREATE TABLE public.test
-(
-    id bigserial NOT NULL,
-    email text NOT NULL,
-    PRIMARY KEY (id)
-);
-
-INSERT INTO test (email) VALUES
-    ('xd1'),
-    ('xd2');
-
 CREATE TABLE public.account
 (
     id bigserial NOT NULL,
