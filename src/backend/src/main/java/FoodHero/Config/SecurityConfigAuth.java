@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -31,21 +32,29 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .sessionFixation().migrateSession();
+
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/account/").hasAuthority("USER")
                 .antMatchers("/").hasAuthority("ADMIN")
                 .antMatchers("/account/*").hasAuthority("ADMIN")
                 .and()
+                .formLogin()
+                .and()
                 .httpBasic()
                 .and()
-                .logout();
-        //test
+                .csrf().disable()
+                .logout()
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/logout.done")
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true);
 
-        httpSecurity.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .sessionFixation().migrateSession()
-                .maximumSessions(1);
+
         /*httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
