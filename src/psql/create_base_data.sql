@@ -1,116 +1,14 @@
-CREATE DATABASE foodhero
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    CONNECTION LIMIT = -1;
-
-\c foodhero
-
-CREATE TABLE public.login
-(
-    id bigserial NOT NULL,
-    email text NOT NULL,
-    password character(128) NOT NULL,
-    is_admin boolean NOT NULL,
-    is_active boolean NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (email)
-
-);
-
-CREATE TABLE public.account
-(
-    id bigserial NOT NULL,
-    firstname text,
-    lastname text,
-    description character(256),
-    bank_account character(26),
-    creation_date date NOT NULL,
-    phone character(9),
-    specialization text,
-    grade real,
-    cook_status boolean NOT NULL,
-    id_login bigint NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_login) REFERENCES public.login (id)
-);
-
-CREATE TABLE public.account_grades
-(
-    id bigserial NOT NULL,
-    id_account bigint NOT NULL,
-    grade integer,
-    comment character(256),
-    id_owner bigint NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_account) REFERENCES public.account (id),
-    FOREIGN KEY (id_owner) REFERENCES public.account (id)
-);
-
-CREATE TABLE public.dish
-(
-    id bigserial NOT NULL,
-    id_account bigint NOT NULL,
-	name text NOT NULL,
-	category text NOT NULL,
-	description character(256),
-    grade real NOT NULL,
-    PRIMARY KEY (id),
-	FOREIGN KEY (id_account) REFERENCES public.account (id)
-);
-
-CREATE TABLE public.offers
-(
-    id bigserial NOT NULL,
-    id_account bigint NOT NULL,
-    id_dish bigint NOT NULL,
-	hours text NOT NULL,
-	day text NOT NULL,
-	localisation text NOT NULL,
-    status boolean NOT NULL,
-    periodic boolean NOT NULL,
-    PRIMARY KEY (id),
-	FOREIGN KEY (id_account) REFERENCES public.account (id),
-    FOREIGN KEY (id_dish) REFERENCES public.dish (id)
-
-);
-
-CREATE TABLE public.dish_grades
-(
-    id bigserial NOT NULL,
-    id_dish bigint NOT NULL,
-    grade integer,
-    comment character(256),
-    id_owner bigint NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_dish) REFERENCES public.dish (id),
-    FOREIGN KEY (id_owner) REFERENCES public.account (id)
-);
-
-/*hasla dla kolejnych userów to:
-  admin
-  123
-  qwer
-  tyuiop
-  qaz
-  edc
-  321
-  baza
-  ronnie
-  baby yoda
- */
-
-INSERT INTO login (email, password, is_admin, is_active) VALUES
-    ('a@pw.edu.pl', '$2a$10$ZefM61FiilnLQv2KRINMTuIqWLRv3VeWDcyaWs9DvgKcz/OrDsdMq', true, true),
-    ('b@pw.edu.pl', '$2y$10$rV/k6bnMF/GyuuFyrTGb8OqCOujK8K8KOMc19tKVfdmbKjWKsaNRi', true, true),
-    ('c@pw.edu.pl', '$2y$10$ZdQ/cZsdjFAqjMeYOrRBk.7Vw7ETslHqgJ73OnotY7MlCn/cnSQOq', true, true),
-    ('d@pw.edu.pl', '$2y$10$2dHaLUJYbdDS8LLf60CDNevd4m90gDCQrYSYAngXkFtYY22Ebs4d.', false, true),
-    ('e@pw.edu.pl', '$2y$10$OF/qWEw5dy1B01eeXRUsbOLojMscUSmqjc2nsSwaiDOdxK3ZRHJeW', false, true),
-    ('f@pw.edu.pl', '$2y$10$Gl0lRcHjKiOr9HU2EMYxeujq5sA96FJrywhVf8h6vQYMmhI.zL2A2', false, true),
-    ('g@pw.edu.pl', '$2y$10$QuuPReeWSDKUmmJn8ws1ze4Ywox56D7LXZ4OGBiKwUJgwQ9eCg042', false, true),
-    ('h@pw.edu.pl', '$2y$10$wWmRizgqTvUJhSMDsKJOj.u6WF5E7qf0fPoGBphBTvgE4XDdBS0c2', false, true),
-    ('i@pw.edu.pl', '$2y$10$Obn8C5.0T4lYaPf.d3kA5e63lYMWWCa/uUEPJIESh0Vb78Jv8b39G', false, true),
-    ('j@pw.edu.pl', '$2y$10$7Df5RhaqNxlEOUv54lD0l.RJcA4TiQlW3aGy6MlPxJ1ZedmpdKfFS', false, true);
+INSERT INTO login (email, password) VALUES
+    ('a@pw.edu.pl', 'admin'),
+    ('b@pw.edu.pl', '123'),
+    ('c@pw.edu.pl', 'qwer'),
+    ('d@pw.edu.pl', 'tyuiop'),
+    ('e@pw.edu.pl', 'qaz'),
+    ('f@pw.edu.pl', 'edc'),
+    ('g@pw.edu.pl', '321'),
+    ('h@pw.edu.pl', 'baza'),
+    ('i@pw.edu.pl', 'ronnie'),
+    ('j@pw.edu.pl', 'baby yoda');
 
 INSERT INTO account (firstname, lastname, description, bank_account, creation_date, phone, specialization, grade, cook_status, id_login) VALUES
     ('Andrzej', 'Nowak', 'Dobry kucharz, lubię włoską kuchnię', '12341234123412341234', '2019-11-25', '123456789', 'kuchnia włoska', '5', 'true', 1),
@@ -181,4 +79,3 @@ INSERT INTO offers (id_account, id_dish, hours, day, localisation, status, perio
     (2, 8, '16-20', 'pt', 'Ciechanów ul. Widna 4', 'true', 'false'),
     (3, 9, '16-18', 'sob-nie', 'Warszawa ul. Pierwsza 147', 'false', 'false'),
     (4, 10, '12-20', 'sob', 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
-);
