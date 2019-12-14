@@ -1,3 +1,11 @@
+CREATE DATABASE foodhero
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+\c foodhero
+
 CREATE TABLE public.login
 (
     id bigserial NOT NULL,
