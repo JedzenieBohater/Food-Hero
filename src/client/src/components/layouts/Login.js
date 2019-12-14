@@ -67,3 +67,5 @@ const Login = ({ login, errors }) => {
     </div>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
