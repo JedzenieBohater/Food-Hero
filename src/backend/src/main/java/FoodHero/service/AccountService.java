@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -18,15 +19,20 @@ public class AccountService {
         }
     }
 
+    public Optional<Account> getAccount(int id){
+        return accountRepository.findById(id);
+    }
+
     public void updateAccount(Account account) {
         accountRepository.save(account);
     }
 
-    public void deleteAccount(String id) {
+    public void deleteAccount(int id) {
         accountRepository.deleteById(id);
     }
 
-    public List<Account> getCooks() {
-        return accountRepository.findAll();
+    public Optional<List<Account>> getAccounts() {
+        return Optional.ofNullable(accountRepository.findAll());
     }
+
 }
