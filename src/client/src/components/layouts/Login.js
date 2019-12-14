@@ -1,10 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { login } from '../../actions/session'
+import bcrypt from 'bcryptjs'
 
-export default () => {
+const mapStateToProps = ({ errors }) => ({
+  errors
+})
+
+const mapDispatchToProps = dispatch => ({
+  login: user => dispatch(login(user))
+})
+
+const Login = ({ login, errors }) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+    await login({ email, password: hashPassword })
+  }
+
+  const handleFun = async () => {
+    const response = await fetch('http://some_backend:8080/account/1')
+    const data = await response.json()
+    console.log(data)
+  }
+
   return (
     <div className="content-box-middle">
-      <form className="content-box">
+      <button onClick={handleFun}>Fajny baton</button>
+      <form className="content-box" onSubmit={handleSubmit}>
         <table>
           <tbody>
             <tr>
@@ -25,7 +52,7 @@ export default () => {
             </tr>
             <tr>
               <td colSpan="2">
-                <button className="btn-blue">Zaloguj</button>
+                <input type="submit" className="btn-blue">Zaloguj</input>
               </td>
             </tr>
           </tbody>

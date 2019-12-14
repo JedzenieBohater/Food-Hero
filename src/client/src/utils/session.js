@@ -1,5 +1,5 @@
 export const register = user =>
-  fetch('/api/user/register', {
+  fetch('http://some_backend:8080/login/register', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -8,7 +8,7 @@ export const register = user =>
   })
 
 export const login = user =>
-  fetch('/api/user/login', {
+  fetch('http://some_backend:8080/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -16,10 +16,10 @@ export const login = user =>
     }
   })
 
-export const logout = () => fetch('/api/user/logout', { method: 'DELETE' })
+export const logout = () => fetch('http://some_backend:8080/logout', { method: 'DELETE' })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch('https://pamw-backend.herokuapp.com/api/user')
+  const response = await fetch('http://some_backend:8080/login')
   const { user } = await response.json()
   preloadedState = {}
   if (user) {
