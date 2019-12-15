@@ -1,0 +1,1 @@
+export const findByTestAttr = (component, attr) => component.find(`[test-data='${attr}']`)
