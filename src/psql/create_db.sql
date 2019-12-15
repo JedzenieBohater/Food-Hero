@@ -1,11 +1,3 @@
-CREATE DATABASE foodhero
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    CONNECTION LIMIT = -1;
-
-\c foodhero
-
 CREATE TABLE public.login
 (
     id bigserial NOT NULL,
@@ -15,7 +7,6 @@ CREATE TABLE public.login
     is_active boolean NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
-
 );
 
 CREATE TABLE public.account
@@ -181,4 +172,3 @@ INSERT INTO offers (id_account, id_dish, hours, day, localisation, status, perio
     (2, 8, '16-20', 'pt', 'Ciechanów ul. Widna 4', 'true', 'false'),
     (3, 9, '16-18', 'sob-nie', 'Warszawa ul. Pierwsza 147', 'false', 'false'),
     (4, 10, '12-20', 'sob', 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
-);
