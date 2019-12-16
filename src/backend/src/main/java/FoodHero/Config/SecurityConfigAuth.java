@@ -1,21 +1,32 @@
 package FoodHero.Config;
 
 import FoodHero.service.LoginDetailsService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -35,16 +46,6 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationFailureHandler AuthFailHandler() {
-        return new AuthFailHandler();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler AuthSuccessHandler() {
-        return new AuthSuccessHandler();
-    }
-
-    @Bean
     public AccessDeniedHandler AccDeniedHandler() {
         return new AccDeniedHandler();
     }
@@ -52,6 +53,28 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
     @Bean
     public LogoutSuccessHandler LogoutSuccHandler(){
         return new LogoutSuccHandler();
+    }
+
+
+    @Bean
+    public RestAuthenticationSuccessHandler SuccessAuthHandler()
+    {
+        return new RestAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public RestAuthenticationFailureHandler FailureAuthHandler()
+    {
+        return new RestAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+        JsonObjectAuthenticationFilter filter = new JsonObjectAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(SuccessAuthHandler());
+        filter.setAuthenticationFailureHandler(FailureAuthHandler());
+        filter.setAuthenticationManager(super.authenticationManagerBean());
+        return filter;
     }
 
     @Override
@@ -72,15 +95,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .and()
                     .exceptionHandling().accessDeniedHandler(AccDeniedHandler())
                 .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
-                    .failureHandler(AuthFailHandler())
-                    .successHandler(AuthSuccessHandler())
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll()
-                .and()
+                .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 //.httpBasic()
                 //.and()
                 .csrf().disable()

@@ -26,7 +26,7 @@ services:
       - app
 
   app:
-    container_name: some_app
+    container_name: some_backend
     build: ../src/backend
     restart: unless-stopped
     ports:

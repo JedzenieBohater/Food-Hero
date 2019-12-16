@@ -19,7 +19,7 @@ export const login = user =>
 export const logout = () => fetch('http://some_backend:8080/logout', { method: 'DELETE' })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch('http://some_backend:8080/login')
+  const response = await fetch('http://localhost:18080/login/status')
   const { user } = await response.json()
   preloadedState = {}
   if (user) {
