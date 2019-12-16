@@ -19,19 +19,13 @@ const Login = ({ login, errors }) => {
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-    await login({ email, password: hashPassword })
+    login({ email, password})
   }
 
-  const handleFun = async () => {
-    const response = await fetch('http://some_backend:8080/account/1')
-    const data = await response.json()
-    console.log(data)
-  }
 
   return (
     <div className="content-box-middle">
-      <button onClick={handleFun}>Fajny baton</button>
-      <form className="content-box" onSubmit={handleSubmit}>
+      <form className="content-box">
         <table>
           <tbody>
             <tr>
@@ -39,7 +33,7 @@ const Login = ({ login, errors }) => {
                 <label htmlFor="email">Adres email:</label>
               </td>
               <td>
-                <input type="email" id="email" placeholder="email" />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder="email" />
               </td>
             </tr>
             <tr>
@@ -47,12 +41,12 @@ const Login = ({ login, errors }) => {
                 <label htmlFor="password">Hasło:</label>
               </td>
               <td>
-                <input type="password" id="password" placeholder="hasło" />
+                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder="hasło" />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <input type="submit" className="btn-blue">Zaloguj</input>
+                <button onClick={handleSubmit} className="btn-blue">Zaloguj</button>
               </td>
             </tr>
           </tbody>

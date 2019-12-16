@@ -1,5 +1,5 @@
 export const register = user =>
-  fetch('http://some_backend:8080/login/register', {
+  fetch('http://localhost:18080/login/register', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -8,7 +8,7 @@ export const register = user =>
   })
 
 export const login = user =>
-  fetch('http://some_backend:8080/login', {
+  fetch('http://localhost:18080/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -16,7 +16,7 @@ export const login = user =>
     }
   })
 
-export const logout = () => fetch('http://some_backend:8080/logout', { method: 'DELETE' })
+export const logout = () => fetch('http://localhost:18080/logout', { method: 'DELETE' })
 
 export const checkLoggedIn = async preloadedState => {
   const response = await fetch('http://localhost:18080/login/status')

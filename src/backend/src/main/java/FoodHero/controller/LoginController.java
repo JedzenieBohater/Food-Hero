@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")
+@CrossOrigin(origins = "http://localhost:13000")
 public class LoginController {
 
     @Autowired
