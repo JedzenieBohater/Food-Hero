@@ -85,6 +85,8 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .sessionFixation().migrateSession();
 
         httpSecurity
+                .cors()
+                .and()
                 .authorizeRequests()
                     .antMatchers("/account/").hasAuthority("USER")
                     .antMatchers("/account/*").hasAuthority("ADMIN")
@@ -105,8 +107,6 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
-                    .logoutSuccessHandler(LogoutSuccHandler())
-                .and()
-                .cors();
+                    .logoutSuccessHandler(LogoutSuccHandler());
     }
 }
