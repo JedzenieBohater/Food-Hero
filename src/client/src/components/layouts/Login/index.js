@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login } from '../../actions/session'
+import { login } from '../../../actions/session'
 import bcrypt from 'bcryptjs'
+import PropTypes from 'prop-types'
 
 const mapStateToProps = ({ errors }) => ({
   errors
@@ -12,26 +13,19 @@ const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user))
 })
 
-const Login = ({ login, errors }) => {
+export const Login = ({ login, errors }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-    await login({ email, password: hashPassword })
-  }
-
-  const handleFun = async () => {
-    const response = await fetch('http://some_backend:8080/account/1')
-    const data = await response.json()
-    console.log(data)
+    await login({ email, password })
   }
 
   return (
-    <div className="content-box-middle">
-      <button onClick={handleFun}>Fajny baton</button>
-      <form className="content-box" onSubmit={handleSubmit}>
+    <div className="content-box-middle" test-data="wrapper">
+      <form className="content-box" test-data="form">
         <table>
           <tbody>
             <tr>
@@ -39,7 +33,7 @@ const Login = ({ login, errors }) => {
                 <label htmlFor="email">Adres email:</label>
               </td>
               <td>
-                <input type="email" id="email" placeholder="email" />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder="email" />
               </td>
             </tr>
             <tr>
@@ -47,18 +41,18 @@ const Login = ({ login, errors }) => {
                 <label htmlFor="password">Hasło:</label>
               </td>
               <td>
-                <input type="password" id="password" placeholder="hasło" />
+                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder="hasło" />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <input type="submit" className="btn-blue">Zaloguj</input>
+                <button onClick={handleSubmit} className="btn-blue" test-data="submit">Zaloguj</button>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="middle">
-          Nie masz konta?<Link to="/register"> Zarejestruj się!</Link>
+          Nie masz konta?<Link to="/register" test-data="register"> Zarejestruj się!</Link>
         </div>
         <div className="middle">
           <Link to="/forgottenpassword">Zapomniałem hasła </Link>
@@ -66,6 +60,11 @@ const Login = ({ login, errors }) => {
       </form>
     </div>
   )
+}
+
+Login.propTypes = {
+  errors: PropTypes.string,
+  login: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
