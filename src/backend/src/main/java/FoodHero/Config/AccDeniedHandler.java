@@ -12,6 +12,6 @@ import java.io.IOException;
 public class AccDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        httpServletResponse.setStatus(HttpStatus.OK.value());
+        httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
     }
 }
