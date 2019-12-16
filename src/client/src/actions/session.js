@@ -18,9 +18,8 @@ export const login = user => async dispatch => {
   const response = await ApiUtils.login(user)
   const data = await response.json()
 
-  if (response.ok) dispatch(receiveCurrentUser(user))
-
-  dispatch(receiveErrors(data))
+  if (response.ok) dispatch(receiveCurrentUser(data))
+  else dispatch(receiveErrors(data))
 }
 
 export const register = user => async dispatch => {
