@@ -4,12 +4,12 @@ import Header from './index'
 import { findByTestAttr } from '../../../utils/test'
 
 describe('<Header />', () => {
-    let component;
+    let wrapper
     beforeEach(() => {
-        component = shallow(<Header />)
+        wrapper = shallow(<Header />)
     })
 
     it('Should render without errors', () => {
-        expect(findByTestAttr(component, 'top-bar').length).toBe(1)
+        expect(findByTestAttr(wrapper, 'top-bar').length).toBe(1)
     })
 })
