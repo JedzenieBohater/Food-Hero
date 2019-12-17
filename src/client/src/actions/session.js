@@ -18,25 +18,25 @@ export const login = user => async dispatch => {
   const response = await ApiUtils.login(user)
   const data = await response.json()
 
-  if (response.ok) dispatch(receiveCurrentUser(user))
+  if (response.ok) return dispatch(receiveCurrentUser(user))
 
-  dispatch(receiveErrors(data))
+  return dispatch(receiveErrors(data))
 }
 
 export const register = user => async dispatch => {
   const response = await ApiUtils.register(user)
   const data = await response.json()
 
-  if (response.ok) dispatch(receiveCurrentUser(user))
+  if (response.ok) return dispatch(receiveCurrentUser(user))
 
-  dispatch(receiveErrors(data))
+  return dispatch(receiveErrors(data))
 }
 
 export const logout = () => async dispatch => {
   const response = await ApiUtils.logout()
   const data = await response.json()
 
-  if (response.ok) dispatch(logoutCurrentUser())
+  if (response.ok) return dispatch(logoutCurrentUser())
 
-  dispatch(receiveErrors(data))
+  return dispatch(receiveErrors(data))
 }

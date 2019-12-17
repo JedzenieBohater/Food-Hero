@@ -91,8 +91,9 @@ CREATE TABLE public.dish_grades
   baby yoda
  */
 
+
 INSERT INTO login (email, password, is_admin, is_active) VALUES
-    ('a@pw.edu.pl', '$2a$10$ZefM61FiilnLQv2KRINMTuIqWLRv3VeWDcyaWs9DvgKcz/OrDsdMq', true, true),
+    ('a@pw.edu.pl', '$2y$10$rqvXzFGQL4dM7YWc5QTILucKd/t4IeSt4hZJCsqgbn3rqdVQGql5i', true, true),
     ('b@pw.edu.pl', '$2y$10$rV/k6bnMF/GyuuFyrTGb8OqCOujK8K8KOMc19tKVfdmbKjWKsaNRi', true, true),
     ('c@pw.edu.pl', '$2y$10$ZdQ/cZsdjFAqjMeYOrRBk.7Vw7ETslHqgJ73OnotY7MlCn/cnSQOq', true, true),
     ('d@pw.edu.pl', '$2y$10$2dHaLUJYbdDS8LLf60CDNevd4m90gDCQrYSYAngXkFtYY22Ebs4d.', false, true),
