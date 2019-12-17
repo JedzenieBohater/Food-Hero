@@ -37,6 +37,7 @@ public class LoginController {
         return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
     }
 
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
         Optional<Login> account = loginService.getLogin(id);

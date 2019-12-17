@@ -21,11 +21,15 @@ import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,6 +82,18 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.sessionManagement()
@@ -90,7 +106,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/account/").hasAuthority("USER")
                     .antMatchers("/account/*").hasAuthority("ADMIN")
-                    .antMatchers("/login*").hasAuthority("ADMIN")
+                    .antMatchers("/login/").hasAuthority("ADMIN")
                     .antMatchers("/login/status").hasAuthority("USER")
                     .antMatchers("/login").permitAll()
                 .and()
