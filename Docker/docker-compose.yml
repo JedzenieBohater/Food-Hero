@@ -26,9 +26,11 @@ services:
       - app
 
   app:
-    container_name: some_app
+    container_name: some_backend
     build: ../src/backend
     restart: unless-stopped
+    volumes:
+      - ../src/backend/target/FoodHero-Backend-1.0-SNAPSHOT.jar:/app/app.jar
     ports:
       - "18080:8080"
     depends_on:
