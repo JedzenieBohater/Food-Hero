@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { login } from '../../actions/session'
 import bcrypt from 'bcryptjs'
 
-const mapStateToProps = ({ errors }) => ({
-  errors
+const mapStateToProps = ({ errorReducer }) => ({
+  errors: errorReducer
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -19,9 +19,8 @@ const Login = ({ login, errors }) => {
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-    login({ email, password})
+    login({ email, password })
   }
-
 
   return (
     <div className="content-box-middle">

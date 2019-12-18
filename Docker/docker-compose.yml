@@ -30,7 +30,7 @@ services:
     build: ../src/backend
     restart: unless-stopped
     volumes:
-      - ../src/backend/target/FoodHero-Backend-1.0-SNAPSHOT.jar:/app/app.jar
+      - ../src/backend/target/FoodHero-Backend-1.0-SNAPSHOT.jar:/tmp/FoodHero-Backend-1.0-SNAPSHOT.jar
     ports:
       - "18080:8080"
     depends_on:
