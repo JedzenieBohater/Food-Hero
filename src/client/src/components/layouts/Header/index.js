@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 export default () => {
   return (
-    <header className="top-bar">
+    <header className="top-bar" test-data="top-bar">
       <Link to="/">
         <img className="logo" alt="Logo" />
       </Link>

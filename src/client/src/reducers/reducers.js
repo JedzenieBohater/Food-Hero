@@ -7,9 +7,15 @@ export function sessionReducer(state = nullSession, { type, user }) {
   Object.freeze(state)
   switch (type) {
     case LOGOUT_CURRENT_USER:
-      return nullSession
+      return {
+        ...state,
+        ...nullSession
+      }
     case RECEIVE_CURRENT_USER:
-      return user
+      return {
+        ...state,
+        ...user
+      }
     default:
       return state
   }
