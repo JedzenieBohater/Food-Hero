@@ -1,11 +1,3 @@
-CREATE DATABASE foodhero
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    CONNECTION LIMIT = -1;
-
-\c foodhero
-
 CREATE TABLE public.login
 (
     id bigserial NOT NULL,
@@ -15,7 +7,6 @@ CREATE TABLE public.login
     is_active boolean NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (email)
-
 );
 
 CREATE TABLE public.account
@@ -100,8 +91,9 @@ CREATE TABLE public.dish_grades
   baby yoda
  */
 
+
 INSERT INTO login (email, password, is_admin, is_active) VALUES
-    ('a@pw.edu.pl', '$2a$10$ZefM61FiilnLQv2KRINMTuIqWLRv3VeWDcyaWs9DvgKcz/OrDsdMq', true, true),
+    ('a@pw.edu.pl', '$2y$10$rqvXzFGQL4dM7YWc5QTILucKd/t4IeSt4hZJCsqgbn3rqdVQGql5i', true, true),
     ('b@pw.edu.pl', '$2y$10$rV/k6bnMF/GyuuFyrTGb8OqCOujK8K8KOMc19tKVfdmbKjWKsaNRi', true, true),
     ('c@pw.edu.pl', '$2y$10$ZdQ/cZsdjFAqjMeYOrRBk.7Vw7ETslHqgJ73OnotY7MlCn/cnSQOq', true, true),
     ('d@pw.edu.pl', '$2y$10$2dHaLUJYbdDS8LLf60CDNevd4m90gDCQrYSYAngXkFtYY22Ebs4d.', false, true),
@@ -181,4 +173,3 @@ INSERT INTO offers (id_account, id_dish, hours, day, localisation, status, perio
     (2, 8, '16-20', 'pt', 'Ciechanów ul. Widna 4', 'true', 'false'),
     (3, 9, '16-18', 'sob-nie', 'Warszawa ul. Pierwsza 147', 'false', 'false'),
     (4, 10, '12-20', 'sob', 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
-);
