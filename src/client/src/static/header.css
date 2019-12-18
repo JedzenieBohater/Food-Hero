@@ -1,0 +1,23 @@
+.top-bar {
+  background-image: linear-gradient(#0073c6, #003857);
+  padding: 5px;
+  height: 50px;
+  line-height: 40px;
+  top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
+  box-sizing: border-box;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.top-bar-links {
+  justify-content: space-between;
+}
+
+.logo {
+  height: 80px;
+  padding: 6px 0 0 0;
+}
