@@ -20,21 +20,12 @@ export const Login = ({ login, errors }) => {
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-<<<<<<< HEAD:src/client/src/components/layouts/Login.js
-    login({ email, password })
-  }
-
-  return (
-    <div className="content-box-middle">
-      <form className="content-box">
-=======
     await login({ email, password })
   }
 
   return (
     <div className="content-box-middle" test-data="wrapper">
       <form className="content-box" test-data="form">
->>>>>>> frontend:src/client/src/components/layouts/Login/index.js
         <table>
           <tbody>
             <tr>
@@ -55,11 +46,7 @@ export const Login = ({ login, errors }) => {
             </tr>
             <tr>
               <td colSpan="2">
-<<<<<<< HEAD:src/client/src/components/layouts/Login.js
-                <button onClick={handleSubmit} className="btn-blue">Zaloguj</button>
-=======
                 <button onClick={handleSubmit} className="btn-blue" test-data="submit">Zaloguj</button>
->>>>>>> frontend:src/client/src/components/layouts/Login/index.js
               </td>
             </tr>
           </tbody>
