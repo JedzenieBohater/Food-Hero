@@ -1,10 +1,26 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { register } from '../../../actions/session'
 
-export default () => {
+const mapStateToProps = ({ errorReducer }) => ({
+  errors: errorReducer
+})
+
+const mapDispatchToProps = dispatch => ({
+  register: user => dispatch(register(user))
+})
+
+const Register = ({ errors, register }) => {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [isPassword2Valid, setisPassword2Valid] = useState(true)
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    register({ email, password })
+  }
 
   return (
     <div className="content-box-middle">
@@ -16,7 +32,7 @@ export default () => {
                 <label htmlFor="email">Adres email:</label>
               </td>
               <td>
-                <input type="email" id="email" placeholder="email" />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder="email" />
               </td>
             </tr>
             <tr>
@@ -28,7 +44,6 @@ export default () => {
                   type="password"
                   id="password"
                   placeholder="hasło"
-                  value={password}
                   className="valid"
                   onChange={e => {
                     setPassword(e.target.value)
@@ -45,7 +60,6 @@ export default () => {
                   type="password"
                   id="password2"
                   placeholder="powtórz hasło"
-                  value={password2}
                   className={isPassword2Valid ? '' : 'invalid'}
                   onChange={e => {
                     setPassword2(e.target.value)
@@ -80,3 +94,8 @@ export default () => {
     </div>
   )
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register)

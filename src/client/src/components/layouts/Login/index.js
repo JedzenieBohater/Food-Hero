@@ -20,7 +20,7 @@ export const Login = ({ login, errors }) => {
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-    await login({ email, password })
+    login({ email, password })
   }
 
   return (
