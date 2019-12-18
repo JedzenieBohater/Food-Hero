@@ -32,9 +32,9 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Object> createAccount(@RequestBody Login login) {
+    public ResponseEntity createAccount(@RequestBody Login login) {
         loginService.createLogin(login);
-        return new ResponseEntity<>("Account created successfully", HttpStatus.CREATED);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{id}")

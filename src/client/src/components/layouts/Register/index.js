@@ -79,6 +79,7 @@ const Register = ({ errors, register }) => {
               <td colSpan="2">
                 <button
                   className="btn-blue"
+                  onClick={handleSubmit}
                   disabled={isPassword2Valid ? '' : 'disabled'}
                 >
                   Zarejestruj

@@ -27,8 +27,7 @@ export const register = user => async dispatch => {
   const response = await ApiUtils.register(user)
   const data = await response.json()
 
-  if (response.ok) return dispatch(receiveCurrentUser(data))
-
+  if (!response.ok) //return dispatch(receiveCurrentUser(data))
   return dispatch(receiveErrors(data))
 }
 
