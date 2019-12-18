@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {} from '../../actions/session'
 
 export default () => {
   const [password, setPassword] = useState('')
