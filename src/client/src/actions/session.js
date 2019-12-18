@@ -20,12 +20,7 @@ export const login = user => async dispatch => {
   
   if (response.ok) return dispatch(receiveCurrentUser(data))
 
-<<<<<<< HEAD
   return dispatch(receiveErrors(data))
-=======
-  if (response.ok) dispatch(receiveCurrentUser(data))
-  else dispatch(receiveErrors(data))
->>>>>>> frontend
 }
 
 export const register = user => async dispatch => {
