@@ -24,7 +24,7 @@ export default (props) => {
       {redirect ? <Redirect to='/login' /> : null}
       <div className="content-box-middle">
         <form className="content-box">
-          <table>
+          <table className="tableform">
             <tbody>
               <tr>
                 <td>

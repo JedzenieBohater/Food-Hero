@@ -26,7 +26,7 @@ export const Login = ({ login, errors, translation }) => {
   return (
     <div className="content-box-middle" test-data="wrapper">
       <form className="content-box" test-data="form">
-        <table>
+        <table className="tableform">
           <tbody>
             <tr>
               <td>
