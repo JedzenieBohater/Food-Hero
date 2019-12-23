@@ -52,7 +52,7 @@ export const Login = ({ login, errors, translation }) => {
           </tbody>
         </table>
         <div className="middle">
-          {translation.no_account} <Link to="/register" test-data="register">{translation.register}</Link>
+          {translation.noAccount} <Link to="/register" test-data="register">{translation.register}</Link>
         </div>
         <div className="middle">
           <Link to="/forgottenpassword">{translation.forget}</Link>

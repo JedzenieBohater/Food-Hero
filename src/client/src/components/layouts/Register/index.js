@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { register } from '../../../utils/session'
 
-export default () => {
+export default (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -28,21 +28,21 @@ export default () => {
             <tbody>
               <tr>
                 <td>
-                  <label htmlFor="email">Adres email:</label>
+                  <label htmlFor="email">{props.translation.email}:</label>
                 </td>
                 <td>
-                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder="email" />
+                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.translation.email.toLowerCase()} />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="password">Hasło:</label>
+                  <label htmlFor="password">{props.translation.password}:</label>
                 </td>
                 <td>
                   <input
                     type="password"
                     id="password"
-                    placeholder="hasło"
+                    placeholder={props.translation.password.toLowerCase()}
                     className="valid"
                     onChange={e => {
                       setPassword(e.target.value)
@@ -52,13 +52,13 @@ export default () => {
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="password2">Powtórz hasło:</label>
+                  <label htmlFor="password2">{props.translation.repeatPassword}:</label>
                 </td>
                 <td>
                   <input
                     type="password"
                     id="password2"
-                    placeholder="powtórz hasło"
+                    placeholder={props.translation.repeatPassword.toLowerCase()}
                     className={isPassword2Valid ? '' : 'invalid'}
                     onChange={e => {
                       setPassword2(e.target.value)
@@ -78,14 +78,14 @@ export default () => {
                     onClick={handleSubmit}
                     disabled={isPassword2Valid ? '' : 'disabled'}
                   >
-                    Zarejestruj
+                    {props.translation.register}
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
           <div className="middle">
-            <Link to="/login">Zaloguj się</Link>
+            <Link to="/login">{props.translation.login}</Link>
           </div>
         </form>
       </div>

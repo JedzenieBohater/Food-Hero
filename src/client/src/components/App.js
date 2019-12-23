@@ -49,8 +49,8 @@ export default class App extends React.Component {
         <Switch>
           <Route exact path="/" component={() => <Home />} />
           <AuthRoute path='/login' component={() => <Login translation={this.state.translation.login}/>} />
-          <Route path="/register" component={() => <Register />} />
-          <Route path="/forgottenpassword" component={() => <ForgottenPassword />} />
+          <Route path="/register" component={() => <Register translation={this.state.translation.register}/>} />
+          <Route path="/forgottenpassword" component={() => <ForgottenPassword translation={this.state.translation.forgottenpassword}/>} />
         </Switch>
       </Router>
     )
