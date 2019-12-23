@@ -130,6 +130,12 @@ h3 {
 .logo {
 	position: absolute;
 	left: 13px;
+	cursor: pointer;
+	height: 60px;
+}
+
+.logo:hover {
+	background: rgba(102, 160, 200, 0.25);
 }
 
 .img-logo {
