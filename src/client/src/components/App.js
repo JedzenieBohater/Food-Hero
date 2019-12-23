@@ -17,15 +17,27 @@ export default class App extends React.Component {
 
     this.state = {
       lang : counterpart.getLocale(),
-      translation: counterpart.getLocale() === 'en' ? en : pl
+      translation: en
     }
 
   }
   
   onLangChange = e => {
+    var language = en
+    switch(e.target.value){
+      case 'en':
+        language = en
+        break
+      case 'pl':
+        language = pl
+        break
+      default:
+        language = en
+        break
+    }
     this.setState({
       lang: e.target.value,
-      translation: e.target.value === 'en'? en : pl
+      translation: language
     })
     counterpart.setLocale(e.target.value)
   }
@@ -35,10 +47,10 @@ export default class App extends React.Component {
       <Router>
         <Header translation={this.state.translation.header} lang={counterpart.getLocale()} onLangChange={this.onLangChange}/>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <AuthRoute path='/login' component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/forgottenpassword" component={ForgottenPassword} />
+          <Route exact path="/" component={() => <Home />} />
+          <AuthRoute path='/login' component={() => <Login translation={this.state.translation.login}/>} />
+          <Route path="/register" component={() => <Register />} />
+          <Route path="/forgottenpassword" component={() => <ForgottenPassword />} />
         </Switch>
       </Router>
     )

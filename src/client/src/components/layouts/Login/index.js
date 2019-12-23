@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user))
 })
 
-export const Login = ({ login, errors }) => {
+export const Login = ({ login, errors, translation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -30,32 +30,32 @@ export const Login = ({ login, errors }) => {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="email">Adres email:</label>
+                <label htmlFor="email">{translation.email}:</label>
               </td>
               <td>
-                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder="email" />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={translation.email.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td>
-                <label htmlFor="password">Hasło:</label>
+                <label htmlFor="password">{translation.password}:</label>
               </td>
               <td>
-                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder="hasło" />
+                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder={translation.password.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <button onClick={handleSubmit} className="btn-blue" test-data="submit">Zaloguj</button>
+                <button onClick={handleSubmit} className="btn-blue" test-data="submit">{translation.login}</button>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="middle">
-          Nie masz konta?<Link to="/register" test-data="register"> Zarejestruj się!</Link>
+          {translation.no_account} <Link to="/register" test-data="register">{translation.register}</Link>
         </div>
         <div className="middle">
-          <Link to="/forgottenpassword">Zapomniałem hasła </Link>
+          <Link to="/forgottenpassword">{translation.forget}</Link>
         </div>
       </form>
     </div>
