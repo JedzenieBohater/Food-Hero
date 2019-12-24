@@ -1,4 +1,4 @@
-const url = 'http://localhost:18080'
+const url = 'http://hero.iem.pw.edu.pl:18080'
 
 export const register = user =>
   fetch(`${url}/login/register`, {
