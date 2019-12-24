@@ -74,7 +74,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         //TODO Do przejrzenia
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:13000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://hero.iem.pw.edu.pl:80"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
