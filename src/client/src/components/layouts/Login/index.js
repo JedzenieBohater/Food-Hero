@@ -15,17 +15,15 @@ const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user))
 })
 
-export const Login = ({ login, errors, lang}) => {
+export const Login = (props) => {  //{ login, errors, lang} travis wywalal ze lang.email undefined // do sprawdzenia
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = async event => {
     event.preventDefault()
     const hashPassword = await bcrypt.hash(password, 10);
-    login({ email, password })
+    props.login({ email, password })
   }
-  
-  
 
   return (
     <div className="content-box-middle" test-data="wrapper">
@@ -34,32 +32,32 @@ export const Login = ({ login, errors, lang}) => {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="email">{lang.email}:</label>
+                <label htmlFor="email">{props.lang.email}:</label>
               </td>
               <td>
-                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={lang.email.toLowerCase()} />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td>
-                <label htmlFor="password">{lang.password}:</label>
+                <label htmlFor="password">{props.lang.password}:</label>
               </td>
               <td>
-                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder={lang.password.toLowerCase()} />
+                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder={props.lang.password.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <button onClick={handleSubmit} className="btn-blue" test-data="submit">{lang.login}</button>
+                <button onClick={handleSubmit} className="btn-blue" test-data="submit">{props.lang.login}</button>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="middle">
-          {lang.noAccount} <Link to="/register" test-data="register">{lang.register}</Link>
+          {props.lang.noAccount} <Link to="/register" test-data="register">{props.lang.register}</Link>
         </div>
         <div className="middle">
-          <Link to="/forgottenpassword">{lang.forget}</Link>
+          <Link to="/forgottenpassword">{props.lang.forget}</Link>
         </div>
       </form>
     </div>
