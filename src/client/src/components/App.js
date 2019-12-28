@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Header, Login, Register, ForgottenPassword, Home } from './layouts'
 import { AuthRoute } from '../utils/route'
-import {en, pl} from '../language/index'
+import {en, pl} from '../languages/index'
 
 
 
