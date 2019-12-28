@@ -27,5 +27,7 @@ export default {
         email: "E-mail",
         remember: "Recover",
         back: "Back"
-    }
+    },
+    home:
+    {}
 }

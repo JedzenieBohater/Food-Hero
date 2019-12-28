@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { register } from '../../../utils/session'
+import { connect } from 'react-redux'
 
-export default (props) => {
+
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.register
+})
+
+
+export const Register = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -28,21 +35,21 @@ export default (props) => {
             <tbody>
               <tr>
                 <td>
-                  <label htmlFor="email">{props.translation.email}:</label>
+                  <label htmlFor="email">{props.lang.email}:</label>
                 </td>
                 <td>
-                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.translation.email.toLowerCase()} />
+                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="password">{props.translation.password}:</label>
+                  <label htmlFor="password">{props.lang.password}:</label>
                 </td>
                 <td>
                   <input
                     type="password"
                     id="password"
-                    placeholder={props.translation.password.toLowerCase()}
+                    placeholder={props.lang.password.toLowerCase()}
                     className="valid"
                     onChange={e => {
                       setPassword(e.target.value)
@@ -52,13 +59,13 @@ export default (props) => {
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="password2">{props.translation.repeatPassword}:</label>
+                  <label htmlFor="password2">{props.lang.repeatPassword}:</label>
                 </td>
                 <td>
                   <input
                     type="password"
                     id="password2"
-                    placeholder={props.translation.repeatPassword.toLowerCase()}
+                    placeholder={props.lang.repeatPassword.toLowerCase()}
                     className={isPassword2Valid ? '' : 'invalid'}
                     onChange={e => {
                       setPassword2(e.target.value)
@@ -78,17 +85,19 @@ export default (props) => {
                     onClick={handleSubmit}
                     disabled={isPassword2Valid ? '' : 'disabled'}
                   >
-                    {props.translation.register}
+                    {props.lang.register}
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
           <div className="middle">
-            <Link to="/login">{props.translation.login}</Link>
+            <Link to="/login">{props.lang.login}</Link>
           </div>
         </form>
       </div>
     </>
   )
 }
+
+export default connect(mapStateToProps)(Register)

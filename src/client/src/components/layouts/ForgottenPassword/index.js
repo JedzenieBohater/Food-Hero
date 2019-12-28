@@ -1,34 +1,42 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default (props) => {
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.forgottenpassword
+})
+
+export const ForgottenPassword = (props) => {
   return (
     <div className="content-box-middle">
       <form className="content-box">
         <div className="middle">
-          {props.translation.message}
+          {props.lang.message}
         </div>
         <table>
           <tbody>
             <tr>
               <td>
-                <label htmlFor="email">{props.translation.email}:</label>
+                <label htmlFor="email">{props.lang.email}:</label>
               </td>
               <td>
-                <input type="email" id="email" placeholder={props.translation.email.toLowerCase()} />
+                <input type="email" id="email" placeholder={props.lang.email.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <button className="btn-blue">{props.translation.remember}</button>
+                <button className="btn-blue">{props.lang.remember}</button>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="middle">
-          <Link to="/login">{props.translation.back}</Link>
+          <Link to="/login">{props.lang.back}</Link>
         </div>
       </form>
     </div>
   )
 }
+
+
+export default connect(mapStateToProps)(ForgottenPassword)

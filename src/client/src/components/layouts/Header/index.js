@@ -1,8 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 //import logo from "../static/logo.svg"
 
-export default (props) => {
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.header
+})
+
+export const Header = (props) => {
   return (
     <header className="top-bar" test-data="top-bar">
       <Link to="/">
@@ -14,12 +19,14 @@ export default (props) => {
           <option value="pl">PL</option>
         </select>
         <Link to="/login">
-          <button className="btn-no-background-login">{props.translation.login}</button>
+          <button className="btn-no-background-login">{props.lang.login}</button>
         </Link>
         <Link to="/register">
-          <button className="btn-no-background-register">{props.translation.register}</button>
+          <button className="btn-no-background-register">{props.lang.register}</button>
         </Link>
       </nav>
     </header>
   )
 }
+
+export default connect(mapStateToProps)(Header)

@@ -5,15 +5,17 @@ import { login } from '../../../actions/session'
 import bcrypt from 'bcryptjs'
 import PropTypes from 'prop-types'
 
-const mapStateToProps = ({ errorReducer }) => ({
-  errors: errorReducer
+
+const mapStateToProps = ({ errorReducer, languageReducer }) => ({
+  errors: errorReducer,
+  lang: languageReducer.login
 })
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user))
 })
 
-export const Login = ({ login, errors, translation }) => {
+export const Login = ({ login, errors, lang}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -22,6 +24,8 @@ export const Login = ({ login, errors, translation }) => {
     const hashPassword = await bcrypt.hash(password, 10);
     login({ email, password })
   }
+  
+  
 
   return (
     <div className="content-box-middle" test-data="wrapper">
@@ -30,32 +34,32 @@ export const Login = ({ login, errors, translation }) => {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="email">{translation.email}:</label>
+                <label htmlFor="email">{lang.email}:</label>
               </td>
               <td>
-                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={translation.email.toLowerCase()} />
+                <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={lang.email.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td>
-                <label htmlFor="password">{translation.password}:</label>
+                <label htmlFor="password">{lang.password}:</label>
               </td>
               <td>
-                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder={translation.password.toLowerCase()} />
+                <input onChange={e => setPassword(e.target.value)} type="password" id="password" placeholder={lang.password.toLowerCase()} />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <button onClick={handleSubmit} className="btn-blue" test-data="submit">{translation.login}</button>
+                <button onClick={handleSubmit} className="btn-blue" test-data="submit">{lang.login}</button>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="middle">
-          {translation.noAccount} <Link to="/register" test-data="register">{translation.register}</Link>
+          {lang.noAccount} <Link to="/register" test-data="register">{lang.register}</Link>
         </div>
         <div className="middle">
-          <Link to="/forgottenpassword">{translation.forget}</Link>
+          <Link to="/forgottenpassword">{lang.forget}</Link>
         </div>
       </form>
     </div>
