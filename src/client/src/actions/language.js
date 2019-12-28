@@ -1,6 +1,6 @@
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
 
-export const changeLanguage = ({ lang }) => ({
+export const changeLanguage = ( short ) => ({
   type: CHANGE_LANGUAGE,
-  lang
+  short
 })
