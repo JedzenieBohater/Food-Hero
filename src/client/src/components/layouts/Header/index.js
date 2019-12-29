@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeLanguage } from '../../../actions/language'
-//import logo from "../static/logo.svg"
+import logo from "../../../static/images/Logo.png"
 
 const mapStateToProps = ({ languageReducer }) => ({
   lang: languageReducer.header
@@ -16,7 +16,7 @@ export const Header = (props) => {
   return (
     <header className="top-bar" test-data="top-bar">
       <Link to="/">
-        <img className="logo" alt="Logo" />
+        <img className="logo" alt="Logo" src={logo} />
       </Link>
       <nav className="top-bar-links">
         <select value={props.lang.login === "Sign in" ? "en" : "pl"} onChange={(e) => props.changeLang(e.target.value)}>
