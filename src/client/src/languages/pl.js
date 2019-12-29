@@ -29,5 +29,17 @@ export default {
         back: "Powrót"
     },
     home:
-    {}
+    {
+        cook: "Chcę gotować",
+        eat: "Chcę jeść",
+        quote: "\”Łączenie pasjonatów to nasza pasja\”",
+        hero: "Czym jest Food Hero?",
+        what: "Jest to pierwsza platforma łącząca miłośników jedzenia z miłośnikami gotowania w całym kraju.",
+        society: "Zarejestruj się i stań się częścią naszej kulinarnej społeczności.",
+        makeOrder: "Nie masz czasu, bądź gotowanie nie jest Twoją mocną stroną? Wybierz jedną z dostępnych ofert lub dodaj własne zamówienie, wybierz sposób płatności i dostawy, a następnie ciesz się domownym jedzeniem!",
+        makeDish: "Lubisz gotować i chciałbyś na tym zarobić? Spróbuj swoich sił jako kucharz. Dodawaj oferty lub wybieraj gotowe zgłoszenia, gotuj i zarabiaj na jedzeniu, a to wwszystko w domowym zaciszu!",
+        try: "Wypróbuj już teraz!",
+        register: "Zarejestruj"
+
+    }
 }
