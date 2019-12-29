@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux'
-import { sessionReducer, errorReducer } from './reducers'
+import { sessionReducer, errorReducer, languageReducer } from './reducers'
 
-export default combineReducers({ sessionReducer, errorReducer })
+export default combineReducers({ sessionReducer, errorReducer, languageReducer })

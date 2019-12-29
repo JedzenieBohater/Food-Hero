@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default () => {
+
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.home
+})
+
+export const Home = (props) => {
   return (
     <header>
 		<a>
@@ -61,3 +67,6 @@ export default () => {
 	</div>
   )
 }
+
+
+export default connect(mapStateToProps)(Home)
