@@ -32,7 +32,7 @@ export default {
     {
         cook: "I want to cook",
         eat: "I want to eat",
-        quote: "”Łączenie pasjonatów to nasza pasja”",
+        quote: "”We are passionate about connecting enthusiasts”",
         hero: "Why to choose Food Hero?",
         what: "It is the first ever website to connect food lovers with cooking lovers all over the country.",
         society: "Sign up now and become part of our cooking community.",
