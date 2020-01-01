@@ -32,13 +32,13 @@ export default {
     {
         cook: "I want to cook",
         eat: "I want to eat",
-        quote: "\”Łączenie pasjonatów to nasza pasja\”",
-        hero: "Czym jest Food Hero?",
-        what: "Jest to pierwsza platforma łącząca miłośników jedzenia z miłośnikami gotowania w całym kraju.",
-        society: "Zarejestruj się i stań się częścią naszej kulinarnej społeczności.",
-        makeOrder: "Nie masz czasu, bądź gotowanie nie jest Twoją mocną stroną? Wybierz jedną z dostępnych ofert lub dodaj własne zamówienie, wybierz sposób płatności i dostawy, a następnie ciesz się domownym jedzeniem!",
-        makeDish: "Lubisz gotować i chciałbyś na tym zarobić? Spróbuj swoich sił jako kucharz. Dodawaj oferty lub wybieraj gotowe zgłoszenia, gotuj i zarabiaj na jedzeniu, a to wwszystko w domowym zaciszu!",
-        try: "Wypróbuj już teraz!",
+        quote: "”Łączenie pasjonatów to nasza pasja”",
+        hero: "Why to choose Food Hero?",
+        what: "It is the first ever website to connect food lovers with cooking lovers all over the country.",
+        society: "Sign up now and become part of our cooking community.",
+        makeOrder: "You do not have time or cooking is not Your strong suit. Choose out of available offers or place Your own order, select payment and delivery methods and content Yourself with home meals!",
+        makeDish: "Do You love cooking and You would like to earn some money? Challenge Yourself as a chef. Add your own offers or choose from available orders. Cook and earn without leaving Your home!",
+        try: "Try it now!",
         register: "Sign up"
     }
 }

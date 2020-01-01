@@ -4,8 +4,7 @@
   height: 60px;
   line-height: 40px;
   top: 0;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   z-index: 1;
   box-sizing: border-box;
   justify-content: space-between;
