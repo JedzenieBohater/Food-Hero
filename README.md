@@ -1,5 +1,5 @@
 # Food-Hero
-
+[![Build Status](https://travis-ci.org/JedzenieBohater/Food-Hero.svg?branch=master)](https://travis-ci.org/JedzenieBohater/Food-Hero)
 # Authors
 * [Konrad Magiera](https://github.com/KonradMagiera) (KonradMagiera)
 * [Patryk Zaniewski](https://github.com/PatrykZaniewski) (PatrykZaniewski)

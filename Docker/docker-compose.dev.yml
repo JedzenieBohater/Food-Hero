@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  client:
+    container_name: some_client
+    build: 
+      context: ../src/client
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "13000:3000"
+    volumes:
+      - /usr/src/app/node_modules
+      - ../src/client:/usr/src/app
+    depends_on:
+      - app
+
+  app:
+    container_name: some_backend
+    build: ../src/backend
+    restart: unless-stopped
+    volumes:
+      - ../src/backend/target/FoodHero-Backend-1.0-SNAPSHOT.jar:/tmp/FoodHero-Backend-1.0-SNAPSHOT.jar
+    ports:
+      - "18080:8080"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: some_postgres
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=student
+      - POSTGRES_PASSWORD=zetis
+      - POSTGRES_DB=mydb
+    ports:
+      - "54320:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ../src/psql:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres-data:

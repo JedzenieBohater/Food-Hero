@@ -1,27 +1,16 @@
 version: '3'
 
 services:
-  nginx:
-   container_name: some_nginx
-   image: nginx:1.13
-   restart: unless-stopped
-   ports:
-   - "10080:80"
-   - "10443:443"
-   volumes:
-   - ./nginx/conf.d:/etc/nginx/conf.d
-   depends_on:
-   - client
-
   client:
     container_name: some_client
-    build: ../src/client
+    build: 
+      context: ../src/client
+      dockerfile: Dockerfile.prod
     restart: unless-stopped
     ports:
-      - "13000:3000"
+      - "80:80"
     volumes:
-      - ../src/client:/app
-      - /app/node_modules
+      - /usr/src/app/node_modules
     depends_on:
       - app
 
