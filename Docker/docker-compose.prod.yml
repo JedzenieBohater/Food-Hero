@@ -3,7 +3,9 @@ version: '3'
 services:
   client:
     container_name: some_client
-    build: ../src/client
+    build: 
+      context: ../src/client
+      dockerfile: Dockerfile.prod
     restart: unless-stopped
     ports:
       - "80:80"

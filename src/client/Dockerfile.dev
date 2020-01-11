@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS builder
+FROM node:lts-alpine
 
 WORKDIR /usr/src/app
 
@@ -12,12 +12,4 @@ RUN npm install --no-optional --silent && npm cache clean --force
 
 COPY . .
 
-RUN npm run build
-
-FROM nginx:1.13.12-alpine
-
-COPY --from=builder /usr/src/app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]

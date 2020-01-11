@@ -1,4 +1,4 @@
-const url = 'http://hero.iem.pw.edu.pl:18080'
+const url = process.env.REACT_APP_BACKEND_URL
 
 export const register = user =>
   fetch(`${url}/login/register`, {
@@ -9,24 +9,29 @@ export const register = user =>
     }
   })
 
-export const login = user =>
+export const login = user => 
   fetch(`${url}/login`, {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    credentials: 'include'
   })
 
-export const logout = () => fetch(`${url}/logout`, { method: 'DELETE' })
+export const logout = () => 
+  fetch(`${url}/logout`, { 
+    method: 'DELETE', 
+    credentials: 'include' 
+  })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch(`${url}/login/status`)
+  const response = await fetch(`${url}/login/status`, { credentials: 'include' })
   const { user } = await response.json()
   preloadedState = {}
   if (user) {
     preloadedState = {
-      session: user
+      sessionReducer: user
     }
   }
   return preloadedState
