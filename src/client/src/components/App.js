@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Header, Login, Register, ForgottenPassword, Home } from './layouts'
+import { Header, Login, Register, ForgottenPassword, Home,Search} from './layouts'
 import { AuthRoute } from '../utils/route'
 
 
@@ -12,7 +12,8 @@ export default () => (
       <Route exact path="/" component={Home} />
       <AuthRoute path='/login' component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/forgottenpassword" component={ForgottenPassword}/>
+      <Route path="/forgottenpassword" component={ForgottenPassword} />
+      <Route path="/search" component={Search} />
     </Switch>
   </Router>
 )
