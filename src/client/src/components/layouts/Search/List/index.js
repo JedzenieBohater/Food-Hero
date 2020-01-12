@@ -1,30 +1,33 @@
 import React from 'react'
 
-export default () => {
+export default (props) => {
   return (
-    <div className='content-box offer flexcolumn'>
+    <div id={props.id} className='content-box offer flexcolumn'>
       <div className='flexrow'>
       <div className=''>
-        <img className='pic' alt='' src='https://s3.przepisy.pl/przepisy3ii/img/variants/1440x1080/proste-spaghetti-bolognese.jpg' />
-        <div className='review'></div>
+        <img className='pic' alt='' src={props.picture} />
+        <div class="star-ratings-css">
+          <div class="star-ratings-css-top" style={{width: props.ocena/5*100 + '%'}}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+       </div>
       </div>
       <div className='col75'>
         <div className='title'>
-          <b>Spaghetti Bolognese</b>
+          <b>{props.title}</b>
         </div>
         <div className='flexrow'>
           <div className='marginer'>
-            wystawiajacy
+          {props.wystawiajacy}
           </div>
           <div className='marginer'>
-            data
+          {props.data}
           </div>
           <div className='marginer'>
-            lokalizacja
+          {props.lokalizacja}
           </div>
         </div>
         <span className='description marginer'>
-          opissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfpissdfsdfasdfadsfapissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfpissdfsdfasdfadsfasdfsdfpissdfsdfasdfadsfasdf
+        {props.opis}
         </span>
       </div>
       </div>
