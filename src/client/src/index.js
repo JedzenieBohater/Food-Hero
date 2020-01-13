@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
+import './static/index.css'
 import './static/style.css'
 import './static/header.css'
 import thunk from 'redux-thunk'

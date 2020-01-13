@@ -1,0 +1,69 @@
+.pic{
+    width: 128px;
+    height:128px;
+}
+.searchmain{
+    width:100%;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    display:flex;
+    padding-top: 10px;
+}
+.offer{
+    width: 100%;
+    display:flex;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.title{
+    font-size: 24px;
+    margin:10px;
+}
+.review::before{
+    content: "\26e4\26e4\26e4\26e4\26e4";
+    display: block;
+
+}
+.review{
+    text-align: center;
+}
+.marginer{
+    margin:10px;
+}
+.description{
+    word-break: break-all;
+    display:block;
+    width:100%;
+}
+.flexcolumn{
+    display:flex;
+    flex-direction: column;
+}
+.flexrow{
+    display:flex;
+    flex-direction: row;
+}
+.col75{
+    flex:75%;
+    flex-direction: column;
+}
+.col25{
+    flex:25%;
+    flex-direction: column;
+}
+.col33{
+    flex:33%;  
+    margin:10px; 
+}
+
+.btnbuy{
+    float:right;
+}
+
+.bottomwrapper{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top: auto;
+}
