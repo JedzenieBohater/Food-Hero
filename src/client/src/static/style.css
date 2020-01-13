@@ -65,6 +65,17 @@ button[class^="btn-blue"] {
   cursor: pointer;
 }
 
+button[class^="btn-blue-small"] {
+  height: 3vh;
+  width: 10vw;
+  font-size: 16x;
+  background-image: linear-gradient(#0073c6, #003857);
+  cursor: pointer;
+  align-self: center;
+  padding: 2px 5px 2px 5px;
+  margin-top: 10px;
+  }
+
 button[class^="btn-green"] {
   background-image: linear-gradient(#10c600, #003857);
   cursor: pointer;

@@ -41,5 +41,17 @@ export default {
         try: "Wypróbuj już teraz!",
         register: "Zarejestruj"
 
+    },
+    profile:
+    {
+        name: "Imię",
+        surname: "Nazwisko",
+        noactive: "Liczba aktywnych ofert",
+        nowaiting: "Liczba oczekujących zamówień",
+        description: "Opis",
+        avgrade: "Średnia ocena",
+        profile: "Profil",
+        dishlist: "Lista dań",
+        settings: "Ustawienia" 
     }
 }
