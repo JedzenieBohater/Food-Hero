@@ -1,6 +1,6 @@
 package FoodHero.Config;
 
-import FoodHero.service.LoginDetailsService;
+import FoodHero.service.Login.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -94,11 +94,11 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/account/").hasAuthority("USER")
-                    .antMatchers("/account/*").hasAuthority("ADMIN")
-                    .antMatchers("/login/").hasAuthority("ADMIN")
+                   // .antMatchers("/account/").hasAuthority("USER")
+                   // .antMatchers("/account/*").hasAuthority("ADMIN")
+                   // .antMatchers("/login/").hasAuthority("ADMIN")
                     .antMatchers("/login/status").hasAuthority("USER")
-                    .antMatchers("/login").permitAll()
+                   // .antMatchers("/login").permitAll()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                 .and()

@@ -1,7 +1,7 @@
 package FoodHero.controller;
 
 import FoodHero.model.Dish;
-import FoodHero.service.DishService;
+import FoodHero.service.Dish.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

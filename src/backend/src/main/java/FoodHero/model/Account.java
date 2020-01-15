@@ -38,9 +38,6 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountRating> ratingList;
 
-    // private List<String> localization;
-
-
     public int getId() {
         return id;
     }

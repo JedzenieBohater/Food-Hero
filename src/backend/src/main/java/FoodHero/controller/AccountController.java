@@ -1,7 +1,7 @@
 package FoodHero.controller;
 
 import FoodHero.model.Account;
-import FoodHero.service.AccountService;
+import FoodHero.service.Account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

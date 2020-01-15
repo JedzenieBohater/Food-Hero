@@ -1,14 +1,10 @@
 package FoodHero.controller;
 
 import FoodHero.model.Login;
-import FoodHero.service.LoginService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import FoodHero.service.Login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;

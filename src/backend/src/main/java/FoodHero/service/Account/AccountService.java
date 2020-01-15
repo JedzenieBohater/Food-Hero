@@ -1,4 +1,4 @@
-package FoodHero.service;
+package FoodHero.service.Account;
 
 import FoodHero.dao.AccountRepository;
 import FoodHero.model.Account;
