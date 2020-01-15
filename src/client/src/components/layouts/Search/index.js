@@ -13,11 +13,11 @@ export default () => {
         id={offer.id}
         picture={offer.picture}
         title={offer.title} 
-        wystawiajacy={offer.cook}
-        data={offer.date}
-        lokalizacja={offer.location}
-        ocena={offer.grade}
-        opis={offer.description}
+        cook={offer.cook}
+        date={offer.date}
+        location={offer.location}
+        grade={offer.grade}
+        description={offer.description}
         ></List>))}
     </div>
     </div>
