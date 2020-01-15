@@ -1,0 +1,32 @@
+{
+    "firstname": "Andrzej",
+    "lastname": "Sapkowski",
+    "description": "Numero uno on American Amazon",
+    "creation_date": "21.01.2019",
+    "noactive": 2,
+    "nowaiting": 0,
+    "avgrade": 4,
+    "specialization": "kuchnia elficka",
+    "dishlist":[
+        {
+            "id": 1,
+            "picture": "https://s3.przepisy.pl/przepisy3ii/img/variants/1440x1080/proste-spaghetti-bolognese.jpg",
+            "title": "spaghetti",
+            "cook" : "Andrzej Sapkowski",
+            "date" : "2019-10-01",
+            "location" : "Marymont",
+            "grade": 4,
+            "description" : "Najlepsze w tej części Warszawy"
+
+        },
+        {
+            "id": 1,
+            "picture": "https://s3.przepisy.pl/przepisy3ii/img/variants/1440x1080/proste-spaghetti-bolognese.jpg",
+            "title": "spaghetti z elfickim sosem",
+            "cook" : "Andrzej Sapkowski",
+            "date" : "2019-10-01",
+            "location" : "Marymont",
+            "grade": 5,
+            "description" : "Scoia'tael jedli to w czasie wojny"
+        }]
+}

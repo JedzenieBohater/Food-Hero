@@ -51,6 +51,8 @@ export default {
         avgrade: "Average grade",
         profile: "Profile",
         dishlist: "Dish list",
-        settings: "Settings"     
+        settings: "Settings",
+        creation: "Account created on",
+        specialization: "Specialization"
     }
 }

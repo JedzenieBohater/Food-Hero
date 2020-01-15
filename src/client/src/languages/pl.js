@@ -52,6 +52,8 @@ export default {
         avgrade: "Średnia ocena",
         profile: "Profil",
         dishlist: "Lista dań",
-        settings: "Ustawienia" 
+        settings: "Ustawienia",
+        creation: "Jest z nami od",
+        specialization: "Specjalność"
     }
 }
