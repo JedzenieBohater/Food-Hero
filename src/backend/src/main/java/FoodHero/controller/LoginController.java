@@ -19,7 +19,7 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @GetMapping(value = "/status")
+    @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
         data.put("userID", principal.getName());
@@ -32,7 +32,7 @@ public class LoginController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
         Optional<Login> account = loginService.getLogin(id);
         System.out.println(account.isPresent());

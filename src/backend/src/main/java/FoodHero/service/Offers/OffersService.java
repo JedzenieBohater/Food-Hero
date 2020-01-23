@@ -28,4 +28,8 @@ public class OffersService {
         SingleDishList singleDishList = new SingleDishList();
         return offersRepository.findAll();
     }
+
+    public List<Offers> getAllDishesWithPrice(double price) {
+        return offersRepository.findByPrice(price);
+    }
 }
