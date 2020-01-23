@@ -30,6 +30,10 @@ public class OffersService {
     }
 
     public List<Offers> getAllDishesWithPrice(double price) {
-        return offersRepository.findByPrice(price);
+        return offersRepository.findAllByPrice(price);
+    }
+
+    public List<Offers> getAllDishesWithMinRating(double rating) {
+        return offersRepository.findAllByMinRating(rating);
     }
 }

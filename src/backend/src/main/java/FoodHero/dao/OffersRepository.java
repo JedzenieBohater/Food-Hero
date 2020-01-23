@@ -11,4 +11,6 @@ import java.util.List;
 public interface OffersRepository extends JpaRepository<Offers, Integer> {
     @Query("SELECT t FROM Thing t WHERE t.price = ?1")
     List<Offers> findAllByPrice(double price);
+    @Query("SELECT t FROM Thing t WHERE t.rating > ?1")
+    List<Offers> findAllByMinRating(double rating);
 }
