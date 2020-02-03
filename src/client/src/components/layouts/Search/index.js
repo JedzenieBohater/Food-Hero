@@ -4,21 +4,23 @@ import a from './exampledata.json'
 
 const data = a.offers;
 
-export default () => {  const [data, setData] = useState(undefined)
-
-  function getData(url){
-    fetch(url)
-    .then((response) => {
-      return response.json();
-    })
-    .then((myJson) => {
-      setData(myJson.offers);
-    });
-  }
-
-  useEffect(() => {
-    getData('http://192.168.99.100:5001/js');
-  },[]);
+export default () => {  
+  
+  //const [data, setData] = useState(undefined)
+//
+  //function getData(url){
+  //  fetch(url)
+  //  .then((response) => {
+  //    return response.json();
+  //  })
+  //  .then((myJson) => {
+  //    setData(myJson.offers);
+  //  });
+  //}
+//
+  //useEffect(() => {
+  //  getData('http://192.168.99.100:5001/js');
+  //},[]);
   
   return (
     <div>
@@ -38,11 +40,11 @@ export default () => {  const [data, setData] = useState(undefined)
         id={offer.id}
         picture={offer.picture}
         title={offer.title} 
-        wystawiajacy={offer.wystawiajacy}
-        data={offer.data}
-        lokalizacja={offer.lokalizacja}
-        ocena={offer.ocena}
-        opis={offer.opis}
+        cook={offer.cook}
+        date={offer.date}
+        location={offer.location}
+        grade={offer.grade}
+        description={offer.description}
         ></List>))
       :  
       <div id="dots1">
