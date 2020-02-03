@@ -1,19 +1,15 @@
-.top-bar {
-  background-image: linear-gradient(#0073c6, #003857);
+header {
+	position: fixed;
+	margin-top: 0px;
+	height: 60px;
+  width: 100%;
   padding: 5px;
-  height: 60px;
-  line-height: 40px;
-  top: 0;
-  position: fixed;
+	background-image: linear-gradient(#0073c6, #003857);
   z-index: 1;
-  box-sizing: border-box;
-  justify-content: space-between;
+  top: 0;
   display: flex;
-  align-items: center;
-}
-
-.top-bar-links {
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {

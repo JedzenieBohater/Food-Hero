@@ -12,23 +12,28 @@ export const Home = (props) => {
       <div className="main">
         <div className="row">
           <div className="section">
-            <div className="img-container">
-              <a className="img-main-section">
-                <img src="static/images/want-eat.jpeg" className="img-main-section" />
-              </a>
-              <a className="text-block">
-                <div>{props.lang.eat}</div>
-              </a>
-            </div>
+            <Link to="search">
+              <div className="img-container">
+                <div className="img-main-section">
+                  <img src="static/images/want-eat.jpeg" className="img-main-section" />
+                </div>
+                <div className="text-block">
+                  <div>{props.lang.eat}</div>
+                </div>
+
+              </div>
+            </Link>
             <div className="separator separator-horizontal"></div>
-            <div className="img-container">
-              <a className="img-main-section">
-                <img src="static/images/want-cook.jpeg" className="img-main-section" />
-              </a>
-              <a className="text-block">
-                <div>{props.lang.cook}</div>
-              </a>
-            </div>
+            <Link to="/search">
+              <div className="img-container">
+                <div className="img-main-section">
+                  <img src="static/images/want-cook.jpeg" className="img-main-section" />
+                </div>
+                <div className="text-block">
+                  <div>{props.lang.cook}</div>
+                </div>
+              </div>
+            </Link>
           </div>
           <div className="separator separator-vertical"></div>
           <div className="section">
