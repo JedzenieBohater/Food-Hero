@@ -5,7 +5,7 @@ import a from './exampledata.json'
 const data = a.offers;
 
 export default () => {
-  const [data, setData] = useState(undefined)
+ // const [data, setData] = useState(undefined)
 
   // function getData(url){
   //   fetch(url)
@@ -17,10 +17,9 @@ export default () => {
   //   });
   // }
 
-  useEffect(() => {
-    setData(a.offers)
+ // useEffect(() => {
     //getData('http://192.168.99.100:5001/js');
-  }, []);
+ // }, []);
   return (
     <div>
       <div className='content-box searchmain flexing search'>
