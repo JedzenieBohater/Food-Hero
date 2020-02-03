@@ -21,4 +21,5 @@ const renderApp = preloadedState => {
     document.getElementById('root')
   )
 }
-;(async () => renderApp(await checkLoggedIn()))()
+// ;(async () => renderApp(await checkLoggedIn()))()
+;(async () => renderApp(await {}))()
