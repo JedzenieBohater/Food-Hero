@@ -1,19 +1,40 @@
 header {
-	position: fixed;
-	margin-top: 0px;
+  position: fixed;
 	height: 60px;
   width: 100%;
   padding: 5px;
 	background-image: linear-gradient(#0073c6, #003857);
-  z-index: 1;
+  z-index: 10;
   top: 0;
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
+  position: absolute;
   height: 70px;
   top: -10px;
   left: -1px;
+  margin-right: 10px;
+}
+
+.top-bar-links {
+  position: absolute;
+  right: 10px;
+  height: 60px;
+  line-height: 50px;
+}
+
+.menu {
+  position: fixed;
+  right: 0;
+  width: 125px;
+  color: black;
+  background-color: #afafaf;
+  line-height: 25px;
+}
+
+.menu li {
+  list-style-type: none;
 }
