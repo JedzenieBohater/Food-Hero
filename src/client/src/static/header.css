@@ -22,19 +22,51 @@ header {
 .top-bar-links {
   position: absolute;
   right: 10px;
-  height: 60px;
+  height: 50px;
   line-height: 50px;
 }
 
 .menu {
   position: fixed;
   right: 0;
-  width: 125px;
+  width: 110px;
   color: black;
-  background-color: #afafaf;
+  background-color: #0073c6;
   line-height: 25px;
+  top: 42px;
+  margin-right: 10px;
+}
+
+.user-header {
+  height: 60px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(25, 51, 77, 0.5);
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.user-header:hover {
+  filter: brightness(110%);
+}
+
+.user-header  img {
+ position: relative;
+ top: 5px;
+ height: 25px;
+ margin-right: 2px;
 }
 
 .menu li {
   list-style-type: none;
+  border-bottom: 1px dashed white;
+  padding: 5px;
 }
+
+.no-link-color {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
