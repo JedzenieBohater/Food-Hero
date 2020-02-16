@@ -55,5 +55,12 @@ export default {
         settings: "Ustawienia",
         creation: "Jest z nami od",
         specialization: "Specjalność"
+    },
+    search:
+    {
+        what: "Czego szukasz:",
+        localization: "Lokalizacja:",
+        search: "Szukaj",
+        filters: "Filtry"
     }
 }

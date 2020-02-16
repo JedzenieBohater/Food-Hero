@@ -54,5 +54,12 @@ export default {
         settings: "Settings",
         creation: "Account created on",
         specialization: "Specialization"
+    },
+    search:
+    {
+        what: "Search:",
+        localization: "Lokalization:",
+        search: "Find",
+        filters: "Filter"
     }
 }
