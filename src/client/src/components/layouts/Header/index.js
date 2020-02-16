@@ -7,7 +7,6 @@ import Dropdown from "./Dropdownmenu/Dropdown"
 
 
 export const Header = (props) => {
-  const loggedIn = false
   return (
     <header test-data="top-bar">
       <Link to="/">
@@ -18,7 +17,7 @@ export const Header = (props) => {
           <option value="en">EN</option>
           <option value="pl">PL</option>
         </select>
-        {loggedIn ?
+        {props.loggedIn ?
           <Dropdown />
           : <> <Link to="/login">
             <button className="btn-no-background-login">{props.lang.login}</button>
@@ -33,8 +32,9 @@ export const Header = (props) => {
 }
 
 
-const mapStateToProps = ({ languageReducer }) => ({
-  lang: languageReducer.header
+const mapStateToProps = ({ languageReducer, sessionReducer }) => ({
+  lang: languageReducer.header,
+  loggedIn: sessionReducer.userID
 })
 
 const mapDispatchToProps = dispatch => ({

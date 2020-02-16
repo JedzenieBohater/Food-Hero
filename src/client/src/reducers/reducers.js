@@ -3,7 +3,7 @@ import { RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/errors'
 import {CHANGE_LANGUAGE} from '../actions/language'
 import { en, pl } from '../languages'
 
-const nullSession = { userId: null, accessToken: null, refreshToken: null }
+const nullSession = { userID: null, accessToken: null, refreshToken: null }
 
 export function sessionReducer(state = nullSession, { type, user }) {
   Object.freeze(state)

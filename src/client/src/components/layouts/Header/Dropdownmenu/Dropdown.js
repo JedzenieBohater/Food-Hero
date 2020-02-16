@@ -41,7 +41,7 @@ class Dropdown extends Component {
               <ul className="menu">
                 <li ><Link to="profile" className="no-link-color"> Profile</Link></li>
                 <li> <Link to="search" className="no-link-color">Search</Link> </li>
-                <li> <Link to="search" className="no-link-color">Menu item 3</Link></li>
+                <li> <Link to="search" className="no-link-color">Logout placeholder</Link></li>
               </ul>
 
             )
