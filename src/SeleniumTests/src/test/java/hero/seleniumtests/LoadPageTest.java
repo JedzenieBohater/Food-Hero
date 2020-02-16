@@ -25,6 +25,34 @@ public class LoadPageTest {
     }
 
     @Test
+    public void homePageLoadTest() {
+        driver.get("http://localhost:13000");
+        WebElement item = null;
+        try {
+            item = driver.findElement(By.className("text-block"));
+        } catch (Exception e) {
+            fail();
+        }
+        if (item == null) {
+            fail();
+        }
+    }
+    
+    @Test
+    public void searchPageLoadTest() {
+        driver.get("http://localhost:13000/search");
+        WebElement item = null;
+        try {
+            item = driver.findElement(By.id("localization"));
+        } catch (Exception e) {
+            fail();
+        }
+        if (item == null) {
+            fail();
+        }
+    }
+    
+    @Test
     public void loginPageLoadTest() {
         driver.get("http://localhost:13000/login");
         WebElement email = null;
