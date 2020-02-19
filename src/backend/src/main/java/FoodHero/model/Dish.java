@@ -7,16 +7,18 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="dish")
+@Table(name = "dish")
 public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account", referencedColumnName = "id")
     private Account account;
+    private int id_account;
     private String name;
     private String category;
+    private double grade;
     private String description;
     @JsonIgnore
     @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -38,6 +40,14 @@ public class Dish {
         this.account = account;
     }
 
+    public int getId_account() {
+        return id_account;
+    }
+
+    public void setId_account(int id_account) {
+        this.id_account = id_account;
+    }
+
     public String getName() {
         return name;
     }
@@ -52,6 +62,14 @@ public class Dish {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
     }
 
     public String getDescription() {

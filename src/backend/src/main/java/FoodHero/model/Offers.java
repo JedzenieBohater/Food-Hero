@@ -12,19 +12,22 @@ public class Offers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "id_account")
+    @JoinColumn(name = "account", referencedColumnName = "id")
     private Account account;
+    private int id_account;
     @ManyToOne
-    @JoinColumn(name = "id_dish")
+    @JoinColumn(name = "dish", referencedColumnName = "id")
     private Dish dish;
+    private int id_dish;
     private String hours;
     private String day;
+    private int price;
     private String localisation;
     private boolean status;
     private boolean periodic;
-    @JsonIgnore
+    /*@JsonIgnore
     @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<DishRating> ratingList;
+    private List<DishRating> ratingList;*/
 
     public int getId() {
         return id;
@@ -42,12 +45,28 @@ public class Offers {
         this.account = account;
     }
 
+    public int getId_account() {
+        return id_account;
+    }
+
+    public void setId_account(int id_account) {
+        this.id_account = id_account;
+    }
+
     public Dish getDish() {
         return dish;
     }
 
     public void setDish(Dish dish) {
         this.dish = dish;
+    }
+
+    public int getId_dish() {
+        return id_dish;
+    }
+
+    public void setId_dish(int id_dish) {
+        this.id_dish = id_dish;
     }
 
     public String getHours() {
@@ -66,11 +85,19 @@ public class Offers {
         this.day = day;
     }
 
-    public String getLocalization() {
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getLocalisation() {
         return localisation;
     }
 
-    public void setLocalization(String localisation) {
+    public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
 
@@ -90,11 +117,11 @@ public class Offers {
         this.periodic = periodic;
     }
 
-    public List<DishRating> getRatingList() {
-        return ratingList;
-    }
-
-    public void setRatingList(List<DishRating> ratingList) {
-        this.ratingList = ratingList;
-    }
+//    public List<DishRating> getRatingList() {
+//        return ratingList;
+//    }
+//
+//    public void setRatingList(List<DishRating> ratingList) {
+//        this.ratingList = ratingList;
+//    }
 }

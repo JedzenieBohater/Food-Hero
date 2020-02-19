@@ -57,6 +57,7 @@ CREATE TABLE public.offers
     id_dish bigint NOT NULL,
     hours text NOT NULL,
     day text NOT NULL,
+    price bigint NOT NULL,
     localisation text NOT NULL,
     status boolean NOT NULL,
     periodic boolean NOT NULL,
