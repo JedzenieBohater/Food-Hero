@@ -21,12 +21,16 @@ public class OffersService {
 
 
     public List<Offers> getAllDishes() {
-        List<SingleDishList> singleDishLists = new ArrayList<>();
+        /*List<SingleDishList> singleDishLists = new ArrayList<>();
         List<Offers> listOffers = offersRepository.findAll();
         for (Offers offer : listOffers) {
 
         }
-        SingleDishList singleDishList = new SingleDishList();
+        SingleDishList singleDishList = new SingleDishList();*/
+        System.out.println("AAAAAAAAAA");
+        System.out.println(offersRepository.findAll()); //tutaj sie wysypuje -- blad zwiazany z id_account i account. Coś z referenced nie pyka
+        System.out.println("BBBBBBBBBB");
+
         return offersRepository.findAll();
     }
 

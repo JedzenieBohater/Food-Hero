@@ -163,14 +163,14 @@ INSERT INTO dish_grades (id_dish, grade, id_owner) VALUES
     (9, 4, 6),
     (10, 4, 8);
 
-INSERT INTO offers (id_account, id_dish, hours, day, localisation, status, periodic) VALUES
-    (1, 1, '12-14', 'pon', 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (1, 2, '10-16', 'pon - czw', 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (2, 3, '18-20', 'śr', 'Ciechanów ul. Widna 4', 'true', 'true'),
-    (3, 4, '08-20', 'pon-nie', 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (4, 5, '16-18', 'sob', 'Warszawa ul. Malczyńskiego 420', 'false', 'false'),
-    (1, 6, '14-20', 'wt', 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (2, 7, '16-18', 'sob', 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (2, 8, '16-20', 'pt', 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (3, 9, '16-18', 'sob-nie', 'Warszawa ul. Pierwsza 147', 'false', 'false'),
-    (4, 10, '12-20', 'sob', 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
+INSERT INTO offers (id_account, id_dish, hours, day, price, localisation, status, periodic) VALUES
+    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
+    (1, 2, '10-16', 'pon - czw', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true'),
+    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true'),
+    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true'),
+    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false'),
+    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
+    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false'),
+    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false'),
+    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false'),
+    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true');

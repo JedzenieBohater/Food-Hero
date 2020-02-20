@@ -27,6 +27,8 @@ public class OffersController {
                                                           @RequestParam("Localization") String localization,
                                                           @RequestParam("SearchName") String searchName){
         ArrayList<List<Offers>> offers = new ArrayList<>();
+        System.out.println("XDDDDDDDDDDDDDDDDDD");
+
         offers.add(offersService.getAllDishes());
         if(minPrice != null) {
             offers.add(offersService.getAllOffersWithMinPrice(Double.parseDouble(minPrice)));
@@ -55,8 +57,9 @@ public class OffersController {
         for (int i=1; i < offers.size(); i++) {
             offers.get(0).retainAll(offers.get(i)); // cześć wspólna wszystkich filtrów
         }
-        return new ResponseEntity<>("XD", HttpStatus.OK);
-        // return new ResponseEntity<>(offers, HttpStatus.OK);
+        //return new ResponseEntity<>("XD", HttpStatus.OK);
+        System.out.println(offers);
+        return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")

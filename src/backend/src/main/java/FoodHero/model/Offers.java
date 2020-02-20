@@ -11,6 +11,8 @@ public class Offers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    //TODO tutaj jest problem z tym referenced
     @ManyToOne
     @JoinColumn(name = "account", referencedColumnName = "id")
     private Account account;
