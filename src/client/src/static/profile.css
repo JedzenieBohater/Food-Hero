@@ -4,7 +4,13 @@
     flex-direction: column;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+}
+
+.col75prof{
+  flex:75%;
+  align-items: center;
+  justify-content: center;
 }
 
 .logolarge {

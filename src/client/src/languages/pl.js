@@ -54,7 +54,9 @@ export default {
         dishlist: "Lista dań",
         settings: "Ustawienia",
         creation: "Jest z nami od",
-        specialization: "Specjalność"
+        specialization: "Specjalność",
+        email: "Adres e-mail",
+        submit: "Zastosuj zmiany"
     },
     search:
     {

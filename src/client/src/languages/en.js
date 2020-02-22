@@ -53,12 +53,14 @@ export default {
         dishlist: "Dish list",
         settings: "Settings",
         creation: "Account created on",
-        specialization: "Specialization"
+        specialization: "Specialization",
+        email: "E-mail",
+        submit: "Submit changes"
     },
     search:
     {
         what: "Search:",
-        localization: "Lokalization:",
+        localization: "Localization:",
         search: "Find",
         filters: "Filter"
     }

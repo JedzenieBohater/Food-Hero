@@ -176,6 +176,8 @@ input[class^="img-"] {
 .tableform {
   border-collapse:separate;
   border-spacing:0 15px;
+  text-align: right;
+  margin: 0 auto;
 }
 
 /* SELECT BOX  TODO: strzalka*/

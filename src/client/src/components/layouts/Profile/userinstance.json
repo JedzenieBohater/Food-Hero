@@ -7,6 +7,7 @@
     "nowaiting": 0,
     "avgrade": 4,
     "specialization": "kuchnia elficka",
+    "email": "andrzej@cdprojekt.com",
     "dishlist":[
         {
             "id": 1,
