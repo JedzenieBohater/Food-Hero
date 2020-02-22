@@ -6,21 +6,19 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="offers")
-public class Offers {
+@Table(name="offer")
+public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     //TODO tutaj jest problem z tym referenced
     @ManyToOne
-    @JoinColumn(name = "account", referencedColumnName = "id")
+    @JoinColumn(name = "id_account")
     private Account account;
-    private int id_account;
     @ManyToOne
-    @JoinColumn(name = "dish", referencedColumnName = "id")
+    @JoinColumn(name = "id_dish")
     private Dish dish;
-    private int id_dish;
     private String hours;
     private String day;
     private int price;
@@ -47,28 +45,12 @@ public class Offers {
         this.account = account;
     }
 
-    public int getId_account() {
-        return id_account;
-    }
-
-    public void setId_account(int id_account) {
-        this.id_account = id_account;
-    }
-
     public Dish getDish() {
         return dish;
     }
 
     public void setDish(Dish dish) {
         this.dish = dish;
-    }
-
-    public int getId_dish() {
-        return id_dish;
-    }
-
-    public void setId_dish(int id_dish) {
-        this.id_dish = id_dish;
     }
 
     public String getHours() {

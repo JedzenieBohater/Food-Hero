@@ -13,9 +13,8 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "account", referencedColumnName = "id")
+    @JoinColumn(name = "id_account")
     private Account account;
-    private int id_account;
     private String name;
     private String category;
     private double grade;
@@ -38,14 +37,6 @@ public class Dish {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public int getId_account() {
-        return id_account;
-    }
-
-    public void setId_account(int id_account) {
-        this.id_account = id_account;
     }
 
     public String getName() {

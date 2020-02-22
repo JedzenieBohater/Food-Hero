@@ -2,7 +2,7 @@ package FoodHero.controller;
 
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
-import FoodHero.model.Offers;
+import FoodHero.model.Offer;
 import FoodHero.service.Account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "/{id}/offers", produces = "application/json")
-    public ResponseEntity<List<Offers>> getAccountOffers(@PathVariable("id") int id) {
+    public ResponseEntity<List<Offer>> getAccountOffers(@PathVariable("id") int id) {
         Optional<Account> account = accountService.getAccount(id);
         if (account.isPresent()) {
             return new ResponseEntity<>(accountService.getAccountOffers(id), HttpStatus.OK);

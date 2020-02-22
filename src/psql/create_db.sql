@@ -50,7 +50,7 @@ CREATE TABLE public.dish
     FOREIGN KEY (id_account) REFERENCES public.account (id)
 );
 
-CREATE TABLE public.offers
+CREATE TABLE public.offer
 (
     id bigserial NOT NULL,
     id_account bigint NOT NULL,
@@ -163,7 +163,7 @@ INSERT INTO dish_grades (id_dish, grade, id_owner) VALUES
     (9, 4, 6),
     (10, 4, 8);
 
-INSERT INTO offers (id_account, id_dish, hours, day, price, localisation, status, periodic) VALUES
+INSERT INTO offer (id_account, id_dish, hours, day, price, localisation, status, periodic) VALUES
     (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
     (1, 2, '10-16', 'pon - czw', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true'),
     (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true'),
