@@ -1,5 +1,5 @@
-import { testStore } from '../utils/test'
-import { login } from '../actions/session'
+import { testStore } from 'utils/test'
+import { login } from 'actions/session'
 import fetchMock from 'fetch-mock'
 
 describe('Login action', () => {
@@ -10,9 +10,9 @@ describe('Login action', () => {
     test('User login success', async () => {
         const store = testStore({})
         const expectedState = {
-            userId: 'fjdskfj124298fu32hufu'
+            userID: 'fjdskfj124298fu32hufu'
         }
-        fetchMock.post('http://localhost:18080/login', {
+        fetchMock.post('/login', {
             body: expectedState,
             status: 200,
             headers: {
@@ -20,7 +20,7 @@ describe('Login action', () => {
             }
         })
         await store.dispatch(login({}))
-        expect(store.getState().sessionReducer.userId).toBe(expectedState.userId)
+        expect(store.getState().sessionReducer.userID).toBe(expectedState.userID)
     })
 
     test('User login failure', async () => {
@@ -28,7 +28,7 @@ describe('Login action', () => {
         const expectedState = {
             message: 'Password incorrect'
         }
-        fetchMock.post('http://localhost:18080/login', {
+        fetchMock.post('/login', {
             body: expectedState,
             status: 404,
             headers: {
