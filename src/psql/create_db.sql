@@ -50,16 +50,20 @@ CREATE TABLE public.dish
     FOREIGN KEY (id_account) REFERENCES public.account (id)
 );
 
-CREATE TABLE public.offers
+CREATE TABLE public.offer
 (
     id bigserial NOT NULL,
     id_account bigint NOT NULL,
     id_dish bigint NOT NULL,
     hours text NOT NULL,
     day text NOT NULL,
-    localisation text NOT NULL,
+    price real NOT NULL,
+    localization text NOT NULL,
     status boolean NOT NULL,
     periodic boolean NOT NULL,
+    grade real NOT NULL,
+    limitation bigint NOT NULL,
+    preparation bigint NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_account) REFERENCES public.account (id),
     FOREIGN KEY (id_dish) REFERENCES public.dish (id)
@@ -150,7 +154,7 @@ INSERT INTO dish (id_account, name, category, grade) VALUES
 
 INSERT INTO dish_grades (id_dish, grade, comment, id_owner) VALUES
     (1, 5, 'Najlepsze spaghetti na świecie', 5),
-    (2, 4, 'Taki typowy makaron', 6),
+    (1, 4, 'Taki typowy makaron', 6),
     (3, 4, 'Nawet dobry placek', 7),
     (4, 3, 'Kto by chciał jeść ślimaki', 6),
     (5, 5, 'Pizza pepperoni każdy ją zje', 8);
@@ -162,14 +166,14 @@ INSERT INTO dish_grades (id_dish, grade, id_owner) VALUES
     (9, 4, 6),
     (10, 4, 8);
 
-INSERT INTO offers (id_account, id_dish, hours, day, localisation, status, periodic) VALUES
-    (1, 1, '12-14', 'pon', 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (1, 2, '10-16', 'pon - czw', 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (2, 3, '18-20', 'śr', 'Ciechanów ul. Widna 4', 'true', 'true'),
-    (3, 4, '08-20', 'pon-nie', 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (4, 5, '16-18', 'sob', 'Warszawa ul. Malczyńskiego 420', 'false', 'false'),
-    (1, 6, '14-20', 'wt', 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (2, 7, '16-18', 'sob', 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (2, 8, '16-20', 'pt', 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (3, 9, '16-18', 'sob-nie', 'Warszawa ul. Pierwsza 147', 'false', 'false'),
-    (4, 10, '12-20', 'sob', 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
+INSERT INTO offer (id_account, id_dish, hours, day, price, localization, status, periodic, grade, limitation, preparation) VALUES
+    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300),
+    (1, 2, '10-16', 'pon - czw', 500, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300),
+    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true', 0, 10, 300),
+    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300),
+    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false', 0, 10, 300),
+    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300),
+    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300),
+    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300),
+    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false', 0, 10, 300),
+    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true', 0, 10, 300);

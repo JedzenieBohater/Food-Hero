@@ -1,4 +1,4 @@
-package FoodHero.service;
+package FoodHero.service.Rating;
 
 import FoodHero.dao.RatingRepository;
 import FoodHero.model.Rating;

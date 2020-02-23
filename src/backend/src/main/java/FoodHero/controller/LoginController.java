@@ -1,14 +1,10 @@
 package FoodHero.controller;
 
 import FoodHero.model.Login;
-import FoodHero.service.LoginService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import FoodHero.service.Login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -23,7 +19,7 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @GetMapping(value = "/status")
+    @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
         data.put("userID", principal.getName());
@@ -36,7 +32,7 @@ public class LoginController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
         Optional<Login> account = loginService.getLogin(id);
         System.out.println(account.isPresent());

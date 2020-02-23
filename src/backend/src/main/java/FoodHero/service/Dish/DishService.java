@@ -1,4 +1,4 @@
-package FoodHero.service;
+package FoodHero.service.Dish;
 
 import FoodHero.dao.DishRepository;
 import FoodHero.model.Dish;
