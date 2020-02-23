@@ -55,7 +55,6 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @PutMapping(value = "/")
     public ResponseEntity<Object> updateAccount(@RequestBody Account account) {
         accountService.updateAccount(account);

@@ -19,7 +19,15 @@ public class DishRating extends Rating {
     private int grade;
     private String comment;
 
+    @Override
+    public int getId() {
+        return id;
+    }
 
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Dish getDish() {
         return dish;
@@ -29,4 +37,21 @@ public class DishRating extends Rating {
         this.dish = dish;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    @Override
+    public String getComment() {
+        return comment;
+    }
+
+    @Override
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

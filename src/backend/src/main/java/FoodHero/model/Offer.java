@@ -3,7 +3,7 @@ package FoodHero.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="offer")
+@Table(name = "offer")
 public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,12 @@ public class Offer {
     private String hours;
     private String day;
     private double price;
-    private String localisation;
+    private String localization;
     private boolean status;
     private boolean periodic;
+    @Column(name="limitation")
+    private int limit;
+    private int preparation;
     /*@JsonIgnore
     @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<DishRating> ratingList;*/
@@ -74,12 +77,12 @@ public class Offer {
         this.price = price;
     }
 
-    public String getLocalisation() {
-        return localisation;
+    public String getLocalization() {
+        return localization;
     }
 
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
+    public void setLocalization(String localisation) {
+        this.localization = localisation;
     }
 
     public boolean isStatus() {
@@ -96,6 +99,22 @@ public class Offer {
 
     public void setPeriodic(boolean periodic) {
         this.periodic = periodic;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getPreparation() {
+        return preparation;
+    }
+
+    public void setPreparation(int preparation) {
+        this.preparation = preparation;
     }
 
     //    public List<DishRating> getRatingList() {

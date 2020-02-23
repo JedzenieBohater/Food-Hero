@@ -10,15 +10,13 @@ import javax.validation.constraints.Size;
 public abstract class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private int id;
-    @NotNull
-    private int rating;
+    private int grade;
     @Size(max = 256)
     private String comment;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "idReviever", referencedColumnName = "id")
+    @JoinColumn(name = "id_owner")
     private Account reviewer;
 
     public int getId() {
@@ -29,12 +27,12 @@ public abstract class Rating {
         this.id = id;
     }
 
-    public int getRating() {
-        return rating;
+    public int getGrade() {
+        return grade;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
     public String getComment() {
