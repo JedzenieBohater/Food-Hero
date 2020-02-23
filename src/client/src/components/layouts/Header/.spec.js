@@ -1,12 +1,19 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Header from './index'
-import { findByTestAttr } from '../../../utils/test'
+import { Header } from './Header'
+import { findByTestAttr } from 'utils/test'
 
 describe('<Header />', () => {
     let wrapper
     beforeEach(() => {
-        wrapper = shallow(<Header />)
+        const props = {
+            changeLang: () => {},
+            lang: {
+                login: '',
+                register: ''
+            }
+        }
+        wrapper = shallow(<Header {...props} />)
     })
 
     it('Should render without errors', () => {
