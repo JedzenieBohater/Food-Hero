@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../../../actions/session'
-import bcrypt from 'bcryptjs'
 import PropTypes from 'prop-types'
 
 
