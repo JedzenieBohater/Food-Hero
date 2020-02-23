@@ -24,14 +24,59 @@ public class OfferController {
                                                           @RequestParam("Status") String status,
                                                           @RequestParam("Localization") String localization,
                                                           @RequestParam("SearchName") String searchName){
-        //Todo trzeba zrobić obsługę błędów przy parsowaniu pustego/nieprawidlowego
-        double minPriceQuery = Double.parseDouble(minPrice);
-        double maxPriceQuery = Double.parseDouble(minPrice);
-        double minRatingQuery = Double.parseDouble(minPrice);
-        double maxRatingQuery = Double.parseDouble(minPrice);
-        boolean statusQuery = Boolean.parseBoolean(status);
+        //Todo trzeba zrobić obsługę błędów przy parsowaniu pustego/nieprawidlowego/brakujacego
+        double minPriceQuery = 0;
+        double maxPriceQuery = 0;
+        double minRatingQuery = 0;
+        double maxRatingQuery = 0;
+        String categoryQuery = "";
+        String localizationQuery = "";
+        String searchNameQuery = "";
+        boolean statusQuery = true;
 
-        return new ResponseEntity<>(offerService.getOffersWithFilters(minPriceQuery, maxPriceQuery, minRatingQuery, maxRatingQuery, category, statusQuery, localization, searchName), HttpStatus.OK);
+        if(minPrice != null && !minPrice.equals(""))
+        {
+            minPriceQuery = Double.parseDouble(minPrice);
+        }
+        if(maxPrice != null && !maxPrice.equals(""))
+        {
+            maxPriceQuery = Double.parseDouble(maxPrice);
+        }
+        if(minRating != null && !minRating.equals(""))
+        {
+            minRatingQuery = Double.parseDouble(minRating);
+        }
+        if(maxRating != null && !maxRating.equals(""))
+        {
+            maxRatingQuery = Double.parseDouble(maxRating);
+        }
+        if(status != null && !status.equals(""))
+        {
+            statusQuery = Boolean.parseBoolean(status);
+        }
+        if(category != null)
+        {
+            category = category.trim();
+            if(!category.equals("")){
+                categoryQuery = category;
+            }
+        }
+        if(localization != null)
+        {
+            localization = localization.trim();
+            if(!localization.equals("")){
+                localizationQuery = localization;
+            }
+        }
+        if(searchName != null)
+        {
+            searchName = searchName.trim();
+            if(!searchName.equals("")){
+                searchNameQuery = searchName;
+            }
+        }
+
+        return new ResponseEntity<>(offerService.getOffersWithFilters(minPriceQuery, maxPriceQuery, minRatingQuery, maxRatingQuery, categoryQuery, statusQuery, localizationQuery, searchNameQuery), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")

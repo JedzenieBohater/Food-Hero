@@ -1,9 +1,6 @@
 package FoodHero.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="offer")
@@ -21,7 +18,7 @@ public class Offer {
     private Dish dish;
     private String hours;
     private String day;
-    private int price;
+    private double price;
     private String localisation;
     private boolean status;
     private boolean periodic;
@@ -69,11 +66,11 @@ public class Offer {
         this.day = day;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -101,7 +98,7 @@ public class Offer {
         this.periodic = periodic;
     }
 
-//    public List<DishRating> getRatingList() {
+    //    public List<DishRating> getRatingList() {
 //        return ratingList;
 //    }
 //

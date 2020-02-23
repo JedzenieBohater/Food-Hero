@@ -57,10 +57,11 @@ CREATE TABLE public.offer
     id_dish bigint NOT NULL,
     hours text NOT NULL,
     day text NOT NULL,
-    price bigint NOT NULL,
+    price real NOT NULL,
     localisation text NOT NULL,
     status boolean NOT NULL,
     periodic boolean NOT NULL,
+    grade real NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_account) REFERENCES public.account (id),
     FOREIGN KEY (id_dish) REFERENCES public.dish (id)
@@ -163,14 +164,14 @@ INSERT INTO dish_grades (id_dish, grade, id_owner) VALUES
     (9, 4, 6),
     (10, 4, 8);
 
-INSERT INTO offer (id_account, id_dish, hours, day, price, localisation, status, periodic) VALUES
-    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (1, 2, '10-16', 'pon - czw', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true'),
-    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true'),
-    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false'),
-    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false'),
-    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false'),
-    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false'),
-    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true');
+INSERT INTO offer (id_account, id_dish, hours, day, price, localisation, status, periodic, grade) VALUES
+    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0),
+    (1, 2, '10-16', 'pon - czw', 500, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0),
+    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true', 0),
+    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0),
+    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false', 0),
+    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0),
+    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0),
+    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0),
+    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false', 0),
+    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true', 0);
