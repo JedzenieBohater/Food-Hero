@@ -40,5 +40,28 @@ export default {
         makeDish: "Do You love cooking and You would like to earn some money? Challenge Yourself as a chef. Add your own offers or choose from available orders. Cook and earn without leaving Your home!",
         try: "Try it now!",
         register: "Sign up"
+    },
+    profile:
+    {
+        name: "Name",
+        surname: "Surname",
+        noactive: "Number of active offers",
+        nowaiting: "Number of waiting orders",
+        description: "Description",
+        avgrade: "Average grade",
+        profile: "Profile",
+        dishlist: "Dish list",
+        settings: "Settings",
+        creation: "Account created on",
+        specialization: "Specialization",
+        email: "E-mail",
+        submit: "Submit changes"
+    },
+    search:
+    {
+        what: "Search:",
+        localization: "Localization:",
+        search: "Find",
+        filters: "Filter"
     }
 }
