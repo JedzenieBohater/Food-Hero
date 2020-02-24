@@ -20,7 +20,6 @@ export const Login = (props) => {  //{ login, errors, lang} travis wywalal ze la
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const hashPassword = await bcrypt.hash(password, 10);
     props.login({ email, password })
   }
 
