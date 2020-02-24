@@ -16,14 +16,14 @@ public class OfferController {
     OfferService offerService;
 
     @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Object> getAllOffersMatchFilter(@RequestParam("MinPrice") String minPrice,
-                                                          @RequestParam("MaxPrice") String maxPrice,
-                                                          @RequestParam("MinRating") String minRating,
-                                                          @RequestParam("MaxRating") String maxRating,
-                                                          @RequestParam("Category") String category,
-                                                          @RequestParam("Status") String status,
-                                                          @RequestParam("Localization") String localization,
-                                                          @RequestParam("SearchName") String searchName){
+    public ResponseEntity<Object> getAllOffersMatchFilter(@RequestParam(required = false, name = "MinPrice") String minPrice,
+                                                          @RequestParam(required = false, name = "MaxPrice") String maxPrice,
+                                                          @RequestParam(required = false, name = "MinRating") String minRating,
+                                                          @RequestParam(required = false, name = "MaxRating") String maxRating,
+                                                          @RequestParam(required = false, name = "Category") String category,
+                                                          @RequestParam(required = false, name = "Status") String status,
+                                                          @RequestParam(required = false, name = "Localization") String localization,
+                                                          @RequestParam(required = false, name = "SearchName") String searchName){
         //Todo trzeba zrobić obsługę błędów przy parsowaniu pustego/nieprawidlowego/brakujacego
         double minPriceQuery = 0;
         double maxPriceQuery = 0;
