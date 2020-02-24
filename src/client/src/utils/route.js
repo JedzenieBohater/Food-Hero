@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect, Route, withRouter } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 
 const mapStateToProps = ({ sessionReducer: { userID } }) => ({
   loggedIn: Boolean(userID)
@@ -13,6 +13,4 @@ const Auth = ({ loggedIn, path, component: Component }) => (
   />
 )
 
-export const AuthRoute = withRouter(
-  connect(mapStateToProps)(Auth)
-)
+export const AuthRoute = connect(mapStateToProps)(Auth)
