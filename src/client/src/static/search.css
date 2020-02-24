@@ -1,3 +1,85 @@
+#dots1 {
+    position: relative;
+    left: 35%;
+    height: 60px;
+    width: 200px;
+  }
+  
+  #dots1 span {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(218, 216, 216, 0.25);
+    border-radius: 50%;
+    -webkit-animation: dots1 1s infinite ease-in-out;
+            animation: dots1 1s infinite ease-in-out;
+  }
+  
+  #dots1 span:nth-child(1) {
+    left: 0px;
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s;
+  }
+  
+  #dots1 span:nth-child(2) {
+    left: 60px;
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s;
+  }
+  
+  #dots1 span:nth-child(3) {
+    left: 120px;
+    -webkit-animation-delay: 0.4s;
+            animation-delay: 0.4s;
+  }
+  
+  #dots1 span:nth-child(4) {
+    left: 180px;
+    -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+  }
+  
+  @keyframes dots1 {
+    0% {
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      background: rgba(216, 212, 212, 0.25);
+    }
+    50% {
+      -webkit-transform: translateY(10px);
+              transform: translateY(10px);
+      -webkit-transform: translateY(10px);
+              transform: translateY(10px);
+      background: #7a7a7a;
+    }
+    100% {
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      background: rgba(0, 0, 0, 0.25);
+    }
+  }
+  @-webkit-keyframes dots1 {
+    0% {
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      background: rgba(0, 0, 0, 0.25);
+    }
+    50% {
+      -webkit-transform: translateY(10px);
+              transform: translateY(10px);
+      background: #000000;
+    }
+    100% {
+      -webkit-transform: translateY(0px);
+              transform: translateY(0px);
+      background: rgba(0, 0, 0, 0.25);
+    }
+  }
+
 .star-ratings-css {
     unicode-bidi: bidi-override;
     color: #c5c5c5;
@@ -29,6 +111,10 @@
     text-align: justify;
 }
 
+.search{
+    margin-top: 80px;
+    justify-content: space-between;
+}
 
 .pic{
     width: 128px;
@@ -40,10 +126,13 @@
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
-    display:flex;
     padding-top: 10px;
-    margin-top: 60px;
 }
+
+.flexing{
+    display:flex;
+}
+
 .offer{
     width: 100%;
     display:flex;

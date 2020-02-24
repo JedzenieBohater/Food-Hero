@@ -1,7 +1,5 @@
-const url = process.env.REACT_APP_BACKEND_URL
-
 export const register = user =>
-  fetch(`${url}/login/register`, {
+  fetch('/login/register', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -10,7 +8,7 @@ export const register = user =>
   })
 
 export const login = user => 
-  fetch(`${url}/login`, {
+  fetch('/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -20,13 +18,13 @@ export const login = user =>
   })
 
 export const logout = () => 
-  fetch(`${url}/logout`, { 
-    method: 'DELETE', 
-    credentials: 'include' 
+  fetch('/logout', { 
+    method: 'DELETE',
+    credentials: 'include'
   })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch(`${url}/login/status`, { credentials: 'include' })
+  const response = await fetch('/login/status', { credentials: 'include' })
   const { user } = await response.json()
   preloadedState = {}
   if (user) {
