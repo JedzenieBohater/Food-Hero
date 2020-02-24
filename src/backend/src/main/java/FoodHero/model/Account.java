@@ -38,8 +38,14 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountRating> ratingList;
 
-    // private List<String> localization;
+    public Account(){
+    }
 
+    public Account(Login login){
+        this.login = login;
+        this.creation_date = java.sql.Date.valueOf(java.time.LocalDate.now());
+        this.cookStatus = false;
+    }
 
     public int getId() {
         return id;

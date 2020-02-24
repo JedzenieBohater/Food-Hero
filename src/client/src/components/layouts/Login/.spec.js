@@ -1,13 +1,20 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { findByTestAttr, checkProps } from '../../../utils/test'
-import { Login } from './index'
+import { findByTestAttr, checkProps } from 'utils/test'
+import { Login } from './Login'
 
 describe('<Login />', () => {
     describe('Checking PropTypes', () => {
         it('Should NOT throw a warning', () => {
             const expectedProps = {
                 login: user => {},
+                lang: {
+                    email: '',
+                    password: '',
+                    login: '',
+                    noAccount: '',
+                    forget: ''
+                },
                 errors: ''
             }
 
@@ -20,6 +27,13 @@ describe('<Login />', () => {
         beforeEach(() => {
             const props = {
                 login: user => {},
+                lang: {
+                    email: '',
+                    password: '',
+                    login: '',
+                    noAccount: '',
+                    forget: ''
+                },
                 errors: ''
             }
             wrapper = shallow(<Login {...props} />)

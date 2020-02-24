@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
+import './static/index.css'
 import './static/style.css'
 import './static/header.css'
+import './static/search.css'
+import './static/profile.css'
 import thunk from 'redux-thunk'
 import reducers from './reducers'
 import { createStore, applyMiddleware } from 'redux'
@@ -19,3 +22,4 @@ const renderApp = preloadedState => {
   )
 }
 ;(async () => renderApp(await checkLoggedIn()))()
+//;(async () => renderApp(await {}))()

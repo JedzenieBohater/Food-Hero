@@ -1,6 +1,6 @@
 package FoodHero.Config;
 
-import FoodHero.service.LoginDetailsService;
+import FoodHero.service.Login.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,11 +72,11 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        //TODO Do przejrzenia
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:13000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://hero.iem.pw.edu.pl"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
         configuration.setExposedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -93,11 +93,11 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/account/").hasAuthority("USER")
-                    .antMatchers("/account/*").hasAuthority("ADMIN")
-                    .antMatchers("/login/").hasAuthority("ADMIN")
+                   // .antMatchers("/account/").hasAuthority("USER")
+                   // .antMatchers("/account/*").hasAuthority("ADMIN")
+                   // .antMatchers("/login/").hasAuthority("ADMIN")
                     .antMatchers("/login/status").hasAuthority("USER")
-                    .antMatchers("/login").permitAll()
+                   // .antMatchers("/login").permitAll()
                 .and()
                     .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                 .and()

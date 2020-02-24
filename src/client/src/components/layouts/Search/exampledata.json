@@ -1,0 +1,26 @@
+{
+    "offers":[
+        {
+            "id": 1,
+            "picture": "https://s3.przepisy.pl/przepisy3ii/img/variants/1440x1080/proste-spaghetti-bolognese.jpg",
+            "title": "spaghetti bolognese",
+            "cook" : "Król złoty",
+            "date" : "2020-01-01",
+            "location" : "Złota 15",
+            "grade": 4.53,
+            "description" : "ala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kota "
+
+        },
+        {
+            "id": 2,
+            "picture": "https://s3.przepisy.pl/przepisy3ii/img/variants/1440x1080/proste-spaghetti-bolognese.jpg",
+            "title": "spaghetti bolognese",
+            "cook" : "Król złoty",
+            "date" : "2020-01-01",
+            "location" : "Złota 15",
+            "grade": 4.53,
+            "description" : "ala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kota "
+
+        }
+    ]
+}

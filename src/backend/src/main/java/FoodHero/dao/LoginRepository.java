@@ -12,7 +12,7 @@ public interface LoginRepository extends JpaRepository<Login, Integer> {
     @Override
     void deleteById(Integer id);
 
-    @Query("select s from Login s where s.email like ?1")
+    @Query("select l from Login l where l.email like ?1")
     Optional<Login> getByEmail(String email);
 
 }

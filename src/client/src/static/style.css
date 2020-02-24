@@ -4,7 +4,8 @@ body {
   color: #ffffff;
   font-family: "Times New Roman", Times, serif;
   margin: 0px;
-  font-size: 18px;
+  font-size: 24px;
+  alignment: right;
   color: #ffffff;
 }
 
@@ -56,9 +57,23 @@ button[class^="btn-"] {
 }
 
 button[class^="btn-blue"] {
+  height: 4vh;
+  width: 10vw;
+  font-size: 16px;
   background-image: linear-gradient(#0073c6, #003857);
   cursor: pointer;
 }
+
+button[class^="btn-blue-small"] {
+  height: 3vh;
+  width: 10vw;
+  font-size: 16x;
+  background-image: linear-gradient(#0073c6, #003857);
+  cursor: pointer;
+  align-self: center;
+  padding: 2px 5px 2px 5px;
+  margin-top: 10px;
+  }
 
 button[class^="btn-green"] {
   background-image: linear-gradient(#10c600, #003857);
@@ -100,11 +115,14 @@ button[class$="-disabled"]:active {
 input[type="text"],
 input[type="password"],
 input[type="email"] {
+  width: 25vw;
+  height: 2vw;
   border: solid;
   border-radius: 10px;
   background-color: #282828;
   border-color: #959595;
   border-width: 2px;
+  font-size: 18px;
   padding: 2px 5px 2px 5px;
   color: #ffffff;
 }
@@ -112,6 +130,8 @@ input[type="email"] {
 input[type="text"].invalid,
 input[type="password"].invalid,
 input[type="email"]:invalid {
+  width: 25vw;
+  height: 2vw;
   border: solid;
   border-radius: 10px;
   background-color: #282828;
@@ -151,6 +171,13 @@ input[class^="img-"] {
 :-moz-placeholder {
   /* Firefox 18- */
   color: #d4d4d4;
+}
+
+.tableform {
+  border-collapse:separate;
+  border-spacing:0 15px;
+  text-align: right;
+  margin: 0 auto;
 }
 
 /* SELECT BOX  TODO: strzalka*/

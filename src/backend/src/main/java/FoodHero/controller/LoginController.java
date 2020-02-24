@@ -1,14 +1,11 @@
 package FoodHero.controller;
 
 import FoodHero.model.Login;
-import FoodHero.service.LoginService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import FoodHero.service.Account.AccountService;
+import FoodHero.service.Login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -18,13 +15,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin(origins = "http://localhost:13000")
 public class LoginController {
 
     @Autowired
     LoginService loginService;
 
-    @GetMapping(value = "/status")
+    @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
         data.put("userID", principal.getName());
@@ -32,31 +28,43 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity createAccount(@RequestBody Login login) {
-        loginService.createLogin(login);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> createAccount(@RequestBody Map<String, Object> payload) {
+        if (payload == null) {
+            return new ResponseEntity<>("Lack of json", HttpStatus.BAD_REQUEST);
+        }
+        if (loginService.createLogin(payload) == HttpStatus.OK) {
+            return new ResponseEntity<>("Login created successfully", HttpStatus.OK);
+        } else if (loginService.createLogin(payload) == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>("Email is being used", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Wrong json payload", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
-        Optional<Login> account = loginService.getLogin(id);
-        System.out.println(account.isPresent());
-        if (account.isPresent()) {
-            return new ResponseEntity<>(account.get(), HttpStatus.OK);
+        Optional<Login> login = loginService.getLogin(id);
+        if (login.isPresent()) {
+            return new ResponseEntity<>(login.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity<Object> updateAccount(@RequestBody Login login) {
-        loginService.updateLogin(login);
-        return new ResponseEntity<>("Dish updated successfully", HttpStatus.OK);
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Object> updateAccount(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
+        HttpStatus httpStatus = loginService.updateLogin(id, payload);
+        if (httpStatus == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>("Email is not available", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Object> deleteAccount(@PathVariable("id") int id) {
-        loginService.deleteLogin(id);
-        return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
+        HttpStatus httpStatus = loginService.deleteLogin(id);
+        if (httpStatus == HttpStatus.OK) {
+            return new ResponseEntity<>("Login deleted successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Login not found", HttpStatus.NOT_FOUND);
     }
 }
