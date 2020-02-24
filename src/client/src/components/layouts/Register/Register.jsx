@@ -3,12 +3,6 @@ import { Link, Redirect } from 'react-router-dom'
 import { register } from '../../../utils/session'
 import { connect } from 'react-redux'
 
-
-const mapStateToProps = ({ languageReducer }) => ({
-  lang: languageReducer.register
-})
-
-
 export const Register = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -99,5 +93,9 @@ export const Register = (props) => {
     </>
   )
 }
+
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.register
+})
 
 export default connect(mapStateToProps)(Register)
