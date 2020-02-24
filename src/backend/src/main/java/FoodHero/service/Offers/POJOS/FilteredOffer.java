@@ -7,7 +7,7 @@ import org.springframework.data.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleDishList {
+public class FilteredOffer {
 
     //TODO linki do zdjec
     private String url = "www.ToSieJeszczeZrobi.pl";
@@ -24,7 +24,7 @@ public class SingleDishList {
     private int preparationTime;
     private int limit;
 
-    public SingleDishList(Offer offer) {
+    public FilteredOffer(Offer offer) {
         this.firstname = offer.getAccount().getFirstname();
         this.lastname = offer.getAccount().getLastname();
         this.name = offer.getDish().getName();
