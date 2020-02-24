@@ -2,11 +2,13 @@ package FoodHero.controller;
 
 import FoodHero.model.Offer;
 import FoodHero.service.Offers.OfferService;
+import FoodHero.service.Offers.POJOS.AvailableOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +26,6 @@ public class OfferController {
                                                           @RequestParam(required = false, name = "Status") String status,
                                                           @RequestParam(required = false, name = "Localization") String localization,
                                                           @RequestParam(required = false, name = "SearchName") String searchName){
-        //Todo trzeba zrobić obsługę błędów przy parsowaniu pustego/nieprawidlowego/brakujacego
         double minPriceQuery = 0;
         double maxPriceQuery = 0;
         double minRatingQuery = 0;
@@ -85,8 +86,9 @@ public class OfferController {
         return new ResponseEntity<>(offer, HttpStatus.OK);
     }
 
-    @GetMapping("/raw")
-    public ResponseEntity<Object> raw(){
-        return new ResponseEntity<>(offerService.getAllDishes(), HttpStatus.OK);
+    @GetMapping(value = "/active", produces = "application/json")
+    public ResponseEntity<Object> activeOffers(){
+        List<AvailableOffer> availableOffers = offerService.getAllActive();
+        return new ResponseEntity<>(availableOffers, HttpStatus.OK);
     }
 }

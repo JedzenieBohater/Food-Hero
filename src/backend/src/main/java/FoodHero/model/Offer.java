@@ -22,9 +22,10 @@ public class Offer {
     private String localization;
     private boolean status;
     private boolean periodic;
-    @Column(name="limitation")
+    @Column(name = "limitation")
     private int limit;
     private int preparation;
+    private int deliverycost;
     /*@JsonIgnore
     @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<DishRating> ratingList;*/
@@ -115,6 +116,14 @@ public class Offer {
 
     public void setPreparation(int preparation) {
         this.preparation = preparation;
+    }
+
+    public int getDeliverycost() {
+        return deliverycost;
+    }
+
+    public void setDeliverycost(int deliverycost) {
+        this.deliverycost = deliverycost;
     }
 
     //    public List<DishRating> getRatingList() {

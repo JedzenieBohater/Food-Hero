@@ -64,6 +64,7 @@ CREATE TABLE public.offer
     grade real NOT NULL,
     limitation bigint NOT NULL,
     preparation bigint NOT NULL,
+    deliverycost real NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_account) REFERENCES public.account (id),
     FOREIGN KEY (id_dish) REFERENCES public.dish (id)
@@ -166,14 +167,14 @@ INSERT INTO dish_grades (id_dish, grade, id_owner) VALUES
     (9, 4, 6),
     (10, 4, 8);
 
-INSERT INTO offer (id_account, id_dish, hours, day, price, localization, status, periodic, grade, limitation, preparation) VALUES
-    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300),
-    (1, 2, '10-16', 'pon - czw', 500, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300),
-    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true', 0, 10, 300),
-    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300),
-    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false', 0, 10, 300),
-    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300),
-    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300),
-    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300),
-    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false', 0, 10, 300),
-    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true', 0, 10, 300);
+INSERT INTO offer (id_account, id_dish, hours, day, price, localization, status, periodic, grade, limitation, preparation, deliverycost) VALUES
+    (1, 1, '12-14', 'pon', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300, 15),
+    (1, 2, '10-16', 'pon - czw', 500, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300, 15),
+    (2, 3, '18-20', 'śr', 300, 'Ciechanów ul. Widna 4', 'true', 'true', 0, 10, 300, 15),
+    (3, 4, '08-20', 'pon-nie', 300, 'Warszawa ul. Pierwsza 147', 'true', 'true', 0, 10, 300, 15),
+    (4, 5, '16-18', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'false', 'false', 0, 10, 300, 15),
+    (1, 6, '14-20', 'wt', 300, 'Ciechanów ul. Wyzwolenia 4', 'true', 'false', 0, 10, 300, 15),
+    (2, 7, '16-18', 'sob', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300, 15),
+    (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 0, 10, 300, 15),
+    (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false', 0, 10, 300, 15),
+    (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true', 0, 10, 300, 15);
