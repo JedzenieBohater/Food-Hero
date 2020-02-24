@@ -6,4 +6,4 @@ import Home from './Home'
 import Search from './Search'
 import Profile from './Profile'
 
-export { Header, Login, Register, ForgottenPassword, Home,Search, Profile }
+export { Header, Login, Register, ForgottenPassword, Home, Search, Profile }
