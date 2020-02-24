@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../../../actions/session'
-import bcrypt from 'bcryptjs'
 import PropTypes from 'prop-types'
 
 
@@ -21,7 +20,6 @@ export const Login = (props) => {  //{ login, errors, lang} travis wywalal ze la
 
   const handleSubmit = async event => {
     event.preventDefault()
-    const hashPassword = await bcrypt.hash(password, 10);
     props.login({ email, password })
   }
 
