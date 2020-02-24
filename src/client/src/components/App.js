@@ -1,9 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Header, Login, Register, ForgottenPassword, Home,Search, Profile} from './layouts'
-import { AuthRoute } from '../utils/route'
-
-
+import { Header, Login, Register, ForgottenPassword, Home, Search, Profile} from './layouts'
+import { AuthRoute } from 'utils/route'
 
 export default () => (
   <Router>
