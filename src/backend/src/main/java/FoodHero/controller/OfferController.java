@@ -17,7 +17,7 @@ public class OfferController {
     @Autowired
     OfferService offerService;
 
-    @GetMapping(value = "/", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<Object> getAllOffersMatchFilter(@RequestParam(required = false, name = "MinPrice") String minPrice,
                                                           @RequestParam(required = false, name = "MaxPrice") String maxPrice,
                                                           @RequestParam(required = false, name = "MinRating") String minRating,

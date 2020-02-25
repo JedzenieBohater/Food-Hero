@@ -33,6 +33,17 @@ public class OfferService {
         return availableOffers;
     }
 
+    public int getNumberOfActiveOffersAccount(int id){
+        List<Offer> offers = offerRepository.findAll();
+        int active = 0;
+        for (Offer offer: offers){
+            if(offer.isStatus() && offer.getAccount().getId() == id){
+                active++;
+            }
+        }
+        return active;
+    }
+
     public List<FilteredOffer> getOffersWithFilters(double minPrice, double maxPrice, double minRating, double maxRating, String category, boolean status, String localization, String searchName) {
         List<List<Offer>> offers = new ArrayList<>();
         offers.add(offerRepository.findAll());

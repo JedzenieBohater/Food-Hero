@@ -5,11 +5,13 @@ import FoodHero.dao.DishRepository;
 import FoodHero.dao.OfferRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
-import FoodHero.model.Login;
 import FoodHero.model.Offer;
+import FoodHero.service.Account.POJOS.AccountDetails;
+import FoodHero.service.AccountRatingRepository.AccountRatingService;
+import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
+import FoodHero.service.Offers.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,13 +23,30 @@ import java.util.Optional;
 public class AccountService {
     @Autowired
     AccountRepository accountRepository;
+    //TODO trzeba poprawic te autowire zeby byl do service a nie do repository
     @Autowired
     OfferRepository offerRepository;
     @Autowired
     DishRepository dishRepository;
+    @Autowired
+    AccountRatingService accountRatingService;
+    @Autowired
+    OfferService offerService;
 
     public void createAccount(Account account) {
         accountRepository.save(account);
+    }
+
+    public AccountDetails getAccountWithGrades(int id){
+        if(!accountRepository.findById(id).isPresent())
+        {
+            return null;
+        }
+        Account account = accountRepository.findById(id).get();
+        List<RatingAccountPojo> ratingAccountPojoList = accountRatingService.getOneAccountRatings(account.getId());
+        int activeOffers = offerService.getNumberOfActiveOffersAccount(id);
+        AccountDetails accountDetails = new AccountDetails(account, activeOffers, ratingAccountPojoList);
+        return accountDetails;
     }
 
     public Optional<Account> getAccount(int id){

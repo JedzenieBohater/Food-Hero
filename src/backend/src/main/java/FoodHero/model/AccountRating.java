@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class AccountRating extends Rating {
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "idReceiver", referencedColumnName = "id")
+    @JoinColumn(name = "id_account")
     private Account account;
 
     public Account getAccount() {
