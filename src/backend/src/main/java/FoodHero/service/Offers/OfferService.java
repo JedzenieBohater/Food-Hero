@@ -138,4 +138,8 @@ public class OfferService {
     public Optional<Offer> getOffer(int id) {
         return offerRepository.findById(id);
     }
+
+    public List<Offer> getAllOfferRaw(){
+        return offerRepository.findAll();
+    }
 }

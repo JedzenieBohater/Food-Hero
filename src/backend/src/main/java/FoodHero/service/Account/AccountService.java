@@ -9,6 +9,7 @@ import FoodHero.model.Offer;
 import FoodHero.service.Account.POJOS.AccountDetails;
 import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
+import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,8 @@ import java.util.Optional;
 public class AccountService {
     @Autowired
     AccountRepository accountRepository;
-    //TODO trzeba poprawic te autowire zeby byl do service a nie do repository
     @Autowired
-    OfferRepository offerRepository;
-    @Autowired
-    DishRepository dishRepository;
+    DishService dishService;
     @Autowired
     AccountRatingService accountRatingService;
     @Autowired
@@ -45,8 +43,7 @@ public class AccountService {
         Account account = accountRepository.findById(id).get();
         List<RatingAccountPojo> ratingAccountPojoList = accountRatingService.getOneAccountRatings(account.getId());
         int activeOffers = offerService.getNumberOfActiveOffersAccount(id);
-        AccountDetails accountDetails = new AccountDetails(account, activeOffers, ratingAccountPojoList);
-        return accountDetails;
+        return new AccountDetails(account, activeOffers, ratingAccountPojoList);
     }
 
     public Optional<Account> getAccount(int id){
@@ -54,7 +51,7 @@ public class AccountService {
     }
 
     public List<Offer> getAccountOffers(int id) {
-        List<Offer> allOffers = offerRepository.findAll();
+        List<Offer> allOffers = offerService.getAllOfferRaw();
         List<Offer> accountOffers = new ArrayList<>();
         for (Offer offer: allOffers){
             if(offer.getAccount().getId() == id){
@@ -65,7 +62,7 @@ public class AccountService {
     }
 
     public List<Dish> getAccountDishes(int id) {
-        List<Dish> allDishes = dishRepository.findAll();
+        List<Dish> allDishes = dishService.getAllDishRaw();
         List<Dish> accountDishes = new ArrayList<>();
         for (Dish dish: allDishes){
             if(dish.getAccount().getId() == id){

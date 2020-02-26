@@ -3,15 +3,20 @@ package FoodHero.controller;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Login.LoginService;
+import com.sun.mail.smtp.SMTPTransport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/login")
@@ -33,6 +38,61 @@ public class LoginController {
             return new ResponseEntity<>("Lack of json", HttpStatus.BAD_REQUEST);
         }
         if (loginService.createLogin(payload) == HttpStatus.OK) {
+//            Properties prop = System.getProperties();
+//            prop.put("mail.smtp.host", "poczta.interia.pl"); //optional, defined in SMTPTransport
+//            prop.put("mail.smtp.auth", "true");
+//            prop.put("mail.smtp.port", "465"); // default port 25
+//            prop.put("mail.smtp.starttls.enable", "true");
+//
+//            Session session = Session.getInstance(prop, null);
+//            Message msg = new MimeMessage(session);
+//
+//            try {
+//
+//                // from
+//                try {
+//                    msg.setFrom(new InternetAddress("food.hero@interia.pl"));
+//                } catch (MessagingException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                // to
+//                msg.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse("kajgore@vp.pl", false));
+//
+//                // subject
+//                msg.setSubject("test");
+//
+//                // content
+//                msg.setText("testtest");
+//
+//                msg.setSentDate(new Date());
+//
+//                // Get SMTPTransport
+//                SMTPTransport t = null;
+//                try {
+//                    t = (SMTPTransport) session.getTransport("smtp");
+//                } catch (NoSuchProviderException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                // connect
+//                t.connect("poczta.interia.pl", "food.hero@interia.pl", "student123");
+//
+//                // send
+//                t.sendMessage(msg, msg.getAllRecipients());
+//
+//                System.out.println("Response: " + t.getLastServerResponse());
+//
+//                t.close();
+//
+//            } catch (MessagingException e) {
+//                e.printStackTrace();
+//            }
+
+
+
+
             return new ResponseEntity<>("Login created successfully", HttpStatus.OK);
         } else if (loginService.createLogin(payload) == HttpStatus.CONFLICT) {
             return new ResponseEntity<>("Email is being used", HttpStatus.CONFLICT);
