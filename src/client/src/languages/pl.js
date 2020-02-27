@@ -11,7 +11,9 @@ export default {
         login: "Zaloguj",
         noAccount: "Nie masz konta?",
         register: "Zarejestruj się!",
-        forget: "Zapomniałem hasła"
+        forget: "Zapomniałem hasła",
+        emailincorrect: "Wprowadzony e-mail jest niepoprawny",
+        passwordincorrect: "E-mail lub hasło jest nieprawidłowe"
     },
     register:
     {
@@ -56,7 +58,12 @@ export default {
         creation: "Jest z nami od",
         specialization: "Specjalność",
         email: "Adres e-mail",
-        submit: "Zastosuj zmiany"
+        submit: "Zastosuj zmiany",
+        emailincorrect: "Wprowadzony e-mail jest niepoprawny",
+        firstnameincorrect: "Wprowadzone imię jest niepoprawne",
+        lastnameincorrect: "Wprowadzone nazwisko jest niepoprawne",
+        descincorrect: "Wprowadzony opis jest za długi (max. 255 znaków)",
+        specializationincorrect: "Wprowadzona specjalizacja jest niepoprawna"
     },
     search:
     {
