@@ -4,6 +4,8 @@ import FoodHero.dao.LoginRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.xml.bind.DatatypeConverter;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -135,7 +138,7 @@ public class LoginService {
                 String jws = Jwts.builder()
                         .setIssuer(String.valueOf(id))
                         .setSubject("email")
-                        .claim("previous", login.getEmail())
+                        .claim("current", login.getEmail())
                         .claim("pending", String.valueOf(payload.get("email")))
                         .setIssuedAt(new Date(currentTime))
                         .setExpiration(new Date(currentTime + 21600000))
@@ -167,7 +170,7 @@ public class LoginService {
                             InternetAddress.parse((String) payload.get("email"))
                     );
                     message.setSubject("Potwierdź utworzenie konta w FoodHero!");
-                    message.setText("Kliknij w poniższy link, aby aktywować konto:,"
+                    message.setText("Kliknij w poniższy link, aby aktywować konto: "
                             + jws);
 
                     Transport.send(message);
@@ -183,6 +186,31 @@ public class LoginService {
             {
                 return HttpStatus.CONFLICT;
             }
+        }
+        return HttpStatus.BAD_REQUEST;
+    }
+
+    public HttpStatus confirmUpdateEmail(String token){
+        if (token != null && !token.equals("")){
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey(DatatypeConverter.parseBase64Binary("test"))
+                        .parseClaimsJws(token).getBody();
+                String currentEmail = String.valueOf(claims.get("current"));
+                String pendingEmail = String.valueOf(claims.get("pending"));
+                Optional<Login> optionalLogin = loginRepository.getByEmail(currentEmail);
+                if(optionalLogin.isPresent()){
+                    Login login = optionalLogin.get();
+                    login.setEmail(pendingEmail);
+                    loginRepository.save(login);
+                    return HttpStatus.OK;
+                }
+                return HttpStatus.BAD_REQUEST;
+            }
+            catch (Exception e){
+                return HttpStatus.BAD_REQUEST;
+            }
+
         }
         return HttpStatus.BAD_REQUEST;
     }

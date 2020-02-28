@@ -66,6 +66,15 @@ public class LoginController {
         return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
     }
 
+    @PostMapping(value = "/update/email/confirm")
+    public ResponseEntity<Object> updateLoginEmailConfirm(@RequestParam("token") String token){
+        HttpStatus httpStatus = loginService.confirmUpdateEmail(token);
+        if (httpStatus == HttpStatus.BAD_REQUEST){
+            return new ResponseEntity<>("Token is not correct or is not attached", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Change email confirmed", HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Object> deleteLogin(@PathVariable("id") int id) {
         HttpStatus httpStatus = loginService.deleteLogin(id);
