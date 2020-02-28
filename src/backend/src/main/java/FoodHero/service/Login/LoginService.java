@@ -22,6 +22,10 @@ public class LoginService {
     @Autowired
     AccountService accountService;
 
+    public int getIdByEmail(String email){
+        return loginRepository.getByEmail(email).get().getId();
+    }
+
     public HttpStatus createLogin(Map<String, Object> payload) {
         if (payload.get("email") == null || payload.get("password") == null || payload.get("email").equals("") || payload.get("password").equals("")) {
             return HttpStatus.BAD_REQUEST;
