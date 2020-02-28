@@ -20,7 +20,7 @@ public class LoginController {
     @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
-        data.put("userID", principal.getName());
+        data.put("userID", String.valueOf(loginService.getIdByEmail(principal.getName())));
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 

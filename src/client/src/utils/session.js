@@ -8,7 +8,7 @@ export const register = user =>
   })
 
 export const login = user => 
-  fetch('/login', {
+   fetch('/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -16,6 +16,7 @@ export const login = user =>
     },
     credentials: 'include'
   })
+
 
 export const logout = () => 
   fetch('/logout', { 

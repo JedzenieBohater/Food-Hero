@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import logo from "../../../static/images/logolarge.png"
 import user from './userinstance.json'
 import List from "../Search/List"
+import { getAccountData } from "../../../utils/user"
 
-const mapStateToProps = ({ languageReducer }) => ({
-	lang: languageReducer.profile
+const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
+	lang: languageReducer.profile,
+	session: sessionReducer
 })
 
 export const Profile = (props) => {
@@ -16,13 +18,39 @@ export const Profile = (props) => {
 	const [lastname, setLastname] = useState(user.lastname)
 	const [description, setDescription] = useState(user.description)
 	const [specialization, setSpecialization] = useState(user.specialization)
+	const [errorMessage, setErrorMessage] = useState(null)
 
+	useEffect(() => {
+		let account = getAccountData(props.session)
+	}, [])
 
 	const handleSubmit = async event => {
 		event.preventDefault()
+		if (email.length < 5 || email.length > 50) {
+			setErrorMessage(props.lang.emailincorrect)
+		}
+		if (firstname.length < 1 || firstname.length > 30 || !/^[a-zA-Z]+$/.test(firstname)) {
+			setErrorMessage(props.lang.firstnameincorrect)
+		}
+		else if (lastname.length < 1 || lastname.length > 30 || !/^[a-zA-Z]+$/.test(lastname)) {
+			setErrorMessage(props.lang.lastnameincorrect)
+		}
+		else if (description.length > 255) {
+			setErrorMessage(props.lang.descincorrect)
+		}
+		else if (specialization.length < 1 || specialization.length > 30 || !/^[a-zA-Z\s]+$/.test(specialization)) {
+			setErrorMessage(props.lang.specializationincorrect)
+		}
+		else {
+			setErrorMessage(null)
+		}
 		//zaslepka
 	}
-
+	let error = null
+	if (errorMessage != null) {
+		error = 
+			<label className="profileerror">{errorMessage}</label>
+	}
 	let activePanel =
 		<table className="tableform">
 			<tbody>
@@ -79,9 +107,9 @@ export const Profile = (props) => {
 						<label >{props.lang.avgrade}:</label>
 					</td>
 					<td>
-						<div class="star-ratings-css-profile">
-							<div class="star-ratings-css-top" style={{ width: user.avgrade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-							<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+						<div className="star-ratings-css-profile">
+							<div className="star-ratings-css-top" style={{ width: user.avgrade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+							<div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 						</div>
 					</td>
 				</tr>
@@ -166,8 +194,10 @@ export const Profile = (props) => {
 								</button>
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
+				{error}
 			</form>
 	}
 
