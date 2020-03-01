@@ -19,9 +19,22 @@ export const Profile = (props) => {
 	const [description, setDescription] = useState(user.description)
 	const [specialization, setSpecialization] = useState(user.specialization)
 	const [errorMessage, setErrorMessage] = useState(null)
+	const [creationDate, setCreationDate] = useState(user.creation_date)
+	const [grade, setGrade] = useState(user.grade)
 
 	useEffect(() => {
-		let account = getAccountData(props.session)
+		(async() => {
+			let account = await getAccountData(props.session)
+			console.log(account)
+			setFirstname(account.firstname)
+			setLastname(account.lastname)
+			setDescription(account.description)
+			setSpecialization(account.specialization)
+			setCreationDate(String(account.creation_date).slice(0,10))
+			setGrade(account.grade)
+			
+		})()
+		
 	}, [])
 
 	const handleSubmit = async event => {
@@ -59,7 +72,7 @@ export const Profile = (props) => {
 						<label htmlFor='name'>{props.lang.name}: </label>
 					</td>
 					<td>
-						<label >{user.firstname}</label>
+						<label >{firstname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +80,7 @@ export const Profile = (props) => {
 						<label >{props.lang.surname}: </label>
 					</td>
 					<td>
-						<label >{user.lastname}</label>
+						<label >{lastname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -91,7 +104,7 @@ export const Profile = (props) => {
 						<label >{props.lang.specialization}: </label>
 					</td>
 					<td>
-						<label >{user.specialization}</label>
+						<label >{specialization}</label>
 					</td>
 				</tr>
 				<tr>
@@ -99,7 +112,7 @@ export const Profile = (props) => {
 						<label >{props.lang.creation}: </label>
 					</td>
 					<td>
-						<label >{user.creation_date}</label>
+						<label >{creationDate}</label>
 					</td>
 				</tr>
 				<tr>
@@ -108,7 +121,7 @@ export const Profile = (props) => {
 					</td>
 					<td>
 						<div className="star-ratings-css-profile">
-							<div className="star-ratings-css-top" style={{ width: user.avgrade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+							<div className="star-ratings-css-top" style={{ width: grade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 							<div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 						</div>
 					</td>
@@ -118,7 +131,7 @@ export const Profile = (props) => {
 						<label >{props.lang.description}:</label>
 					</td>
 					<td>
-						<label >&nbsp;&nbsp;&nbsp;{user.description}</label>
+						<label >&nbsp;&nbsp;&nbsp;{description}</label>
 					</td>
 				</tr>
 			</tbody>
