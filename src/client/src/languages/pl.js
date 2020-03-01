@@ -2,7 +2,13 @@ export default {
     header:
     {
         login: "Zaloguj",
-        register: "Zarejestruj"
+        register: "Zarejestruj",
+        dropdown:
+        {
+            profile: "Mój profil",
+            search: "Szukaj",
+            logout: "Wyloguj"
+        }
     },
     login:
     {
