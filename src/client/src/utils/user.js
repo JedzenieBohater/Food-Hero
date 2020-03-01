@@ -8,3 +8,15 @@ export const getAccountData = async user => {
   return accountData
 
 }
+
+export const sendChangedProfile = async (object, user) => {
+  console.log(user.userID)
+  fetch('/account/update/' + user.userID, {
+    method: 'PUT',
+    body: JSON.stringify(object),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  })
+}

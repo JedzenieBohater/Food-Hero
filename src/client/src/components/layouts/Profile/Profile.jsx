@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import logo from "../../../static/images/logolarge.png"
 import user from './userinstance.json'
 import List from "../Search/List"
-import { getAccountData } from "../../../utils/user"
+import { getAccountData, sendChangedProfile } from "../../../utils/user"
 
 const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
 	lang: languageReducer.profile,
@@ -21,10 +21,12 @@ export const Profile = (props) => {
 	const [errorMessage, setErrorMessage] = useState(null)
 	const [creationDate, setCreationDate] = useState(user.creation_date)
 	const [grade, setGrade] = useState(user.grade)
+	const [account, setAccount] = useState(null)
 
 	useEffect(() => {
 		(async() => {
 			let account = await getAccountData(props.session)
+			setAccount(account)
 			console.log(account)
 			setFirstname(account.firstname)
 			setLastname(account.lastname)
@@ -39,9 +41,9 @@ export const Profile = (props) => {
 
 	const handleSubmit = async event => {
 		event.preventDefault()
-		if (email.length < 5 || email.length > 50) {
+		/*if (email.length < 5 || email.length > 50) {
 			setErrorMessage(props.lang.emailincorrect)
-		}
+		}*/
 		if (firstname.length < 1 || firstname.length > 30 || !/^[a-zA-Z]+$/.test(firstname)) {
 			setErrorMessage(props.lang.firstnameincorrect)
 		}
@@ -56,8 +58,9 @@ export const Profile = (props) => {
 		}
 		else {
 			setErrorMessage(null)
+			sendChangedProfile({...account, 'firstname': firstname, 'lastname': lastname, 'description': description, 'specialization': specialization}, props.session)
 		}
-		//zaslepka
+		
 	}
 	let error = null
 	if (errorMessage != null) {
@@ -151,12 +154,8 @@ export const Profile = (props) => {
 				></List>))}
 			</>
 	}
-	else if (view === 'settings') {
-		activePanel =
-			<form>
-				<table className="tableform">
-					<tbody>
-						<tr>
+	/*
+	<tr>
 							<td>
 								<label htmlFor="email">{props.lang.email}:</label>
 							</td>
@@ -164,6 +163,12 @@ export const Profile = (props) => {
 								<input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} value={email} />
 							</td>
 						</tr>
+	*/
+	else if (view === 'settings') {
+		activePanel =
+			<form>
+				<table className="tableform">
+					<tbody>						
 						<tr>
 							<td>
 								<label htmlFor="firstname">{props.lang.name}:</label>
