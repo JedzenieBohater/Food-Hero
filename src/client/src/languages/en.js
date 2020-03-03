@@ -2,7 +2,13 @@ export default {
     header:
     {
         login: "Sign in",
-        register: "Sign up"
+        register: "Sign up",
+        dropdown:
+        {
+            profile: "My profile",
+            search: "Search",
+            logout: "Sign out"
+        }
     },
     login:
     {
@@ -11,7 +17,9 @@ export default {
         login: "Sign in",
         noAccount: "New to FoodHero?",
         register: "Sign up now!",
-        forget: "I forgot password"
+        forget: "I forgot password",
+        emailincorrect: "Email is incorrect",
+        passwordincorrect: "Email or password is incorrect"
     },
     register:
     {
@@ -55,7 +63,12 @@ export default {
         creation: "Account created on",
         specialization: "Specialization",
         email: "E-mail",
-        submit: "Submit changes"
+        submit: "Submit changes",
+        emailincorrect: "Email is incorrect",
+        firstnameincorrect: "Firstname is incorrect",
+        lastnameincorrect: "Lastname is incorrect",
+        descincorrect: "Description is too long! (max 255 characters)",
+        specializationincorrect: "Specialization is incorrect"
     },
     search:
     {

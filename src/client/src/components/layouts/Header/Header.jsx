@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeLanguage } from '../../../actions/language'
-import Dropdown from "./Dropdownmenu/Dropdown"
+import Dropdown from "./Dropdownmenu"
 import PropTypes from 'prop-types'
 
 export const Header = ({ lang, changeLang, loggedIn }) => {

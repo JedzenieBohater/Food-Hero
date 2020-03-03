@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import logo from "../../../static/images/logolarge.png"
 import user from './userinstance.json'
 import List from "../Search/List"
+import { getAccountData, sendChangedProfile } from "../../../utils/user"
 
-const mapStateToProps = ({ languageReducer }) => ({
-	lang: languageReducer.profile
+const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
+	lang: languageReducer.profile,
+	session: sessionReducer
 })
 
 export const Profile = (props) => {
@@ -16,13 +18,55 @@ export const Profile = (props) => {
 	const [lastname, setLastname] = useState(user.lastname)
 	const [description, setDescription] = useState(user.description)
 	const [specialization, setSpecialization] = useState(user.specialization)
+	const [errorMessage, setErrorMessage] = useState(null)
+	const [creationDate, setCreationDate] = useState(user.creation_date)
+	const [grade, setGrade] = useState(user.grade)
+	const [account, setAccount] = useState(null)
 
+	useEffect(() => {
+		(async() => {
+			let account = await getAccountData(props.session)
+			setAccount(account)
+			console.log(account)
+			setFirstname(account.firstname)
+			setLastname(account.lastname)
+			setDescription(account.description)
+			setSpecialization(account.specialization)
+			setCreationDate(String(account.creation_date).slice(0,10))
+			setGrade(account.grade)
+			
+		})()
+		
+	}, [])
 
 	const handleSubmit = async event => {
 		event.preventDefault()
-		//zaslepka
+		/*if (email.length < 5 || email.length > 50) {
+			setErrorMessage(props.lang.emailincorrect)
+		}*/
+		if (firstname.length < 1 || firstname.length > 30 || !/^[a-zA-Z]+$/.test(firstname)) {
+			setErrorMessage(props.lang.firstnameincorrect)
+		}
+		else if (lastname.length < 1 || lastname.length > 30 || !/^[a-zA-Z]+$/.test(lastname)) {
+			setErrorMessage(props.lang.lastnameincorrect)
+		}
+		else if (description.length > 255) {
+			setErrorMessage(props.lang.descincorrect)
+		}
+		else if (specialization.length < 1 || specialization.length > 30 || !/^[a-zA-Z\s]+$/.test(specialization)) {
+			setErrorMessage(props.lang.specializationincorrect)
+		}
+		else {
+			setErrorMessage(null)
+			sendChangedProfile({...account, 'firstname': firstname, 'lastname': lastname, 'description': description, 'specialization': specialization}, props.session)
+		}
+		
 	}
-
+	let error = null
+	if (errorMessage != null) {
+		error = 
+			<label className="profileerror">{errorMessage}</label>
+	}
 	let activePanel =
 		<table className="tableform">
 			<tbody>
@@ -31,7 +75,7 @@ export const Profile = (props) => {
 						<label htmlFor='name'>{props.lang.name}: </label>
 					</td>
 					<td>
-						<label >{user.firstname}</label>
+						<label >{firstname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -39,7 +83,7 @@ export const Profile = (props) => {
 						<label >{props.lang.surname}: </label>
 					</td>
 					<td>
-						<label >{user.lastname}</label>
+						<label >{lastname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -63,7 +107,7 @@ export const Profile = (props) => {
 						<label >{props.lang.specialization}: </label>
 					</td>
 					<td>
-						<label >{user.specialization}</label>
+						<label >{specialization}</label>
 					</td>
 				</tr>
 				<tr>
@@ -71,7 +115,7 @@ export const Profile = (props) => {
 						<label >{props.lang.creation}: </label>
 					</td>
 					<td>
-						<label >{user.creation_date}</label>
+						<label >{creationDate}</label>
 					</td>
 				</tr>
 				<tr>
@@ -79,9 +123,9 @@ export const Profile = (props) => {
 						<label >{props.lang.avgrade}:</label>
 					</td>
 					<td>
-						<div class="star-ratings-css-profile">
-							<div class="star-ratings-css-top" style={{ width: user.avgrade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-							<div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+						<div className="star-ratings-css-profile">
+							<div className="star-ratings-css-top" style={{ width: grade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+							<div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 						</div>
 					</td>
 				</tr>
@@ -90,7 +134,7 @@ export const Profile = (props) => {
 						<label >{props.lang.description}:</label>
 					</td>
 					<td>
-						<label >&nbsp;&nbsp;&nbsp;{user.description}</label>
+						<label >&nbsp;&nbsp;&nbsp;{description}</label>
 					</td>
 				</tr>
 			</tbody>
@@ -110,12 +154,8 @@ export const Profile = (props) => {
 				></List>))}
 			</>
 	}
-	else if (view === 'settings') {
-		activePanel =
-			<form>
-				<table className="tableform">
-					<tbody>
-						<tr>
+	/*
+	<tr>
 							<td>
 								<label htmlFor="email">{props.lang.email}:</label>
 							</td>
@@ -123,6 +163,12 @@ export const Profile = (props) => {
 								<input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} value={email} />
 							</td>
 						</tr>
+	*/
+	else if (view === 'settings') {
+		activePanel =
+			<form>
+				<table className="tableform">
+					<tbody>						
 						<tr>
 							<td>
 								<label htmlFor="firstname">{props.lang.name}:</label>
@@ -166,8 +212,10 @@ export const Profile = (props) => {
 								</button>
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
+				{error}
 			</form>
 	}
 

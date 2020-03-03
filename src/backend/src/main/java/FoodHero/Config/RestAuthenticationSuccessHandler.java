@@ -1,6 +1,9 @@
 package FoodHero.Config;
 
+import FoodHero.dao.LoginRepository;
+import FoodHero.service.Login.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +19,10 @@ import java.util.Map;
 
 @Component
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
+    @Autowired
+    LoginService loginService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -27,7 +34,7 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         response.setStatus(HttpStatus.OK.value());
         Map<String, String> data = new HashMap<>();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        data.put("userID", userDetails.getUsername());
+        data.put("userID", String.valueOf(loginService.getIdByEmail(userDetails.getUsername())));
         response.getOutputStream().println(objectMapper.writeValueAsString(data));
     }
 }
