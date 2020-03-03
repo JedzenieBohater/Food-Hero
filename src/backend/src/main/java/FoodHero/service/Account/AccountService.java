@@ -5,11 +5,14 @@ import FoodHero.dao.DishRepository;
 import FoodHero.dao.OfferRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
-import FoodHero.model.Login;
 import FoodHero.model.Offer;
+import FoodHero.service.Account.POJOS.AccountDetails;
+import FoodHero.service.AccountRatingRepository.AccountRatingService;
+import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
+import FoodHero.service.Dish.DishService;
+import FoodHero.service.Offers.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,12 +25,25 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
     @Autowired
-    OfferRepository offerRepository;
+    DishService dishService;
     @Autowired
-    DishRepository dishRepository;
+    AccountRatingService accountRatingService;
+    @Autowired
+    OfferService offerService;
 
     public void createAccount(Account account) {
         accountRepository.save(account);
+    }
+
+    public AccountDetails getAccountWithGrades(int id){
+        if(!accountRepository.findById(id).isPresent())
+        {
+            return null;
+        }
+        Account account = accountRepository.findById(id).get();
+        List<RatingAccountPojo> ratingAccountPojoList = accountRatingService.getOneAccountRatings(account.getId());
+        int activeOffers = offerService.getNumberOfActiveOffersAccount(id);
+        return new AccountDetails(account, activeOffers, ratingAccountPojoList);
     }
 
     public Optional<Account> getAccount(int id){
@@ -35,7 +51,7 @@ public class AccountService {
     }
 
     public List<Offer> getAccountOffers(int id) {
-        List<Offer> allOffers = offerRepository.findAll();
+        List<Offer> allOffers = offerService.getAllOfferRaw();
         List<Offer> accountOffers = new ArrayList<>();
         for (Offer offer: allOffers){
             if(offer.getAccount().getId() == id){
@@ -46,7 +62,7 @@ public class AccountService {
     }
 
     public List<Dish> getAccountDishes(int id) {
-        List<Dish> allDishes = dishRepository.findAll();
+        List<Dish> allDishes = dishService.getAllDishRaw();
         List<Dish> accountDishes = new ArrayList<>();
         for (Dish dish: allDishes){
             if(dish.getAccount().getId() == id){

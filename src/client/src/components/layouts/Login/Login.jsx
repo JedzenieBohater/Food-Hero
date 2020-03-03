@@ -7,12 +7,28 @@ import PropTypes from 'prop-types'
 export const Login = ({ login, errors, lang }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
+  
   const handleSubmit = async event => {
     event.preventDefault()
-    login({ email, password })
+    if (email.length < 5 || email.length > 50 ) {
+			setErrorMessage(lang.emailincorrect) 
+		}
+    else if(!login({ email, password })) {
+      setErrorMessage(lang.passwordincorrect)
+    }
+    if (errors != null) { 
+      setErrorMessage(lang.passwordincorrect)
+    }
   }
-
+  let error = null
+	if (errorMessage != null) {
+		error = 
+    <label className="profileerror">{errorMessage}</label>
+  }
+  
+  
   return (
     <div className="content-box-middle" test-data="wrapper">
       <form className="content-box" test-data="form">
@@ -24,7 +40,7 @@ export const Login = ({ login, errors, lang }) => {
               </td>
               <td>
                 <input 
-                  onChange={e => setEmail(e.target.value)} 
+                   onChange={e => setEmail(e.target.value)} 
                   type="email" 
                   id="email" 
                   placeholder={lang.email.toLowerCase()} 
@@ -59,6 +75,7 @@ export const Login = ({ login, errors, lang }) => {
         <div className="middle">
           <Link to="/forgottenpassword">{lang.forget}</Link>
         </div>
+        {error}
       </form>
     </div>
   )

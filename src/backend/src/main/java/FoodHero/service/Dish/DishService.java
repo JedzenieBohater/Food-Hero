@@ -28,7 +28,7 @@ public class DishService {
         dishRepository.deleteById(id);
     }
 
-    public Optional<List<Dish>> getDishes() {
-        return Optional.ofNullable(dishRepository.findAll());
+    public List<Dish> getAllDishRaw() {
+        return dishRepository.findAll();
     }
 }

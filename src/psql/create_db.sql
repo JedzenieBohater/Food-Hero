@@ -83,6 +83,17 @@ CREATE TABLE public.dish_grades
     FOREIGN KEY (id_owner) REFERENCES public.account (id)
 );
 
+CREATE TABLE public.system_logs
+(
+    id bigserial NOT NULL,
+    method text NOT NULL,
+    link text NOT NULL,
+    subject_id bigint,
+    creation_date date NOT NULL,
+    payload text,
+    PRIMARY KEY(id)
+);
+
 /*hasla dla kolejnych userów to:
   admin
   123
