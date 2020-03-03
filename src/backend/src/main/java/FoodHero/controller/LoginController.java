@@ -56,17 +56,20 @@ public class LoginController {
         return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
     }
 
-    //TODO to trzeba skonczyc
-    @PutMapping(value = "/update/email/{id}")
-    public ResponseEntity<Object> updateLoginEmail(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
-        HttpStatus httpStatus = loginService.updateLoginEmail(id, payload);
-        if (httpStatus == HttpStatus.CONFLICT) {
-            return new ResponseEntity<>("Email is not available", HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
-    }
+    //TODO to trzeba skonczyc i przekminic czy moze lepiej jeden wspolny endpoint do zmian i
+    //sprawdzanie po zawartosci mapy (tylko 1 argument)
+//    @PutMapping(value = "/update/email/{id}")
+//    public ResponseEntity<Object> updateLoginEmail(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
+//        HttpStatus httpStatus = loginService.updateLoginEmail(id, payload);
+//        if (httpStatus == HttpStatus.CONFLICT) {
+//            return new ResponseEntity<>("Email is not available", HttpStatus.CONFLICT);
+//        }
+//        return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
+//    }
 
-    @PostMapping(value = "/update/email/confirm")
+    //@PostMapping(value = "/reset")
+
+    @PostMapping(value = "/email/confirm")
     public ResponseEntity<Object> updateLoginEmailConfirm(@RequestParam("token") String token){
         HttpStatus httpStatus = loginService.confirmUpdateEmail(token);
         if (httpStatus == HttpStatus.BAD_REQUEST){
