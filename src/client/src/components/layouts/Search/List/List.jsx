@@ -17,6 +17,9 @@ export default (props) => {
         </div>
         <div className='flexrow'>
           <div className='marginer'>
+            {props.price}
+          </div>
+          <div className='marginer'>
           {props.cook}
           </div>
           <div className='marginer'>
