@@ -5,11 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "offer")
 public class Offer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    //TODO tutaj jest problem z tym referenced
     @ManyToOne
     @JoinColumn(name = "id_account")
     private Account account;
@@ -26,9 +25,6 @@ public class Offer {
     private int limit;
     private int preparation;
     private int deliverycost;
-    /*@JsonIgnore
-    @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<DishRating> ratingList;*/
 
     public int getId() {
         return id;
@@ -126,11 +122,4 @@ public class Offer {
         this.deliverycost = deliverycost;
     }
 
-    //    public List<DishRating> getRatingList() {
-//        return ratingList;
-//    }
-//
-//    public void setRatingList(List<DishRating> ratingList) {
-//        this.ratingList = ratingList;
-//    }
 }

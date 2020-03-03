@@ -42,6 +42,6 @@ public class DishController {
 
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity<Object> getDishes() {
-        return new ResponseEntity<>(dishService.getDishes(), HttpStatus.OK);
+        return new ResponseEntity<>(dishService.getAllDishRaw(), HttpStatus.OK);
     }
 }

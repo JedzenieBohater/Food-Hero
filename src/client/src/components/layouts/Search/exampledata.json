@@ -8,6 +8,7 @@
             "date" : "2020-01-01",
             "location" : "Złota 15",
             "grade": 4.53,
+            "price":5,
             "description" : "ala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kota "
 
         },
@@ -19,6 +20,7 @@
             "date" : "2020-01-01",
             "location" : "Złota 15",
             "grade": 4.53,
+            "price":5,
             "description" : "ala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kotaala ma kota "
 
         }
