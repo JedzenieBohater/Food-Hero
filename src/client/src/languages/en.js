@@ -2,7 +2,13 @@ export default {
     header:
     {
         login: "Sign in",
-        register: "Sign up"
+        register: "Sign up",
+        dropdown:
+        {
+            profile: "My profile",
+            search: "Search",
+            logout: "Sign out"
+        }
     },
     login:
     {

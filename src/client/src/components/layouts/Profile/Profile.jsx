@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import logo from "../../../static/images/logolarge.png"
 import user from './userinstance.json'
 import List from "../Search/List"
-import { getAccountData } from "../../../utils/user"
+import { getAccountData, sendChangedProfile } from "../../../utils/user"
 
 const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
 	lang: languageReducer.profile,
@@ -19,16 +19,31 @@ export const Profile = (props) => {
 	const [description, setDescription] = useState(user.description)
 	const [specialization, setSpecialization] = useState(user.specialization)
 	const [errorMessage, setErrorMessage] = useState(null)
+	const [creationDate, setCreationDate] = useState(user.creation_date)
+	const [grade, setGrade] = useState(user.grade)
+	const [account, setAccount] = useState(null)
 
 	useEffect(() => {
-		let account = getAccountData(props.session)
+		(async() => {
+			let account = await getAccountData(props.session)
+			setAccount(account)
+			console.log(account)
+			setFirstname(account.firstname)
+			setLastname(account.lastname)
+			setDescription(account.description)
+			setSpecialization(account.specialization)
+			setCreationDate(String(account.creation_date).slice(0,10))
+			setGrade(account.grade)
+			
+		})()
+		
 	}, [])
 
 	const handleSubmit = async event => {
 		event.preventDefault()
-		if (email.length < 5 || email.length > 50) {
+		/*if (email.length < 5 || email.length > 50) {
 			setErrorMessage(props.lang.emailincorrect)
-		}
+		}*/
 		if (firstname.length < 1 || firstname.length > 30 || !/^[a-zA-Z]+$/.test(firstname)) {
 			setErrorMessage(props.lang.firstnameincorrect)
 		}
@@ -43,8 +58,9 @@ export const Profile = (props) => {
 		}
 		else {
 			setErrorMessage(null)
+			sendChangedProfile({...account, 'firstname': firstname, 'lastname': lastname, 'description': description, 'specialization': specialization}, props.session)
 		}
-		//zaslepka
+		
 	}
 	let error = null
 	if (errorMessage != null) {
@@ -59,7 +75,7 @@ export const Profile = (props) => {
 						<label htmlFor='name'>{props.lang.name}: </label>
 					</td>
 					<td>
-						<label >{user.firstname}</label>
+						<label >{firstname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +83,7 @@ export const Profile = (props) => {
 						<label >{props.lang.surname}: </label>
 					</td>
 					<td>
-						<label >{user.lastname}</label>
+						<label >{lastname}</label>
 					</td>
 				</tr>
 				<tr>
@@ -91,7 +107,7 @@ export const Profile = (props) => {
 						<label >{props.lang.specialization}: </label>
 					</td>
 					<td>
-						<label >{user.specialization}</label>
+						<label >{specialization}</label>
 					</td>
 				</tr>
 				<tr>
@@ -99,7 +115,7 @@ export const Profile = (props) => {
 						<label >{props.lang.creation}: </label>
 					</td>
 					<td>
-						<label >{user.creation_date}</label>
+						<label >{creationDate}</label>
 					</td>
 				</tr>
 				<tr>
@@ -108,7 +124,7 @@ export const Profile = (props) => {
 					</td>
 					<td>
 						<div className="star-ratings-css-profile">
-							<div className="star-ratings-css-top" style={{ width: user.avgrade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+							<div className="star-ratings-css-top" style={{ width: grade / 5 * 100 + '%' }}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 							<div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
 						</div>
 					</td>
@@ -118,7 +134,7 @@ export const Profile = (props) => {
 						<label >{props.lang.description}:</label>
 					</td>
 					<td>
-						<label >&nbsp;&nbsp;&nbsp;{user.description}</label>
+						<label >&nbsp;&nbsp;&nbsp;{description}</label>
 					</td>
 				</tr>
 			</tbody>
@@ -138,12 +154,8 @@ export const Profile = (props) => {
 				></List>))}
 			</>
 	}
-	else if (view === 'settings') {
-		activePanel =
-			<form>
-				<table className="tableform">
-					<tbody>
-						<tr>
+	/*
+	<tr>
 							<td>
 								<label htmlFor="email">{props.lang.email}:</label>
 							</td>
@@ -151,6 +163,12 @@ export const Profile = (props) => {
 								<input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} value={email} />
 							</td>
 						</tr>
+	*/
+	else if (view === 'settings') {
+		activePanel =
+			<form>
+				<table className="tableform">
+					<tbody>						
 						<tr>
 							<td>
 								<label htmlFor="firstname">{props.lang.name}:</label>

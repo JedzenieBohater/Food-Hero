@@ -1,8 +1,9 @@
 #dots1 {
     position: relative;
-    left: 35%;
+    margin-left: auto;
+    margin-right: auto;
     height: 60px;
-    width: 200px;
+    width: 20%;
   }
   
   #dots1 span {
@@ -192,4 +193,21 @@
     display:flex;
     flex-wrap:wrap;
     margin-top: auto;
+}
+
+tr td .textfilter{
+  width:100%;
+}
+
+tr td .numberfilter{
+  width:45%;
+}
+
+.center{
+  text-align: center;
+}
+
+td{
+  padding-bottom: 10px;
+  padding-top: 10px;
 }

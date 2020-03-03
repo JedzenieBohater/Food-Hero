@@ -18,6 +18,7 @@ export const login = user =>
   })
 
 
+
 export const logout = () => 
   fetch('/logout', { 
     method: 'DELETE',

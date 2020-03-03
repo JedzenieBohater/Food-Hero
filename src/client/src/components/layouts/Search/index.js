@@ -21,6 +21,28 @@ export const Search = (props) => {
   // useEffect(() => {
   //getData('http://192.168.99.100:5001/js');
   // }, []);
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    var data = new FormData(event.target);
+    var data2 = new FormData(event.target);
+    for (var key of data2)
+      {
+        if(key[1]=="")
+         data.delete(key[0]);
+      }
+    const params = new URLSearchParams(data).toString();
+    console.log(params)
+    fetch('url'+'?'+params, {
+      method: 'GET'
+    })
+    .then((response) => {
+           return response.json();
+         })
+         .then((myJson) => {
+  //         setData(myJson.offers);
+         });
+  }
   
   return (
     <div>
@@ -32,7 +54,44 @@ export const Search = (props) => {
         <button className="btn-blue">{props.lang.search} </button>
       </div>
       <div className="searchmain flexing">
-        <div className='content-box col25'>{props.lang.filters}</div>
+        <div className='content-box col25 center'>{props.lang.filters}
+          <form onSubmit={handleSubmit}>
+            <table>
+                <tr>
+                  <td>nazwa</td>
+                  <td> : </td>
+                  <td><input className="textfilter" id="name" name="name" type="text" /></td>
+                </tr>
+                <tr>
+                  <td>cena</td>
+                  <td> : </td>
+                  <td className="center"><input className="numberfilter" name="min-price" type="number" />-<input className="numberfilter" name="max-price" type="number" /></td>
+                </tr>
+                <tr>
+                  <td>lokalizacja</td>
+                  <td> : </td>
+                  <td><input className="textfilter" name="localization" type="text" /></td>
+                </tr>
+                <tr>
+                  <td>kategoria</td>
+                  <td> : </td>
+                  <td><input className="textfilter" name="category" type="text" /></td>
+                </tr>
+                <tr>
+                  <td>status</td>
+                  <td> : </td>
+                  <td><input className="textfilter" name="status" type="checkbox"/></td>
+                </tr>
+                <tr>
+                  <td>ocena</td>
+                  <td> : </td>
+                  <td  className="center"><input className="numberfilter" name="min-grade" type="number" />-<input className="numberfilter" name="max-grade" type="number" /></td>
+                </tr> 
+                
+            </table>
+          <input className="description" type="submit"/>
+          </form>
+        </div>
         <div className='content-box col75 centering'>
           {data ?
             data.map(offer => (<List
@@ -44,6 +103,7 @@ export const Search = (props) => {
               date={offer.date}
               location={offer.location}
               grade={offer.grade}
+              price={offer.price}
               description={offer.description}
             ></List>))
             :
