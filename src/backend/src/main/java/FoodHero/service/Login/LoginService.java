@@ -44,43 +44,26 @@ public class LoginService {
             Account account = new Account(login);
             accountService.createAccount(account);
 
-
-            Properties prop = new Properties();
-            prop.put("mail.smtp.host", "smtp.gmail.com");
-            prop.put("mail.smtp.port", "587");
-            prop.put("mail.smtp.auth", "true");
-            prop.put("mail.smtp.starttls.enable", "true"); //TLS
-
-            Session session = Session.getInstance(prop,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication("foodhero7@gmail.com", "student123!");
-                        }
-                    });
-
-            try {
-
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("foodhero7@gmail.com"));
-                message.setRecipients(
-                        Message.RecipientType.TO,
-                        InternetAddress.parse((String) payload.get("email"))
-                );
-                message.setSubject("Potwierdź utworzenie konta w FoodHero!");
-                message.setText("Kliknij w poniższy link, aby aktywować konto:,"
-                        + "\n\n tu bedzie link");
-
-                Transport.send(message);
-
-                System.out.println("Done");
-
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+            int id = loginRepository.getByEmail(String.valueOf(payload.get("email"))).get().getId();
+            String jwt = createToken("activate", id, null);
+            sendEmail("activate", String.valueOf(payload.get("email")), jwt);
 
             return HttpStatus.OK;
         }
         return HttpStatus.CONFLICT;
+    }
+
+    public HttpStatus forgetPassword(Map<String, Object> payload) {
+        if (payload.get("email") == null || payload.get("email").equals("")) {
+            return HttpStatus.BAD_REQUEST;
+        }
+        if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
+            int id = loginRepository.getByEmail(String.valueOf(payload.get("email"))).get().getId();
+            String jwt = createToken("activate", id, null);
+            sendEmail("activate", String.valueOf(payload.get("email")), jwt);
+            return HttpStatus.OK;
+        }
+        return HttpStatus.NOT_FOUND;
     }
 
     public Optional<Login> getLogin(int id) {
@@ -95,7 +78,7 @@ public class LoginService {
         Login login = optionalLogin.get();
         if (payload.get("email") != null && !payload.get("email").equals("")) {
             if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
-                String jws = createToken("email", id, String.valueOf(payload.get("email")));
+                String jws = createToken("emailChange", id, String.valueOf(payload.get("email")));
                 sendEmail("emailChange", login.getEmail(), jws);
                 return HttpStatus.OK;
             } else {
@@ -121,25 +104,12 @@ public class LoginService {
         return HttpStatus.NOT_FOUND;
     }
 
-//    public HttpStatus updateLoginEmail(int id, Map<String, Object> payload) {
-//        Optional<Login> optionalLogin = loginRepository.findById(id);
-//        if (!optionalLogin.isPresent()) {
-//            return HttpStatus.NOT_FOUND;
-//        }
-//        Login login = optionalLogin.get();
-//        if (payload.get("email") != null && !payload.get("email").equals("")) {
-//            if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
-//                String jws = createToken("email", id, String.valueOf(payload.get("email")));
-//                sendEmail("email", login.getEmail(), jws);
-//                return HttpStatus.OK;
-//            } else {
-//                return HttpStatus.CONFLICT;
-//            }
-//        }
-//        return HttpStatus.BAD_REQUEST;
-//    }
-
+    //TODO trzeba zrobić odbieranie tokenu przy tworzeniu konta/zmianie maila/resecie hasła
     public HttpStatus activateLogin(String token) {
+        return null;
+    }
+
+    public HttpStatus confirmPasswordReset(String token) {
         return null;
     }
 
@@ -152,6 +122,7 @@ public class LoginService {
                 String currentEmail = String.valueOf(claims.get("current"));
                 String pendingEmail = String.valueOf(claims.get("pending"));
                 Optional<Login> optionalLogin = loginRepository.getByEmail(currentEmail);
+
                 if (optionalLogin.isPresent()) {
                     Login login = optionalLogin.get();
                     login.setEmail(pendingEmail);
@@ -192,23 +163,23 @@ public class LoginService {
             //TODO ladniejsze komunikaty napisac i podpiac pod front jak juz bedzie
             switch (type) {
                 case "forgetPassword":
-                    message.setSubject("Potwierdź zmianę adresu email w FoodHero!");
+                    message.setSubject("Zresetuj swoje hasło w FoodHero!");
                     message.setContent("Kliknij w poniższy link, aby zresetować hasło: "
-                            + "<a href = 'localhost:18080/login/forget&token='" + jwt, "text/html;charset=UTF-8");
+                            + "<a target=\"_blank\" href = \"localhost:18080/login/forget/confirm?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
+
                 case "emailChange":
                     message.setSubject("Potwierdź zmianę adresu email w FoodHero!");
                     message.setContent("Kliknij w poniższy link, aby zmienić email: "
-                            + "<a href = 'localhost:18080/login/email/confirm&token='" + jwt, "text/html;charset=UTF-8");
+                            + "<a target=\"_blank\" href = \"localhost:18080/login/email/confirm?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
                     break;
                 case "activate":
                     message.setSubject("Potwierdź utworzenie konta w FoodHero!");
                     message.setContent("Kliknij w poniższy link, aby aktywować konto: "
-                            + "xd", "text/html;charset=UTF-8");
+                            + "<a target=\"_blank\" href = \"localhost:18080/login/activate?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
                     break;
             }
 
             Transport.send(message);
-            System.out.println("Done");
         } catch (MessagingException e) {
             e.printStackTrace();
         }

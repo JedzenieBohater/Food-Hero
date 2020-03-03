@@ -56,23 +56,33 @@ public class LoginController {
         return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
     }
 
-    //TODO to trzeba skonczyc i przekminic czy moze lepiej jeden wspolny endpoint do zmian i
-    //sprawdzanie po zawartosci mapy (tylko 1 argument)
-//    @PutMapping(value = "/update/email/{id}")
-//    public ResponseEntity<Object> updateLoginEmail(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
-//        HttpStatus httpStatus = loginService.updateLoginEmail(id, payload);
-//        if (httpStatus == HttpStatus.CONFLICT) {
-//            return new ResponseEntity<>("Email is not available", HttpStatus.CONFLICT);
-//        }
-//        return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
-//    }
+    @PostMapping(value = "/forget")
+    public ResponseEntity<Object> forgetPassword(@RequestBody Map<String, Object> payload) {
+        HttpStatus httpStatus = loginService.forgetPassword(payload);
+        if (httpStatus == HttpStatus.NOT_FOUND) {
+            return new ResponseEntity<>("Email has not been found", HttpStatus.NOT_FOUND);
+        }
+        else if (httpStatus == HttpStatus.BAD_REQUEST){
+            return new ResponseEntity<>("Payload not included", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Message sent to email", HttpStatus.OK);
+    }
 
-    //@PostMapping(value = "/reset")
+    //TODO oba poniższe trzeba przypiąć
+    @PostMapping(value = "/forget/confirm")
+    public ResponseEntity<Object> forgetPasswordConfirm(@RequestParam("token") String token) {
+        return null;
+    }
+
+    @PostMapping(value = "/activate")
+    public ResponseEntity<Object> createLoginConfirm(@RequestParam("token") String token) {
+        return null;
+    }
 
     @PostMapping(value = "/email/confirm")
-    public ResponseEntity<Object> updateLoginEmailConfirm(@RequestParam("token") String token){
+    public ResponseEntity<Object> updateLoginEmailConfirm(@RequestParam("token") String token) {
         HttpStatus httpStatus = loginService.confirmUpdateEmail(token);
-        if (httpStatus == HttpStatus.BAD_REQUEST){
+        if (httpStatus == HttpStatus.BAD_REQUEST) {
             return new ResponseEntity<>("Token is not correct or is not attached", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>("Change email confirmed", HttpStatus.OK);

@@ -88,7 +88,9 @@ CREATE TABLE public.system_logs
     id bigserial NOT NULL,
     method text NOT NULL,
     link text NOT NULL,
-    subjectID bigint,
+    subject_id bigint,
+    creation_date date NOT NULL,
+    payload text,
     PRIMARY KEY(id)
 );
 
