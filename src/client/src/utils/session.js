@@ -3,26 +3,24 @@ export const register = user =>
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   })
 
-export const login = user => 
-   fetch('/login', {
+export const login = user =>
+  fetch('/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   })
 
-
-
-export const logout = () => 
-  fetch('/logout', { 
+export const logout = () =>
+  fetch('/logout', {
     method: 'DELETE',
-    credentials: 'include'
+    credentials: 'include',
   })
 
 export const checkLoggedIn = async preloadedState => {
@@ -31,7 +29,7 @@ export const checkLoggedIn = async preloadedState => {
   preloadedState = {}
   if (user) {
     preloadedState = {
-      sessionReducer: user
+      sessionReducer: user,
     }
   }
   return preloadedState

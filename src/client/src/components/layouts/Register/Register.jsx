@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { register } from '../../../utils/session'
 import { connect } from 'react-redux'
 
-export const Register = (props) => {
+export const Register = props => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -15,14 +15,14 @@ export const Register = (props) => {
     try {
       await register({ email, password })
       setRedirect(true)
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
 
   return (
     <>
-      {redirect ? <Redirect to='/login' /> : null}
+      {redirect ? <Redirect to="/login" /> : null}
       <div className="content-box-middle">
         <form className="content-box">
           <table className="tableform">
@@ -32,7 +32,12 @@ export const Register = (props) => {
                   <label htmlFor="email">{props.lang.email}:</label>
                 </td>
                 <td>
-                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} />
+                  <input
+                    onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    id="email"
+                    placeholder={props.lang.email.toLowerCase()}
+                  />
                 </td>
               </tr>
               <tr>
@@ -53,7 +58,9 @@ export const Register = (props) => {
               </tr>
               <tr>
                 <td>
-                  <label htmlFor="password2">{props.lang.repeatPassword}:</label>
+                  <label htmlFor="password2">
+                    {props.lang.repeatPassword}:
+                  </label>
                 </td>
                 <td>
                   <input
@@ -95,7 +102,7 @@ export const Register = (props) => {
 }
 
 const mapStateToProps = ({ languageReducer }) => ({
-  lang: languageReducer.register
+  lang: languageReducer.register,
 })
 
 export default connect(mapStateToProps)(Register)
