@@ -9,16 +9,7 @@
     font-size: 18px;
 }
 
-/* Header section */
 
-header {
-	position: fixed;
-	margin-top: 0px;
-	height: 60px;
-	width: 100%;
-	background: linear-gradient(180deg, #0073C6 0%, #003857 100%);
-	z-index: 10;
-}
 
 /* Main section */
 
