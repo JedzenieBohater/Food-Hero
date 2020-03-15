@@ -24,7 +24,7 @@ export const Profile = props => {
   const [account, setAccount] = useState(null)
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let account = await getAccountData(props.session)
       setAccount(account)
       console.log(account)
@@ -36,6 +36,21 @@ export const Profile = props => {
       setGrade(account.grade)
     })()
   }, [])
+
+// dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
+// i usuniecie z listy dan w profilu
+
+  const deleteOffer = async event => {
+    var id=event.target.getAttribute('name');
+    console.log(id);
+    fetch("offer/"+id, {
+      method: 'delete'
+    }).then(response => {
+      if(response.status===200){
+        alert("oferta została usunięta")
+      }
+    })
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -172,30 +187,33 @@ export const Profile = props => {
     activePanel = (
       <>
         {user.dishlist.map(dish => (
-          <List
-            id={dish.id}
-            picture={dish.picture}
-            title={dish.title}
-            wystawiajacy={dish.cook}
-            data={dish.date}
-            lokalizacja={dish.location}
-            ocena={dish.grade}
-            opis={dish.description}
-          ></List>
+          <div className="flexing">
+            <List className="col75"
+              id={dish.id}
+              picture={dish.picture}
+              title={dish.title}
+              wystawiajacy={dish.cook}
+              data={dish.date}
+              lokalizacja={dish.location}
+              ocena={dish.grade}
+              opis={dish.description}
+            ></List>
+            <button name={dish.id} onClick={deleteOffer}>Delete</button>
+          </div>
         ))}
       </>
     )
   } else if (view === 'settings') {
-  /*
-	<tr>
-							<td>
-								<label htmlFor="email">{props.lang.email}:</label>
-							</td>
-							<td>
-								<input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} value={email} />
-							</td>
-						</tr>
-	*/
+    /*
+    <tr>
+                <td>
+                  <label htmlFor="email">{props.lang.email}:</label>
+                </td>
+                <td>
+                  <input onChange={e => setEmail(e.target.value)} type="email" id="email" placeholder={props.lang.email.toLowerCase()} value={email} />
+                </td>
+              </tr>
+    */
     activePanel = (
       <form>
         <table className="tableform">

@@ -2,7 +2,7 @@ import React from 'react'
 
 export default props => {
   return (
-    <div id={props.id} className="content-box flexcolumn">
+    <div id={props.id} className="content-box flexcolumn offer">
       <div className="flexrow">
         <div className="">
           <img className="pic" alt="" src={props.picture} />
@@ -31,7 +31,7 @@ export default props => {
             <b>{props.title}</b>
           </div>
           <div className="flexrow">
-            <div className="marginer">{props.price}</div>
+            <div className="marginer price">{props.price} zł</div>
             <div className="marginer">{props.cook}</div>
             <div className="marginer">{props.date}</div>
             <div className="marginer">{props.location}</div>

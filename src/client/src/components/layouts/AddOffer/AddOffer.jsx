@@ -16,11 +16,16 @@ export const AddOffer = props => {
     }
   }
 
+  const addOffer = async event => {
+    alert("dodano oferte")
+  }
+
   return (
     <div>
       <div className="content-box flexcolumn search searchmain">
         <div className="flexrow">
           <form
+            action="offer/add"
             className="flexrow fullwidth"
             method="post"
             enctype="multipart-form/data"
@@ -65,7 +70,7 @@ export const AddOffer = props => {
                 <textarea className="adddesc" placeholder="description" />
               </div>
               <div className="center">
-                <button className="btn-blue">add</button>
+                <button className="btn-blue" onClick={addOffer}>add</button>
               </div>
             </div>
           </form>
