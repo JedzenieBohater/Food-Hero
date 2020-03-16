@@ -2,6 +2,8 @@ package FoodHero.controller;
 
 import FoodHero.model.Login;
 import FoodHero.service.Login.LoginService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+
     @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
@@ -30,6 +34,9 @@ public class LoginController {
             return new ResponseEntity<>("Lack of json", HttpStatus.BAD_REQUEST);
         }
         if (loginService.createLogin(payload) == HttpStatus.OK) {
+            LOGGER.info("Utworzono konto kurde");
+            LOGGER.warn("PYK");
+            LOGGER.error("XDDDDD");
             return new ResponseEntity<>("Login created successfully", HttpStatus.OK);
         } else if (loginService.createLogin(payload) == HttpStatus.CONFLICT) {
             return new ResponseEntity<>("Email is being used", HttpStatus.CONFLICT);

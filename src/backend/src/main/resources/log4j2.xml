@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="DEBUG">
+<Configuration>
     <Appenders>
         <File name="LogToFile" fileName="./logs/app.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+        <File name="LogToFileError" fileName="./logs/appError.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <File name="LogToFile" fileName="./logs/appSpringBoot.log">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+        </File>
+        <File name="LogToFileError" fileName="./logs/appSpringBootError.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
     <Loggers>
-        <!-- avoid duplicated logs with additivity=false -->
-        <Logger name="FoodHero" level="ALL" additivity="false">
-            <AppenderRef ref="LogToFile"/>
+        <Logger name="FoodHero" level="info" additivity="false">
+            <AppenderRef ref="LogToFile" level="info"/>
+            <AppenderRef ref="LogToFileError" level="error"/>
         </Logger>
         <Logger name="org.springframework.boot" level="DEBUG" additivity="false">
-            <AppenderRef ref="LogToFile"/>
+            <AppenderRef ref="LogToFileSpringBoot" level="info"/>
+            <AppenderRef ref="LogToFileSpringBootError" level="error"/>
         </Logger>
-        <Root level="error">
-            <AppenderRef ref="LogToFile"/>
-        </Root>
     </Loggers>
 </Configuration>
