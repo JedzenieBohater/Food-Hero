@@ -1,6 +1,5 @@
-package FoodHero.Config;
+package FoodHero.config;
 
-import FoodHero.dao.LoginRepository;
 import FoodHero.service.Login.LoginService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

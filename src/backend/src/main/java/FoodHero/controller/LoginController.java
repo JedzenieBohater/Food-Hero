@@ -2,6 +2,7 @@ package FoodHero.controller;
 
 import FoodHero.model.Login;
 import FoodHero.service.Login.LoginService;
+import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,14 @@ public class LoginController {
     @PostMapping(value = "/register")
     public ResponseEntity<String> createLogin(@RequestBody Map<String, Object> payload) {
         if (payload == null) {
-            return new ResponseEntity<>("Lack of json", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error: " + ReturnCode.MISSING_ARG.getCode() + " " + ReturnCode.MISSING_ARG.getDescription() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
         }
-        if (loginService.createLogin(payload) == HttpStatus.OK) {
-            LOGGER.info("Utworzono konto kurde");
-            LOGGER.warn("PYK");
-            LOGGER.error("XDDDDD");
-            return new ResponseEntity<>("Login created successfully", HttpStatus.OK);
-        } else if (loginService.createLogin(payload) == HttpStatus.CONFLICT) {
-            return new ResponseEntity<>("Email is being used", HttpStatus.CONFLICT);
+        if (loginService.createLogin(payload) == ReturnCode.OK) {
+            return new ResponseEntity<>("Error: " + ReturnCode.OK.getCode() + " " + ReturnCode.OK.getDescription() + "\nLogin created successfully.", HttpStatus.OK);
+        } else if (loginService.createLogin(payload) == ReturnCode.CONFLICT_WITH_DB) {
+            return new ResponseEntity<>("Error: " + ReturnCode.CONFLICT_WITH_DB.getCode() + " " + ReturnCode.CONFLICT_WITH_DB.getDescription() + "\nEmail is being used.", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>("Wrong json payload", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Error: " + ReturnCode.INCORRECT_DATA.getCode() + " " + ReturnCode.INCORRECT_DATA.getDescription() + "\nWrong json payload.", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -50,29 +48,34 @@ public class LoginController {
         if (login.isPresent()) {
             return new ResponseEntity<>(login.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Error: " + ReturnCode.NOT_FOUND.getCode() + " " + ReturnCode.NOT_FOUND.getDescription() + "\nLogin not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<Object> updateLogin(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
-        HttpStatus httpStatus = loginService.updateLogin(id, payload);
-        if (httpStatus == HttpStatus.CONFLICT) {
-            return new ResponseEntity<>("Email is not available", HttpStatus.CONFLICT);
+        if (payload == null) {
+            return new ResponseEntity<>("Error: " + ReturnCode.MISSING_ARG.getCode() + " " + ReturnCode.MISSING_ARG.getDescription() + "\nLack of json payload", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Login updated successfully", HttpStatus.OK);
+        ReturnCode returnCode = loginService.updateLogin(id, payload);
+        if (returnCode == ReturnCode.CONFLICT_WITH_DB) {
+            return new ResponseEntity<>("Error: " + ReturnCode.CONFLICT_WITH_DB.getCode() + " " + ReturnCode.CONFLICT_WITH_DB.getDescription() + "\nEmail is not available", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>("Error: " + ReturnCode.OK.getCode() + " " + ReturnCode.OK.getDescription() + "\nLogin updated successfully", HttpStatus.OK);
     }
 
     @PostMapping(value = "/forget")
     public ResponseEntity<Object> forgetPassword(@RequestBody Map<String, Object> payload) {
-        HttpStatus httpStatus = loginService.forgetPassword(payload);
-        if (httpStatus == HttpStatus.NOT_FOUND) {
-            return new ResponseEntity<>("Email has not been found", HttpStatus.NOT_FOUND);
+        if (payload == null) {
+            return new ResponseEntity<>("Error: " + ReturnCode.MISSING_ARG.getCode() + " " + ReturnCode.MISSING_ARG.getDescription() + "\nLack of json payload", HttpStatus.BAD_REQUEST);
         }
-        else if (httpStatus == HttpStatus.BAD_REQUEST){
-            return new ResponseEntity<>("Payload not included", HttpStatus.BAD_REQUEST);
+        ReturnCode returnCode = loginService.forgetPassword(payload);
+        if (returnCode == ReturnCode.NOT_FOUND) {
+            return new ResponseEntity<>("Error: " + ReturnCode.NOT_FOUND.getCode() + " " + ReturnCode.NOT_FOUND.getDescription() + "\nEmail has not been found", HttpStatus.NOT_FOUND);
+        } else if (returnCode == ReturnCode.INCORRECT_DATA) {
+            return new ResponseEntity<>("Error: " + ReturnCode.INCORRECT_DATA.getCode() + " " + ReturnCode.INCORRECT_DATA.getDescription() + "\nPayload not included", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Message sent to email", HttpStatus.OK);
+        return new ResponseEntity<>("Error: " + ReturnCode.OK.getCode() + " " + ReturnCode.OK.getDescription() + "\nMessage sent to email", HttpStatus.OK);
     }
 
     //TODO oba poniższe trzeba przypiąć
@@ -88,19 +91,19 @@ public class LoginController {
 
     @PostMapping(value = "/email/confirm")
     public ResponseEntity<Object> updateLoginEmailConfirm(@RequestParam("token") String token) {
-        HttpStatus httpStatus = loginService.confirmUpdateEmail(token);
-        if (httpStatus == HttpStatus.BAD_REQUEST) {
-            return new ResponseEntity<>("Token is not correct or is not attached", HttpStatus.CONFLICT);
+        ReturnCode returnCode = loginService.confirmUpdateEmail(token);
+        if (returnCode == ReturnCode.INVALID_TOKEN) {
+            return new ResponseEntity<>("Error: " + ReturnCode.INVALID_TOKEN.getCode() + " " + ReturnCode.INVALID_TOKEN.getDescription() + "Token is not correct or is not attached", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Change email confirmed", HttpStatus.OK);
+        return new ResponseEntity<>("Error: " + ReturnCode.OK.getCode() + " " + ReturnCode.OK.getDescription() + "Change email confirmed", HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Object> deleteLogin(@PathVariable("id") int id) {
-        HttpStatus httpStatus = loginService.deleteLogin(id);
-        if (httpStatus == HttpStatus.OK) {
-            return new ResponseEntity<>("Login deleted successfully", HttpStatus.OK);
+        ReturnCode returnCode = loginService.deleteLogin(id);
+        if (returnCode == ReturnCode.OK) {
+            return new ResponseEntity<>("Error: " + ReturnCode.OK.getCode() + " " + ReturnCode.OK.getDescription() + "\nLogin deleted successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Login not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Error: " + ReturnCode.NOT_FOUND.getCode() + " " + ReturnCode.NOT_FOUND.getDescription() + "\nLogin not found", HttpStatus.NOT_FOUND);
     }
 }

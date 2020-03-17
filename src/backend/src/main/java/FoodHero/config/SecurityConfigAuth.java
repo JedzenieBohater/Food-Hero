@@ -1,4 +1,4 @@
-package FoodHero.Config;
+package FoodHero.config;
 
 import FoodHero.service.Login.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
