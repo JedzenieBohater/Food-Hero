@@ -1,15 +1,20 @@
 package FoodHero.service.Offers;
 
 import FoodHero.dao.OfferRepository;
+import FoodHero.model.Account;
+import FoodHero.model.Dish;
 import FoodHero.model.Offer;
+import FoodHero.service.Account.AccountService;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.POJOS.AvailableOffer;
 import FoodHero.service.Offers.POJOS.FilteredOffer;
+import FoodHero.service.Utils.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,6 +24,8 @@ public class OfferService {
     OfferRepository offerRepository;
     @Autowired
     DishService dishService;
+    @Autowired
+    AccountService accountService;
 
     public List<AvailableOffer> getAllActive() {
         List<Offer> offers = offerRepository.findAll();
@@ -134,8 +141,51 @@ public class OfferService {
         return filteredOffers;
     }
 
-    public Optional<Offer> getOffer(int id) {
-        return offerRepository.findById(id);
+    public ReturnCode createOffer(int id, Map<String, Object> payload){
+        Account account = accountService.getAccount(id);
+        if(payload.get("id_dish") == null || payload.get("id_dish").equals("")){
+            return ReturnCode.INCORRECT_DATA;
+        }
+        //TODO trzeba sprawdzac castowanie bo jest sztywniutko teraz -- stringa nie scastuje dobrze
+        //TODO trzeba tez zrobic sprawdzanie czy nie ma juz podpietego dania pod dana oferte
+        Dish dish = dishService.getDish((Integer) payload.get("id_dish"));
+        if (account == null || dish == null) {
+            return ReturnCode.NOT_FOUND;
+        }
+        Offer offer = new Offer();
+        if (payload.get("hours") != null && !payload.get("hours").equals("") &&
+                payload.get("day") != null && !payload.get("day").equals("") &&
+                payload.get("price") != null && !payload.get("price").equals("") &&
+                payload.get("localization") != null && !payload.get("localization").equals("") &&
+                payload.get("status") != null && !payload.get("status").equals("") &&
+                payload.get("periodic") != null && !payload.get("periodic").equals("") &&
+                payload.get("limitation") != null && !payload.get("limitation").equals("") &&
+                payload.get("preparation") != null && !payload.get("preparation").equals("") &&
+                payload.get("deliverycost") != null && !payload.get("deliverycost").equals("")) {
+
+            offer.setAccount(account);
+            offer.setDish(dish);
+            offer.setHours((String) payload.get("hours"));
+            offer.setDay((String) payload.get("day"));
+            offer.setPrice((Double) payload.get("price"));
+            offer.setLocalization((String) payload.get("localization"));
+            offer.setStatus((Boolean) payload.get("status"));
+            offer.setPeriodic((Boolean) payload.get("periodic"));
+            offer.setLimit((Integer) payload.get("limitation"));
+            offer.setPreparation((Integer) payload.get("preparation"));
+            offer.setDeliverycost((Integer) payload.get("deliverycost"));
+
+            offerRepository.save(offer);
+            return ReturnCode.OK;
+        }
+        return ReturnCode.INCORRECT_DATA;
+    }
+
+    public Offer getOffer(int id) {
+        if(offerRepository.findById(id).isPresent()){
+            return offerRepository.findById(id).get();
+        }
+        return null;
     }
 
     public List<Offer> getAllOfferRaw(){

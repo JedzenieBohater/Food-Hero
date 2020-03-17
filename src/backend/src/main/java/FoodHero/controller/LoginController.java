@@ -52,7 +52,7 @@ public class LoginController {
         }
     }
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateLogin(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
         if (payload == null) {
             return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload", HttpStatus.BAD_REQUEST);
@@ -98,7 +98,7 @@ public class LoginController {
         return new ResponseEntity<>(ReturnCode.OK.toString() + "\nChange email confirmed", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteLogin(@PathVariable("id") int id) {
         ReturnCode returnCode = loginService.deleteLogin(id);
         if (returnCode == ReturnCode.OK) {

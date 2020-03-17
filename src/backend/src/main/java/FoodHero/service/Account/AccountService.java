@@ -44,8 +44,11 @@ public class AccountService {
         return new AccountDetails(account, activeOffers, ratingAccountPojoList);
     }
 
-    public Optional<Account> getAccount(int id){
-        return accountRepository.findById(id);
+    public Account getAccount(int id){
+        if(accountRepository.findById(id).isPresent()){
+            return accountRepository.findById(id).get();
+        }
+        return null;
     }
 
     public List<Offer> getAccountOffers(int id) {

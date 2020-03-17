@@ -5,28 +5,28 @@
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
-            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
-            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
-            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+<!--            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+<!--            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+<!--            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>-->
 
-            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+<!--            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
         </File>
         <File name="LogToFileError" fileName="./logs/appError.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
         </File>
-        <File name="LogToFile" fileName="./logs/appSpringBoot.log">
+        <File name="LogToFileSpringBoot" fileName="./logs/appSpringBoot.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>
-            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
-            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
-            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+<!--            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+<!--            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+<!--            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>-->
 
-            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+<!--            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
         </File>
-        <File name="LogToFileError" fileName="./logs/appSpringBootError.log">
+        <File name="LogToFileSpringBootError" fileName="./logs/appSpringBootError.log">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
             </PatternLayout>

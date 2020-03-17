@@ -3,17 +3,20 @@ package FoodHero.controller;
 import FoodHero.model.Offer;
 import FoodHero.service.Offers.OfferService;
 import FoodHero.service.Offers.POJOS.AvailableOffer;
+import FoodHero.service.Utils.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/offers")
 public class OfferController {
+
     @Autowired
     OfferService offerService;
 
@@ -80,9 +83,26 @@ public class OfferController {
         return new ResponseEntity<>(offerService.getOffersWithFilters(minPriceQuery, maxPriceQuery, minRatingQuery, maxRatingQuery, categoryQuery, statusQuery, localizationQuery, searchNameQuery), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<Object> createOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload){
+        if (payload == null) {
+            return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
+        }
+        ReturnCode returnCode = offerService.createOffer(id, payload);
+        if (returnCode == ReturnCode.NOT_FOUND) {
+            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nAccount or dish not found", HttpStatus.NOT_FOUND);
+        } else if (returnCode == ReturnCode.INCORRECT_DATA) {
+            return new ResponseEntity<>(ReturnCode.INCORRECT_DATA.toString() + "\nWrong json payload.", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nOffer created successfully", HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> getOffer(@PathVariable("id") int id) {
-        Optional<Offer> offer = offerService.getOffer(id);
+        Offer offer = offerService.getOffer(id);
+        if(offer == null){
+            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(offer, HttpStatus.OK);
     }
 
