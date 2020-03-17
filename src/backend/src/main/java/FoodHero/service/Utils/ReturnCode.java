@@ -27,6 +27,6 @@ public enum ReturnCode {
 
     @Override
     public String toString() {
-        return code + ": " + description;
+        return "Error: " + getCode() + " " + getDescription();
     }
 }

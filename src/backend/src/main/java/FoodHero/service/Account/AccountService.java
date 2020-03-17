@@ -1,8 +1,6 @@
 package FoodHero.service.Account;
 
 import FoodHero.dao.AccountRepository;
-import FoodHero.dao.DishRepository;
-import FoodHero.dao.OfferRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
@@ -11,8 +9,8 @@ import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.OfferService;
+import FoodHero.service.Utils.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,10 +70,10 @@ public class AccountService {
         return accountDishes;
     }
 
-    public HttpStatus updateAccount(int id, Map<String, Object> payload) {
+    public ReturnCode updateAccount(int id, Map<String, Object> payload) {
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (!accountOptional.isPresent()){
-            return HttpStatus.NOT_FOUND;
+            return ReturnCode.NOT_FOUND;
         }
         Account account = accountOptional.get();
         if (payload.get("firstname") != null && !payload.get("firstname").equals("")) {
@@ -100,7 +98,7 @@ public class AccountService {
             account.setCookStatus((Boolean) payload.get("cook_status"));
         }
         accountRepository.save(account);
-        return HttpStatus.OK;
+        return ReturnCode.OK;
     }
 
     public List<Account> getAccounts() {

@@ -20,7 +20,6 @@ public class OfferService {
     @Autowired
     DishService dishService;
 
-
     public List<AvailableOffer> getAllActive() {
         List<Offer> offers = offerRepository.findAll();
         List<AvailableOffer> availableOffers = new ArrayList<>();

@@ -2,6 +2,7 @@ package FoodHero.service.Dish;
 
 import FoodHero.dao.DishRepository;
 import FoodHero.model.Dish;
+import FoodHero.service.Utils.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,8 +25,13 @@ public class DishService {
         dishRepository.save(dish);
     }
 
-    public void deleteDish(int id) {
-        dishRepository.deleteById(id);
+    public ReturnCode deleteDish(int id) {
+        Optional<Dish> dish = dishRepository.findById(id);
+        if(dish.isPresent()) {
+            dishRepository.deleteById(id);
+            return ReturnCode.OK;
+        }
+        return ReturnCode.NOT_FOUND;
     }
 
     public List<Dish> getAllDishRaw() {

@@ -2,6 +2,7 @@ package FoodHero.controller;
 
 import FoodHero.model.Dish;
 import FoodHero.service.Dish.DishService;
+import FoodHero.service.Utils.ReturnCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,11 @@ public class DishController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") int id) {
-        dishService.deleteDish(id);
-        return new ResponseEntity<>("Dish deleted successfully", HttpStatus.OK);
+        ReturnCode returnCode = dishService.deleteDish(id);
+        if(returnCode == ReturnCode.NOT_FOUND){
+            return new ResponseEntity<>("Dish deleted successfully", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
