@@ -163,6 +163,7 @@ public class OfferService {
                 payload.get("preparation") != null && !payload.get("preparation").equals("") &&
                 payload.get("deliverycost") != null && !payload.get("deliverycost").equals("")) {
 
+            
             offer.setAccount(account);
             offer.setDish(dish);
             offer.setHours((String) payload.get("hours"));
