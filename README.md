@@ -18,7 +18,7 @@
 
 Application consists of 3 modules:
 - Database (PostgreSQL)
-- Backend (Java, etc.)
+- Backend (Java, Spring Boot, Spring Security, Maven)
 - Frontend (ReactJS)
 
 # Short description:
