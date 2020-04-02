@@ -1,7 +1,9 @@
 package FoodHero.service.Account;
 
+import FoodHero.controller.OfferController;
 import FoodHero.dao.AccountRepository;
 import FoodHero.model.Account;
+import FoodHero.model.AccountRating;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Account.POJOS.AccountDetails;
@@ -10,6 +12,8 @@ import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.OfferService;
 import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +24,20 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
-    @Autowired
     AccountRepository accountRepository;
-    @Autowired
     DishService dishService;
-    @Autowired
     AccountRatingService accountRatingService;
-    @Autowired
     OfferService offerService;
+    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
+
+
+    @Autowired
+    public AccountService(AccountRepository accountRepository, DishService dishService, AccountRatingService accountRatingService, OfferService offerService){
+        this.accountRepository = accountRepository;
+        this.dishService = dishService;
+        this.accountRatingService = accountRatingService;
+        this.offerService = offerService;
+    }
 
     public void createAccount(Account account) {
         accountRepository.save(account);

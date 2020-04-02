@@ -1,10 +1,13 @@
 package FoodHero.service.Dish;
 
+import FoodHero.controller.OfferController;
 import FoodHero.dao.DishRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,17 @@ import java.util.Optional;
 
 @Service
 public class DishService {
-    @Autowired
+
     private DishRepository dishRepository;
-    @Autowired
     private AccountService accountService;
+    private static final Logger LOGGER = LogManager.getLogger(DishService.class);
+
+
+    @Autowired
+    public DishService(DishRepository dishRepository, AccountService accountService){
+        this.dishRepository = dishRepository;
+        this.accountService = accountService;
+    }
 
     public ReturnCode createDish(int id, Map<String, Object> payload) {
         Account account = accountService.getAccount(id);

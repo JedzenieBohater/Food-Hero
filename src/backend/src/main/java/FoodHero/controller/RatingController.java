@@ -2,6 +2,8 @@ package FoodHero.controller;
 
 import FoodHero.model.Rating;
 import FoodHero.service.Rating.RatingService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +14,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:13000")
 @RequestMapping("/rating")
 public abstract class RatingController {
-    @Autowired
+
     RatingService ratingService;
+    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
+
+
+    @Autowired
+    public RatingController(RatingService ratingService){
+        this.ratingService = ratingService;
+    }
 
     @PostMapping(value = "/")
     public ResponseEntity<Object> createRating(@RequestBody Rating rating) {

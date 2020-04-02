@@ -17,10 +17,13 @@ import java.util.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    @Autowired
     LoginService loginService;
-
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+
+    @Autowired
+    public LoginController(LoginService loginService){
+        this.loginService = loginService;
+    }
 
     @GetMapping(value = "/status", produces = "application/json")
     public ResponseEntity<Map> getStatus(Principal principal) {

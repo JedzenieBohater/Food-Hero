@@ -6,7 +6,8 @@ public enum ReturnCode {
     CONFLICT_WITH_DB(102, "Conflict in database."),
     INCORRECT_DATA(103, "Incorrect data in json payload."),
     NOT_FOUND(104, "Requested data not found"),
-    INVALID_TOKEN(105, "Invalid token");
+    INVALID_TOKEN(105, "Invalid token"),
+    NO_ACCESS(106, "User has not got access to requested resource");
 
 
     private final int code;

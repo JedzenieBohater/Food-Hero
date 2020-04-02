@@ -5,27 +5,35 @@ import FoodHero.model.Account;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Account.AccountService;
+import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.POJOS.AvailableOffer;
 import FoodHero.service.Offers.POJOS.FilteredOffer;
 import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class OfferService {
 
-    @Autowired
     OfferRepository offerRepository;
-    @Autowired
     DishService dishService;
-    @Autowired
     AccountService accountService;
+    private static final Logger LOGGER = LogManager.getLogger(OfferService.class);
+
+
+    @Autowired
+    public OfferService(OfferRepository offerRepository, DishService dishService, AccountService accountService){
+        this.offerRepository = offerRepository;
+        this.dishService = dishService;
+        this.accountService = accountService;
+    }
 
     public List<AvailableOffer> getAllActive() {
         List<Offer> offers = offerRepository.findAll();
@@ -103,7 +111,7 @@ public class OfferService {
         if (!localization.equals("")) {
             List<Offer> subList = new ArrayList<>();
             for (Offer offer : offers.get(0)) {
-                if (offer.getDish().getName().matches("(.*)" + localization + "(.*)")) {
+                if (offer.getLocalization().matches("(.*)" + localization + "(.*)")) {
                     subList.add(offer);
                 }
             }
@@ -163,7 +171,7 @@ public class OfferService {
                 payload.get("preparation") != null && !payload.get("preparation").equals("") &&
                 payload.get("deliverycost") != null && !payload.get("deliverycost").equals("")) {
 
-            
+
             offer.setAccount(account);
             offer.setDish(dish);
             offer.setHours((String) payload.get("hours"));

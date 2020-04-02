@@ -3,6 +3,8 @@ package FoodHero.controller;
 import FoodHero.model.Dish;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,15 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:13000")
 @RequestMapping("/dish")
 public class DishController {
-    @Autowired
+
     DishService dishService;
+    private static final Logger LOGGER = LogManager.getLogger(DishController.class);
+
+
+    @Autowired
+    public DishController(DishService dishService){
+        this.dishService = dishService;
+    }
 
     @PostMapping(value = "/{id}")
     public ResponseEntity<Object> createDish(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {

@@ -4,9 +4,12 @@ import FoodHero.dao.LoginRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
+import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.Utils.ReturnCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.TextCodec;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +26,16 @@ import java.util.Properties;
 @Service
 public class LoginService {
 
-    @Autowired
     LoginRepository loginRepository;
-    @Autowired
     AccountService accountService;
+    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
+
+
+    @Autowired
+    public LoginService(LoginRepository loginRepository, AccountService accountService){
+        this.loginRepository = loginRepository;
+        this.accountService = accountService;
+    }
 
     public int getIdByEmail(String email) {
         return loginRepository.getByEmail(email).get().getId();

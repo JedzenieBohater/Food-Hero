@@ -4,6 +4,8 @@ import FoodHero.model.Offer;
 import FoodHero.service.Offers.OfferService;
 import FoodHero.service.Offers.POJOS.AvailableOffer;
 import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,14 @@ import java.util.Optional;
 @RequestMapping("/offers")
 public class OfferController {
 
-    @Autowired
     OfferService offerService;
+    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
+
+
+    @Autowired
+    public OfferController(OfferService offerService){
+        this.offerService = offerService;
+    }
 
     @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<Object> getAllOffersMatchFilter(@RequestParam(required = false, name = "MinPrice") String minPrice,
