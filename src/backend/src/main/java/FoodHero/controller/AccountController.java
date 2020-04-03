@@ -73,11 +73,17 @@ public class AccountController {
     }
 
     //TODO do przemyslenia czy nie mapowac od razu na obiekt czy moze jednak zostac przy mapie obiektow
-    //TODO tutaj jest przykladowe blokowanie dla userow ktorzy nie maja dostepow, sprawdzic jak to dziala i dorobic dla reszty
+    //TODO tutaj jest przykladowe blokowanie dla userow ktorzy nie maja dostepow, sprawdzic jak to dziala i dorobic dla reszty - smiga mozna przeklajac
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateAccount(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
-        int userID = loginService.getIdByEmail(principal.getName());
-        if (userID == id || (loginService.getLogin(userID).isPresent() && !loginService.getLogin(userID).get().getIs_admin())) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
+        }
+
+        if ((userID != -1 && userID == id) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
             if (payload == null) {
                 return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
             }

@@ -32,14 +32,14 @@
             </PatternLayout>
         </File>
     </Appenders>
-    <Loggers>
-        <Logger name="FoodHero" level="info" additivity="false">
-            <AppenderRef ref="LogToFile" level="info"/>
-            <AppenderRef ref="LogToFileError" level="error"/>
-        </Logger>
-        <Logger name="org.springframework.boot" level="DEBUG" additivity="false">
-            <AppenderRef ref="LogToFileSpringBoot" level="info"/>
-            <AppenderRef ref="LogToFileSpringBootError" level="error"/>
-        </Logger>
-    </Loggers>
+<!--    <Loggers>-->
+<!--        <Logger name="FoodHero" level="info" additivity="false">-->
+<!--            <AppenderRef ref="LogToFile" level="info"/>-->
+<!--            <AppenderRef ref="LogToFileError" level="error"/>-->
+<!--        </Logger>-->
+<!--        <Logger name="org.springframework.boot" level="DEBUG" additivity="false">-->
+<!--            <AppenderRef ref="LogToFileSpringBoot" level="info"/>-->
+<!--            <AppenderRef ref="LogToFileSpringBootError" level="error"/>-->
+<!--        </Logger>-->
+<!--    </Loggers>-->
 </Configuration>

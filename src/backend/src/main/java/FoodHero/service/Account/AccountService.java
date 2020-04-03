@@ -15,6 +15,7 @@ import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class AccountService {
 
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, DishService dishService, AccountRatingService accountRatingService, OfferService offerService){
+    public AccountService(@Lazy AccountRepository accountRepository, @Lazy DishService dishService, @Lazy AccountRatingService accountRatingService, @Lazy OfferService offerService){
         this.accountRepository = accountRepository;
         this.dishService = dishService;
         this.accountRatingService = accountRatingService;

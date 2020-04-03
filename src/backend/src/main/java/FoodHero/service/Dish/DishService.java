@@ -9,6 +9,7 @@ import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class DishService {
 
 
     @Autowired
-    public DishService(DishRepository dishRepository, AccountService accountService){
+    public DishService(@Lazy DishRepository dishRepository, @Lazy AccountService accountService){
         this.dishRepository = dishRepository;
         this.accountService = accountService;
     }

@@ -11,6 +11,7 @@ import io.jsonwebtoken.impl.TextCodec;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +33,16 @@ public class LoginService {
 
 
     @Autowired
-    public LoginService(LoginRepository loginRepository, AccountService accountService){
+    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService){
         this.loginRepository = loginRepository;
         this.accountService = accountService;
     }
 
     public int getIdByEmail(String email) {
-        return loginRepository.getByEmail(email).get().getId();
+        if(loginRepository.getByEmail(email).isPresent()){
+            return loginRepository.getByEmail(email).get().getId();
+        }
+        return -1;
     }
 
     public ReturnCode createLogin(Map<String, Object> payload) {
