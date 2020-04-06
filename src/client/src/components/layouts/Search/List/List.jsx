@@ -1,8 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+//<Link to={"offer/" + props.id}>
 
 export default props => {
+
+  var redirectToOfferDetails = (id) => {
+    console.log(id)
+  }
+  console.log(props.id)
   return (
-    <div id={props.id} className="content-box flexcolumn offer">
+    <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails(props.id)}>
       <div className="flexrow">
         <div className="">
           <img className="pic" alt="" src={props.picture} />

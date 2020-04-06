@@ -3,24 +3,24 @@ import List from './List'
 import { connect } from 'react-redux'
 import a from './exampledata.json'
 
-const data = a.offers
+//const data = a.offers
 
 export const Search = props => {
-  // const [data, setData] = useState(undefined)
+  const [data, setData] = useState(undefined)
 
-  // function getData(url){
-  //   fetch(url)
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((myJson) => {
-  //     setData(myJson.offers);
-  //   });
-  // }
+  function getData(url){
+    fetch(url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((myJson) => {
+      setData(myJson);
+    });
+  }
 
-  // useEffect(() => {
-  //getData('http://192.168.99.100:5001/js');
-  // }, []);
+  useEffect(() => {
+  getData('/offers');
+  }, []);
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -41,6 +41,7 @@ export const Search = props => {
         //         setData(myJson.offers);
       })
   }
+
 
   return (
     <div>
@@ -138,10 +139,10 @@ export const Search = props => {
                 key={offer.id}
                 id={offer.id}
                 picture={offer.picture}
-                title={offer.title}
-                cook={offer.cook}
-                date={offer.date}
-                location={offer.location}
+                title={offer.name}
+                cook={offer.firstname + " " + offer.lastname}
+                date={offer.day}
+                location={offer.localization}
                 grade={offer.grade}
                 price={offer.price}
                 description={offer.description}
