@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +26,7 @@ public class DishService {
 
 
     @Autowired
-    public DishService(@Lazy DishRepository dishRepository, @Lazy AccountService accountService){
+    public DishService(@Lazy DishRepository dishRepository, @Lazy AccountService accountService) {
         this.dishRepository = dishRepository;
         this.accountService = accountService;
     }
@@ -50,7 +51,7 @@ public class DishService {
     }
 
     public Dish getDish(int id) {
-        if(dishRepository.findById(id).isPresent()){
+        if (dishRepository.findById(id).isPresent()) {
             return dishRepository.findById(id).get();
         }
         return null;
@@ -60,17 +61,17 @@ public class DishService {
         //TODO przy przepinaniu dań między użytkownikami trzeba zadbać o to aby tylko admin mogl to zrobić.
         //jak narazie tego nei dodaje
         Optional<Dish> dishOptional = dishRepository.findById(id);
-        if(!dishOptional.isPresent()){
+        if (!dishOptional.isPresent()) {
             return ReturnCode.NOT_FOUND;
         }
         Dish dish = dishOptional.get();
-        if (payload.get("name") != null && !payload.get("name").equals("")){
+        if (payload.get("name") != null && !payload.get("name").equals("")) {
             dish.setName((String) payload.get("name"));
         }
-        if(payload.get("category") != null && !payload.get("category").equals("")){
+        if (payload.get("category") != null && !payload.get("category").equals("")) {
             dish.setCategory((String) payload.get("category"));
         }
-        if(payload.get("description") != null && !payload.get("description").equals("")) {
+        if (payload.get("description") != null && !payload.get("description").equals("")) {
             dish.setDescription((String) payload.get("description"));
         }
         dishRepository.save(dish);

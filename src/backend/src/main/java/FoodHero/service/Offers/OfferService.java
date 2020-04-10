@@ -30,7 +30,7 @@ public class OfferService {
 
 
     @Autowired
-    public OfferService(@Lazy OfferRepository offerRepository, @Lazy DishService dishService, @Lazy AccountService accountService){
+    public OfferService(@Lazy OfferRepository offerRepository, @Lazy DishService dishService, @Lazy AccountService accountService) {
         this.offerRepository = offerRepository;
         this.dishService = dishService;
         this.accountService = accountService;
@@ -39,8 +39,8 @@ public class OfferService {
     public List<AvailableOffer> getAllActive() {
         List<Offer> offers = offerRepository.findAll();
         List<AvailableOffer> availableOffers = new ArrayList<>();
-        for (Offer offer: offers){
-            if(offer.isStatus()){
+        for (Offer offer : offers) {
+            if (offer.isStatus()) {
                 AvailableOffer availableOffer = new AvailableOffer(offer);
                 availableOffers.add(availableOffer);
             }
@@ -48,11 +48,11 @@ public class OfferService {
         return availableOffers;
     }
 
-    public int getNumberOfActiveOffersAccount(int id){
+    public int getNumberOfActiveOffersAccount(int id) {
         List<Offer> offers = offerRepository.findAll();
         int active = 0;
-        for (Offer offer: offers){
-            if(offer.isStatus() && offer.getAccount().getId() == id){
+        for (Offer offer : offers) {
+            if (offer.isStatus() && offer.getAccount().getId() == id) {
                 active++;
             }
         }
@@ -142,7 +142,7 @@ public class OfferService {
             offers.get(0).retainAll(offers.get(i));
         }
         List<FilteredOffer> filteredOffers = new ArrayList<>();
-        for (Offer offer: offers.get(0)){
+        for (Offer offer : offers.get(0)) {
             FilteredOffer filteredOffer = new FilteredOffer(offer);
             filteredOffers.add(filteredOffer);
         }
@@ -150,12 +150,11 @@ public class OfferService {
         return filteredOffers;
     }
 
-    public ReturnCode createOffer(int id, Map<String, Object> payload){
+    public ReturnCode createOffer(int id, Map<String, Object> payload) {
         Account account = accountService.getAccount(id);
-        if(payload.get("id_dish") == null || payload.get("id_dish").equals("")){
+        if (payload.get("id_dish") == null || payload.get("id_dish").equals("")) {
             return ReturnCode.INCORRECT_DATA;
         }
-        //TODO trzeba sprawdzac castowanie bo jest sztywniutko teraz -- stringa nie scastuje dobrze
         //TODO trzeba tez zrobic sprawdzanie czy nie ma juz podpietego dania pod dana oferte
         Dish dish = dishService.getDish((Integer) payload.get("id_dish"));
         if (account == null || dish == null) {
@@ -173,32 +172,44 @@ public class OfferService {
                 payload.get("deliverycost") != null && !payload.get("deliverycost").equals("")) {
 
 
-            offer.setAccount(account);
-            offer.setDish(dish);
-            offer.setHours((String) payload.get("hours"));
-            offer.setDay((String) payload.get("day"));
-            offer.setPrice((Double) payload.get("price"));
-            offer.setLocalization((String) payload.get("localization"));
-            offer.setStatus((Boolean) payload.get("status"));
-            offer.setPeriodic((Boolean) payload.get("periodic"));
-            offer.setLimit((Integer) payload.get("limitation"));
-            offer.setPreparation((Integer) payload.get("preparation"));
-            offer.setDeliverycost((Integer) payload.get("deliverycost"));
-
+            try {
+                offer.setAccount(account);
+                offer.setDish(dish);
+                offer.setHours((String) payload.get("hours"));
+                offer.setDay((String) payload.get("day"));
+                offer.setPrice((Double) payload.get("price"));
+                offer.setLocalization((String) payload.get("localization"));
+                offer.setStatus((Boolean) payload.get("status"));
+                offer.setPeriodic((Boolean) payload.get("periodic"));
+                offer.setLimit((Integer) payload.get("limitation"));
+                offer.setPreparation((Integer) payload.get("preparation"));
+                offer.setDeliverycost((Integer) payload.get("deliverycost"));
+            } catch (NumberFormatException e) {
+                return ReturnCode.INCORRECT_DATA;
+            }
             offerRepository.save(offer);
             return ReturnCode.OK;
         }
         return ReturnCode.INCORRECT_DATA;
     }
 
+    public ReturnCode deleteOffer(int id) {
+        if (offerRepository.findById(id).isPresent()) {
+            offerRepository.deleteById(id);
+            return ReturnCode.OK;
+        } else {
+            return ReturnCode.NOT_FOUND;
+        }
+    }
+
     public Offer getOffer(int id) {
-        if(offerRepository.findById(id).isPresent()){
+        if (offerRepository.findById(id).isPresent()) {
             return offerRepository.findById(id).get();
         }
         return null;
     }
 
-    public List<Offer> getAllOfferRaw(){
+    public List<Offer> getAllOfferRaw() {
         return offerRepository.findAll();
     }
 }

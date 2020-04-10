@@ -21,12 +21,12 @@ public class LoginController {
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
     @Autowired
-    public LoginController(LoginService loginService){
+    public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
 
     @GetMapping(value = "/status", produces = "application/json")
-    public ResponseEntity<Map> getStatus(Principal principal) {
+    public ResponseEntity<Object> getStatus(Principal principal) {
         Map<String, String> data = new HashMap<>();
         data.put("userID", String.valueOf(loginService.getIdByEmail(principal.getName())));
         return new ResponseEntity<>(data, HttpStatus.OK);
@@ -46,25 +46,45 @@ public class LoginController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<Object> getLoginById(@PathVariable("id") int id) {
-        Optional<Login> login = loginService.getLogin(id);
-        if (login.isPresent()) {
-            return new ResponseEntity<>(login.get(), HttpStatus.OK);
+    public ResponseEntity<Object> getLoginById(@PathVariable("id") int id, Principal principal) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
         } else {
-            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nLogin not found.", HttpStatus.NOT_FOUND);
+            userID = -1;
+        }
+        if ((userID != -1 && userID == id) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+            Optional<Login> login = loginService.getLogin(id);
+            if (login.isPresent()) {
+                return new ResponseEntity<>(login.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nLogin not found.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to get login", HttpStatus.FORBIDDEN);
         }
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateLogin(@PathVariable("id") int id, @RequestBody Map<String, Object> payload) {
-        if (payload == null) {
-            return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> updateLogin(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
         }
-        ReturnCode returnCode = loginService.updateLogin(id, payload);
-        if (returnCode == ReturnCode.CONFLICT_WITH_DB) {
-            return new ResponseEntity<>(ReturnCode.CONFLICT_WITH_DB.toString() + "\nEmail is not available", HttpStatus.CONFLICT);
+        if ((userID != -1 && userID == id) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+            if (payload == null) {
+                return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload", HttpStatus.BAD_REQUEST);
+            }
+            ReturnCode returnCode = loginService.updateLogin(id, payload);
+            if (returnCode == ReturnCode.CONFLICT_WITH_DB) {
+                return new ResponseEntity<>(ReturnCode.CONFLICT_WITH_DB.toString() + "\nEmail is not available", HttpStatus.CONFLICT);
+            }
+            return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin updated successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to update login", HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin updated successfully", HttpStatus.OK);
     }
 
     @PostMapping(value = "/forget")
@@ -102,11 +122,22 @@ public class LoginController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteLogin(@PathVariable("id") int id) {
-        ReturnCode returnCode = loginService.deleteLogin(id);
-        if (returnCode == ReturnCode.OK) {
-            return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin deleted successfully", HttpStatus.OK);
+    public ResponseEntity<Object> deleteLogin(@PathVariable("id") int id, Principal principal) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
         }
-        return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() +  "\nLogin not found", HttpStatus.NOT_FOUND);
+        if ((userID != -1 && userID == id) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+            ReturnCode returnCode = loginService.deleteLogin(id);
+            if (returnCode == ReturnCode.OK) {
+                return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin deleted successfully", HttpStatus.OK);
+            }
+            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nLogin not found", HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to delete login", HttpStatus.FORBIDDEN);
+        }
     }
 }

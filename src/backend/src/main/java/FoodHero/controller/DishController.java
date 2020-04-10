@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 //TODO Cors do poprawy wszedzie
@@ -52,7 +53,7 @@ public class DishController {
             }
             return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish created successfully", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to modify account", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to post dish", HttpStatus.FORBIDDEN);
         }
     }
 
@@ -64,25 +65,58 @@ public class DishController {
         }
         return new ResponseEntity<>(dish, HttpStatus.OK);
     }
-    //TODO tutaj trzeba zabezpieczenia
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateDish(@PathVariable("id") int id, Map<String, Object> payload) {
+    public ResponseEntity<Object> updateDish(@PathVariable("id") int id, Map<String, Object> payload, Principal principal) {
         if (payload == null) {
             return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
         }
-        ReturnCode returnCode = dishService.updateDish(id, payload);
-        if (returnCode == ReturnCode.NOT_FOUND) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
+        }
+        Dish dish = dishService.getDish(id);
+        if(dish != null) {
+            if ((userID != -1 && userID == dish.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+                ReturnCode returnCode = dishService.updateDish(id, payload);
+                if (returnCode == ReturnCode.NOT_FOUND) {
+                    return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nDish not found", HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to modify dish", HttpStatus.FORBIDDEN);
+            }
+        }
+        else
+        {
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nDish not found", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish updated successfully", HttpStatus.OK);
     }
-
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") int id) {
-        ReturnCode returnCode = dishService.deleteDish(id);
-        if (returnCode == ReturnCode.NOT_FOUND) {
-            return new ResponseEntity<>("Dish deleted successfully", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> delete(@PathVariable("id") int id, Principal principal) {
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
         }
-        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish deleted successfully", HttpStatus.OK);
+        Dish dish = dishService.getDish(id);
+        if(dish != null) {
+            if ((userID != -1 && userID == dish.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+                ReturnCode returnCode = dishService.deleteDish(id);
+                if (returnCode == ReturnCode.NOT_FOUND) {
+                    return new ResponseEntity<>("Dish not found", HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to delete dish", HttpStatus.FORBIDDEN);
+            }
+        }
+        else
+        {
+            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nDish not found", HttpStatus.NOT_FOUND);
+        }
     }
 }

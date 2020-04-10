@@ -73,7 +73,6 @@ public class AccountController {
     }
 
     //TODO do przemyslenia czy nie mapowac od razu na obiekt czy moze jednak zostac przy mapie obiektow
-    //TODO tutaj jest przykladowe blokowanie dla userow ktorzy nie maja dostepow, sprawdzic jak to dziala i dorobic dla reszty - smiga mozna przeklajac
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateAccount(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
         int userID = 0;
