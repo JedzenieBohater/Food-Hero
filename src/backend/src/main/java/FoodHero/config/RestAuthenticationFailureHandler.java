@@ -1,4 +1,4 @@
-package FoodHero.Config;
+package FoodHero.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;

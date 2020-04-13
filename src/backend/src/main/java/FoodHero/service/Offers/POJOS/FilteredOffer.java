@@ -10,6 +10,7 @@ import java.util.List;
 public class FilteredOffer {
 
     //TODO linki do zdjec
+    private int id;
     private String url = "www.ToSieJeszczeZrobi.pl";
     private String firstname;
     private String lastname;
@@ -25,6 +26,7 @@ public class FilteredOffer {
     private int limit;
 
     public FilteredOffer(Offer offer) {
+        this.id = offer.getId();
         this.firstname = offer.getAccount().getFirstname();
         this.lastname = offer.getAccount().getLastname();
         this.name = offer.getDish().getName();
