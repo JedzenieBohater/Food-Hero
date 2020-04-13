@@ -7,7 +7,7 @@ import org.springframework.data.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilteredOffer {
+public class SingleOffer {
 
     //TODO linki do zdjec
     private int id;
@@ -25,7 +25,7 @@ public class FilteredOffer {
     private int preparationTime;
     private int limit;
 
-    public FilteredOffer(Offer offer) {
+    public SingleOffer(Offer offer) {
         this.id = offer.getId();
         this.firstname = offer.getAccount().getFirstname();
         this.lastname = offer.getAccount().getLastname();

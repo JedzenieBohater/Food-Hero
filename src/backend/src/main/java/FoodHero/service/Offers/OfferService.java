@@ -5,16 +5,15 @@ import FoodHero.model.Account;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Account.AccountService;
-import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.Dish.DishService;
-import FoodHero.service.Offers.POJOS.AvailableOffer;
-import FoodHero.service.Offers.POJOS.FilteredOffer;
+import FoodHero.service.Offers.POJOS.SingleOffer;
 import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +35,6 @@ public class OfferService {
         this.accountService = accountService;
     }
 
-    public List<AvailableOffer> getAllActive() {
-        List<Offer> offers = offerRepository.findAll();
-        List<AvailableOffer> availableOffers = new ArrayList<>();
-        for (Offer offer : offers) {
-            if (offer.isStatus()) {
-                AvailableOffer availableOffer = new AvailableOffer(offer);
-                availableOffers.add(availableOffer);
-            }
-        }
-        return availableOffers;
-    }
-
     public int getNumberOfActiveOffersAccount(int id) {
         List<Offer> offers = offerRepository.findAll();
         int active = 0;
@@ -59,7 +46,7 @@ public class OfferService {
         return active;
     }
 
-    public List<FilteredOffer> getOffersWithFilters(double minPrice, double maxPrice, double minRating, double maxRating, String category, boolean status, String localization, String searchName) {
+    public List<SingleOffer> getOffersWithFilters(double minPrice, double maxPrice, double minRating, double maxRating, String category, boolean status, String localization, String searchName) {
         List<List<Offer>> offers = new ArrayList<>();
         offers.add(offerRepository.findAll());
         if (minPrice > 0) {
@@ -141,13 +128,13 @@ public class OfferService {
         for (int i = 1; i < offers.size(); i++) {
             offers.get(0).retainAll(offers.get(i));
         }
-        List<FilteredOffer> filteredOffers = new ArrayList<>();
+        List<SingleOffer> singleOffers = new ArrayList<>();
         for (Offer offer : offers.get(0)) {
-            FilteredOffer filteredOffer = new FilteredOffer(offer);
-            filteredOffers.add(filteredOffer);
+            SingleOffer singleOffer = new SingleOffer(offer);
+            singleOffers.add(singleOffer);
         }
 
-        return filteredOffers;
+        return singleOffers;
     }
 
     public ReturnCode createOffer(int id, Map<String, Object> payload) {
@@ -193,6 +180,11 @@ public class OfferService {
         return ReturnCode.INCORRECT_DATA;
     }
 
+    public ReturnCode updateOffer(int id, Map<String, Object> payload){
+        //TODO dokonczyc
+        return null;
+    }
+
     public ReturnCode deleteOffer(int id) {
         if (offerRepository.findById(id).isPresent()) {
             offerRepository.deleteById(id);
@@ -202,8 +194,15 @@ public class OfferService {
         }
     }
 
-    public Offer getOffer(int id) {
+    public SingleOffer getSingleOffer(int id) {
         if (offerRepository.findById(id).isPresent()) {
+            return new SingleOffer(offerRepository.findById(id).get());
+        }
+        return null;
+    }
+
+    public Offer getOffer(int id){
+        if(offerRepository.findById(id).isPresent()){
             return offerRepository.findById(id).get();
         }
         return null;
