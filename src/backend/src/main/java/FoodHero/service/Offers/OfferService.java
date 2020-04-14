@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +141,6 @@ public class OfferService {
         if (payload.get("id_dish") == null || payload.get("id_dish").equals("")) {
             return ReturnCode.INCORRECT_DATA;
         }
-        //TODO trzeba tez zrobic sprawdzanie czy nie ma juz podpietego dania pod dana oferte
         Dish dish = dishService.getDish((Integer) payload.get("id_dish"));
         if (account == null || dish == null) {
             return ReturnCode.NOT_FOUND;

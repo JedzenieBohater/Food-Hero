@@ -1,6 +1,5 @@
 package FoodHero.service.AccountRatingRepository;
 
-import FoodHero.controller.OfferController;
 import FoodHero.dao.AccountRatingRepository;
 import FoodHero.model.AccountRating;
 import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;

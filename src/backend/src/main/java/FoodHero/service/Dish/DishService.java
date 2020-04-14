@@ -1,6 +1,5 @@
 package FoodHero.service.Dish;
 
-import FoodHero.controller.OfferController;
 import FoodHero.dao.DishRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
