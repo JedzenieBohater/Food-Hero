@@ -4,10 +4,13 @@ import FoodHero.dao.LoginRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
+import FoodHero.service.Utils.ReturnCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.TextCodec;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +26,27 @@ import java.util.Properties;
 @Service
 public class LoginService {
 
-    @Autowired
     LoginRepository loginRepository;
-    @Autowired
     AccountService accountService;
+    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
 
-    public int getIdByEmail(String email) {
-        return loginRepository.getByEmail(email).get().getId();
+
+    @Autowired
+    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService){
+        this.loginRepository = loginRepository;
+        this.accountService = accountService;
     }
 
-    public HttpStatus createLogin(Map<String, Object> payload) {
+    public int getIdByEmail(String email) {
+        if(loginRepository.getByEmail(email).isPresent()){
+            return loginRepository.getByEmail(email).get().getId();
+        }
+        return -1;
+    }
+
+    public ReturnCode createLogin(Map<String, Object> payload) {
         if (payload.get("email") == null || payload.get("password") == null || payload.get("email").equals("") || payload.get("password").equals("")) {
-            return HttpStatus.BAD_REQUEST;
+            return ReturnCode.MISSING_ARG;
         }
         if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -48,41 +60,41 @@ public class LoginService {
             String jwt = createToken("activate", id, null);
             sendEmail("activate", String.valueOf(payload.get("email")), jwt);
 
-            return HttpStatus.OK;
+            return ReturnCode.OK;
         }
-        return HttpStatus.CONFLICT;
+        return ReturnCode.CONFLICT_WITH_DB;
     }
 
-    public HttpStatus forgetPassword(Map<String, Object> payload) {
+    public ReturnCode forgetPassword(Map<String, Object> payload) {
         if (payload.get("email") == null || payload.get("email").equals("")) {
-            return HttpStatus.BAD_REQUEST;
+            return ReturnCode.INCORRECT_DATA;
         }
         if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
             int id = loginRepository.getByEmail(String.valueOf(payload.get("email"))).get().getId();
             String jwt = createToken("activate", id, null);
             sendEmail("activate", String.valueOf(payload.get("email")), jwt);
-            return HttpStatus.OK;
+            return ReturnCode.OK;
         }
-        return HttpStatus.NOT_FOUND;
+        return ReturnCode.NOT_FOUND;
     }
 
     public Optional<Login> getLogin(int id) {
         return loginRepository.findById(id);
     }
 
-    public HttpStatus updateLogin(int id, Map<String, Object> payload) {
+    public ReturnCode updateLogin(int id, Map<String, Object> payload) {
         Optional<Login> optionalLogin = loginRepository.findById(id);
         if (!optionalLogin.isPresent()) {
-            return HttpStatus.NOT_FOUND;
+            return ReturnCode.NOT_FOUND;
         }
         Login login = optionalLogin.get();
         if (payload.get("email") != null && !payload.get("email").equals("")) {
             if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
                 String jws = createToken("emailChange", id, String.valueOf(payload.get("email")));
                 sendEmail("emailChange", login.getEmail(), jws);
-                return HttpStatus.OK;
+                return ReturnCode.OK;
             } else {
-                return HttpStatus.CONFLICT;
+                return ReturnCode.CONFLICT_WITH_DB;
             }
         }
         if (payload.get("password") != null && !payload.get("password").equals("")) {
@@ -90,34 +102,34 @@ public class LoginService {
             String password = bCryptPasswordEncoder.encode(String.valueOf(payload.get("password")));
             login.setPassword(password);
             loginRepository.save(login);
-            return HttpStatus.OK;
+            return ReturnCode.OK;
         }
-        return HttpStatus.BAD_REQUEST;
+        return ReturnCode.INCORRECT_DATA;
     }
 
-    public HttpStatus deleteLogin(int id) {
+    public ReturnCode deleteLogin(int id) {
         Optional<Login> login = loginRepository.findById(id);
         if (login.isPresent()) {
             loginRepository.deleteById(id);
-            return HttpStatus.OK;
+            return ReturnCode.OK;
         }
-        return HttpStatus.NOT_FOUND;
+        return ReturnCode.NOT_FOUND;
     }
 
     //TODO trzeba zrobić odbieranie tokenu przy tworzeniu konta/zmianie maila/resecie hasła
-    public HttpStatus activateLogin(String token) {
+    public ReturnCode activateLogin(String token) {
         return null;
     }
 
-    public HttpStatus confirmPasswordReset(String token) {
+    public ReturnCode confirmPasswordReset(String token) {
         return null;
     }
 
-    public HttpStatus confirmUpdateEmail(String token) {
+    public ReturnCode confirmUpdateEmail(String token) {
         if (token != null && !token.equals("")) {
             try {
                 Claims claims = Jwts.parser()
-                        .setSigningKey(DatatypeConverter.parseBase64Binary("test"))
+                        .setSigningKey(DatatypeConverter.parseBase64Binary("2f9e5043a872a6b35f08ed33d2df5df1118ea7cc092318026db6495c403fac00"))
                         .parseClaimsJws(token).getBody();
                 String currentEmail = String.valueOf(claims.get("current"));
                 String pendingEmail = String.valueOf(claims.get("pending"));
@@ -127,15 +139,15 @@ public class LoginService {
                     Login login = optionalLogin.get();
                     login.setEmail(pendingEmail);
                     loginRepository.save(login);
-                    return HttpStatus.OK;
+                    return ReturnCode.OK;
                 }
-                return HttpStatus.BAD_REQUEST;
+                return ReturnCode.INVALID_TOKEN;
             } catch (Exception e) {
-                return HttpStatus.BAD_REQUEST;
+                return ReturnCode.INVALID_TOKEN;
             }
 
         }
-        return HttpStatus.BAD_REQUEST;
+        return ReturnCode.INVALID_TOKEN;
     }
 
     public void sendEmail(String type, String emailTo, String jwt) {
@@ -210,7 +222,7 @@ public class LoginService {
         jws.setExpiration(new Date(currentTime + 21600000));
         jws.signWith(
                 SignatureAlgorithm.HS256,
-                TextCodec.BASE64.decode("test")
+                TextCodec.BASE64.decode("2f9e5043a872a6b35f08ed33d2df5df1118ea7cc092318026db6495c403fac00")
         );
         return jws.compact();
     }

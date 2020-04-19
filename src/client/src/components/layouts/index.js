@@ -7,4 +7,13 @@ import Search from './Search'
 import Profile from './Profile'
 import AddOffer from './AddOffer'
 
-export { Header, Login, Register, ForgottenPassword, Home, Search, Profile,AddOffer }
+export {
+  Header,
+  Login,
+  Register,
+  ForgottenPassword,
+  Home,
+  Search,
+  Profile,
+  AddOffer,
+}

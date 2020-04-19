@@ -1,9 +1,9 @@
 package FoodHero.service.Account;
 
+import FoodHero.controller.OfferController;
 import FoodHero.dao.AccountRepository;
-import FoodHero.dao.DishRepository;
-import FoodHero.dao.OfferRepository;
 import FoodHero.model.Account;
+import FoodHero.model.AccountRating;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Account.POJOS.AccountDetails;
@@ -11,8 +11,11 @@ import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.AccountRatingRepository.POJOS.RatingAccountPojo;
 import FoodHero.service.Dish.DishService;
 import FoodHero.service.Offers.OfferService;
+import FoodHero.service.Utils.ReturnCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,14 +25,20 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
-    @Autowired
     AccountRepository accountRepository;
-    @Autowired
     DishService dishService;
-    @Autowired
     AccountRatingService accountRatingService;
-    @Autowired
     OfferService offerService;
+    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
+
+
+    @Autowired
+    public AccountService(@Lazy AccountRepository accountRepository, @Lazy DishService dishService, @Lazy AccountRatingService accountRatingService, @Lazy OfferService offerService){
+        this.accountRepository = accountRepository;
+        this.dishService = dishService;
+        this.accountRatingService = accountRatingService;
+        this.offerService = offerService;
+    }
 
     public void createAccount(Account account) {
         accountRepository.save(account);
@@ -46,8 +55,11 @@ public class AccountService {
         return new AccountDetails(account, activeOffers, ratingAccountPojoList);
     }
 
-    public Optional<Account> getAccount(int id){
-        return accountRepository.findById(id);
+    public Account getAccount(int id){
+        if(accountRepository.findById(id).isPresent()){
+            return accountRepository.findById(id).get();
+        }
+        return null;
     }
 
     public List<Offer> getAccountOffers(int id) {
@@ -72,10 +84,10 @@ public class AccountService {
         return accountDishes;
     }
 
-    public HttpStatus updateAccount(int id, Map<String, Object> payload) {
+    public ReturnCode updateAccount(int id, Map<String, Object> payload) {
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (!accountOptional.isPresent()){
-            return HttpStatus.NOT_FOUND;
+            return ReturnCode.NOT_FOUND;
         }
         Account account = accountOptional.get();
         if (payload.get("firstname") != null && !payload.get("firstname").equals("")) {
@@ -100,7 +112,7 @@ public class AccountService {
             account.setCookStatus((Boolean) payload.get("cook_status"));
         }
         accountRepository.save(account);
-        return HttpStatus.OK;
+        return ReturnCode.OK;
     }
 
     public List<Account> getAccounts() {

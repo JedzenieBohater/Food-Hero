@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login } from '../../../actions/session'
-import {clearErrors} from '../../../actions/errors'
+import { login } from 'actions/session'
+import { clearErrors } from 'actions/errors'
 import PropTypes from 'prop-types'
 
 export const Login = ({ login, errors, lang }) => {
@@ -10,28 +10,24 @@ export const Login = ({ login, errors, lang }) => {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
-  
   const handleSubmit = async event => {
     event.preventDefault()
     clearErrors()
-    if (email.length < 5 || email.length > 50 ) {
-			setErrorMessage(lang.emailincorrect) 
-		}
-    else {
+    if (email.length < 5 || email.length > 50) {
+      setErrorMessage(lang.emailincorrect)
+    } else {
       setErrorMessage(null)
-      login({ email, password })    
+      login({ email, password })
     }
   }
   let error = null
-	if (errorMessage != null) {
-		error = 
-    <label className="profileerror">{errorMessage}</label>
+  if (errorMessage != null) {
+    error = <label className="profileerror">{errorMessage}</label>
   }
   if (errors != '') {
-		error = 
-    <label className="profileerror">{lang.passwordincorrect}</label>
+    error = <label className="profileerror">{lang.passwordincorrect}</label>
   }
-  
+
   return (
     <div className="content-box-middle" test-data="wrapper">
       <form className="content-box" test-data="form">
@@ -42,12 +38,11 @@ export const Login = ({ login, errors, lang }) => {
                 <label htmlFor="email">{lang.email}:</label>
               </td>
               <td>
-                <input 
-                   onChange={e => setEmail(e.target.value)} 
-                  type="email" 
-                  id="email" 
-                  placeholder={lang.email.toLowerCase()} 
-                  
+                <input
+                  onChange={e => setEmail(e.target.value)}
+                  type="email"
+                  id="email"
+                  placeholder={lang.email.toLowerCase()}
                 />
               </td>
             </tr>
@@ -56,18 +51,22 @@ export const Login = ({ login, errors, lang }) => {
                 <label htmlFor="password">{lang.password}:</label>
               </td>
               <td>
-                <input 
-                  onChange={e => setPassword(e.target.value)} 
-                  type="password" 
-                  id="password" 
-                  placeholder={lang.password.toLowerCase()} 
+                <input
+                  onChange={e => setPassword(e.target.value)}
+                  type="password"
+                  id="password"
+                  placeholder={lang.password.toLowerCase()}
                   required
                 />
               </td>
             </tr>
             <tr>
               <td colSpan="2">
-                <button onClick={handleSubmit} className="btn-blue" test-data="submit">
+                <button
+                  onClick={handleSubmit}
+                  className="btn-blue"
+                  test-data="submit"
+                >
                   {lang.login}
                 </button>
               </td>
@@ -75,7 +74,10 @@ export const Login = ({ login, errors, lang }) => {
           </tbody>
         </table>
         <div className="middle">
-          {lang.noAccount} <Link to="/register" test-data="register">{lang.register}</Link>
+          {lang.noAccount}{' '}
+          <Link to="/register" test-data="register">
+            {lang.register}
+          </Link>
         </div>
         <div className="middle">
           <Link to="/forgottenpassword">{lang.forget}</Link>
@@ -94,21 +96,18 @@ Login.propTypes = {
     password: PropTypes.string.isRequired,
     login: PropTypes.string.isRequired,
     noAccount: PropTypes.string.isRequired,
-    forget: PropTypes.string.isRequired
-  })
+    forget: PropTypes.string.isRequired,
+  }),
 }
 
 const mapStateToProps = ({ errorReducer, languageReducer }) => ({
   errors: errorReducer,
-  lang: languageReducer.login
+  lang: languageReducer.login,
 })
 
 const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user)),
-  clearErrors: () => dispatch(clearErrors())
+  clearErrors: () => dispatch(clearErrors()),
 })
 
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

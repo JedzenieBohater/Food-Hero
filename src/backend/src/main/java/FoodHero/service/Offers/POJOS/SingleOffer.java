@@ -7,9 +7,10 @@ import org.springframework.data.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilteredOffer {
+public class SingleOffer {
 
     //TODO linki do zdjec
+    private int id;
     private String url = "www.ToSieJeszczeZrobi.pl";
     private String firstname;
     private String lastname;
@@ -24,7 +25,8 @@ public class FilteredOffer {
     private int preparationTime;
     private int limit;
 
-    public FilteredOffer(Offer offer) {
+    public SingleOffer(Offer offer) {
+        this.id = offer.getId();
         this.firstname = offer.getAccount().getFirstname();
         this.lastname = offer.getAccount().getLastname();
         this.name = offer.getDish().getName();
@@ -46,6 +48,14 @@ public class FilteredOffer {
         this.price = offer.getPrice();
         this.preparationTime = offer.getPreparation();
         this.limit = offer.getLimit();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUrl() {

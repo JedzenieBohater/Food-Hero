@@ -1,12 +1,10 @@
-
 export const getAccountData = async user => {
   const response = await fetch('/account/' + user.userID, {
     method: 'GET',
-    credentials: 'include'
+    credentials: 'include',
   })
   let accountData = await response.json()
   return accountData
-
 }
 
 export const sendChangedProfile = async (object, user) => {
@@ -15,8 +13,8 @@ export const sendChangedProfile = async (object, user) => {
     method: 'PUT',
     body: JSON.stringify(object),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    credentials: 'include'
+    credentials: 'include',
   })
 }
