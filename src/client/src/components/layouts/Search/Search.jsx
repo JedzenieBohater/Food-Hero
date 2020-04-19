@@ -8,18 +8,18 @@ import a from './exampledata.json'
 export const Search = props => {
   const [data, setData] = useState(undefined)
 
-  function getData(url){
+  function getData(url) {
     fetch(url)
-    .then((response) => {
-      return response.json();
-    })
-    .then((myJson) => {
-      setData(myJson);
-    });
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        setData(myJson);
+      });
   }
 
   useEffect(() => {
-  getData('/offers');
+    getData('/offers');
   }, []);
 
   const handleSubmit = async event => {
@@ -30,19 +30,13 @@ export const Search = props => {
       if (key[1] == '') data.delete(key[0])
     }
     const params = new URLSearchParams(data).toString()
+
     console.log(params)
-    fetch('url' + '?' + params, {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json()
-      })
-      .then(myJson => {
-        //         setData(myJson.offers);
-      })
+
+    getData('/offers' + '?' + params)
   }
 
-
+  console.log(data)
   return (
     <div>
       <div className="content-box searchmain flexing search">
@@ -58,78 +52,78 @@ export const Search = props => {
           <form onSubmit={handleSubmit}>
             <table>
               <tr>
-                <td>nazwa</td>
+                <td>{props.lang.name}</td>
                 <td> : </td>
                 <td>
                   <input
                     className="textfilter"
                     id="name"
-                    name="name"
+                    name="SearchName"
                     type="text"
                   />
                 </td>
               </tr>
               <tr>
-                <td>cena</td>
+                <td>{props.lang.price}</td>
                 <td> : </td>
                 <td className="center">
                   <input
                     className="numberfilter"
-                    name="min-price"
+                    name="MinPrice"
                     type="number"
                   />
                   -
                   <input
                     className="numberfilter"
-                    name="max-price"
+                    name="MaxPrice"
                     type="number"
                   />
                 </td>
               </tr>
               <tr>
-                <td>lokalizacja</td>
+                <td>{props.lang.localization}</td>
                 <td> : </td>
                 <td>
                   <input
                     className="textfilter"
-                    name="localization"
+                    name="Localization"
                     type="text"
                   />
                 </td>
               </tr>
               <tr>
-                <td>kategoria</td>
+                <td>{props.lang.category}</td>
                 <td> : </td>
                 <td>
-                  <input className="textfilter" name="category" type="text" />
+                  <input className="textfilter" name="Category" type="text" />
                 </td>
               </tr>
               <tr>
-                <td>status</td>
+                <td>{props.lang.status}</td>
                 <td> : </td>
                 <td>
-                  <input className="textfilter" name="status" type="checkbox" />
+                  <input className="textfilter" name="Status" type="checkbox" />
                 </td>
               </tr>
               <tr>
-                <td>ocena</td>
+                <td>{props.lang.rating}</td>
                 <td> : </td>
                 <td className="center">
                   <input
                     className="numberfilter"
-                    name="min-grade"
+                    name="MinRating"
                     type="number"
                   />
                   -
                   <input
                     className="numberfilter"
-                    name="max-grade"
+                    name="MaxRating"
                     type="number"
                   />
                 </td>
               </tr>
             </table>
-            <input className="description" type="submit" />
+            <input className="description" type="submit" value={props.lang.send}/>
           </form>
         </div>
         <div className="content-box col75 centering">
@@ -149,13 +143,13 @@ export const Search = props => {
               ></List>
             ))
           ) : (
-            <div id="dots1">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          )}
+              <div id="dots1">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
         </div>
       </div>
     </div>
