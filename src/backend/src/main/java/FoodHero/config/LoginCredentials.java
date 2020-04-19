@@ -1,4 +1,4 @@
-package FoodHero.Config;
+package FoodHero.config;
 
 public class LoginCredentials {
     private String email;
