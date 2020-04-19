@@ -1,10 +1,9 @@
 package FoodHero.controller;
 
-import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Login.LoginService;
 import FoodHero.service.Offers.OfferService;
-import FoodHero.service.Offers.POJOS.AvailableOffer;
+import FoodHero.service.Offers.POJOS.SingleOffer;
 import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/offers")
@@ -114,44 +111,38 @@ public class OfferController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Object> getOffer(@PathVariable("id") int id) {
-        Offer offer = offerService.getOffer(id);
-        if (offer == null) {
+        SingleOffer singleOffer = offerService.getSingleOffer(id);
+        if (singleOffer == null) {
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(offer, HttpStatus.OK);
+        return new ResponseEntity<>(singleOffer, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/active", produces = "application/json")
-    public ResponseEntity<Object> activeOffers() {
-        List<AvailableOffer> availableOffers = offerService.getAllActive();
-        return new ResponseEntity<>(availableOffers, HttpStatus.OK);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> updateOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal){
+        int userID = 0;
+        if (principal != null) {
+            userID = loginService.getIdByEmail(principal.getName());
+        } else {
+            userID = -1;
+        }
+        Offer offer = offerService.getOffer(id);
+        if(offer != null) {
+            if ((userID != -1 && userID == offer.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
+                ReturnCode returnCode = offerService.updateOffer(id, payload);
+                if (returnCode == ReturnCode.NOT_FOUND) {
+                    return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(ReturnCode.OK.toString() + "\nOffer updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to update offer", HttpStatus.FORBIDDEN);
+            }
+        }
+        else
+        {
+            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
+        }
     }
-
-//    @PutMapping(value = "/{id}")
-//    public ReturnCode<Object> updateOffer(@PathVariable("id") int id, Principal principal){
-//        int userID = 0;
-//        if (principal != null) {
-//            userID = loginService.getIdByEmail(principal.getName());
-//        } else {
-//            userID = -1;
-//        }
-//        Offer offer = offerService.getOffer(id);
-//        if(offer != null) {
-//            if ((userID != -1 && userID == offer.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
-//                ReturnCode returnCode = offerService.deleteOffer(id);
-//                if (returnCode == ReturnCode.NOT_FOUND) {
-//                    return new ResponseEntity<>("Offer not found", HttpStatus.NOT_FOUND);
-//                }
-//                return new ResponseEntity<>(ReturnCode.OK.toString() + "\nOffer deleted successfully", HttpStatus.OK);
-//            } else {
-//                return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to delete offer", HttpStatus.FORBIDDEN);
-//            }
-//        }
-//        else
-//        {
-//            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
-//        }
-//    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteOffer(@PathVariable("id") int id, Principal principal){

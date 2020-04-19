@@ -34,14 +34,15 @@ public class Account {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_login")
     private Login login;
+    private String language;
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountRating> ratingList;
 
-    public Account(){
+    public Account() {
     }
 
-    public Account(Login login){
+    public Account(Login login) {
         this.login = login;
         this.creation_date = java.sql.Date.valueOf(java.time.LocalDate.now());
         this.cookStatus = false;
@@ -133,6 +134,14 @@ public class Account {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public List<AccountRating> getRatingList() {

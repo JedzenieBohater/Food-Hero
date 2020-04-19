@@ -4,7 +4,6 @@ import FoodHero.dao.LoginRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
-import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import FoodHero.service.Utils.ReturnCode;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.TextCodec;
@@ -130,7 +129,7 @@ public class LoginService {
         if (token != null && !token.equals("")) {
             try {
                 Claims claims = Jwts.parser()
-                        .setSigningKey(DatatypeConverter.parseBase64Binary("test"))
+                        .setSigningKey(DatatypeConverter.parseBase64Binary("2f9e5043a872a6b35f08ed33d2df5df1118ea7cc092318026db6495c403fac00"))
                         .parseClaimsJws(token).getBody();
                 String currentEmail = String.valueOf(claims.get("current"));
                 String pendingEmail = String.valueOf(claims.get("pending"));
@@ -223,7 +222,7 @@ public class LoginService {
         jws.setExpiration(new Date(currentTime + 21600000));
         jws.signWith(
                 SignatureAlgorithm.HS256,
-                TextCodec.BASE64.decode("test")
+                TextCodec.BASE64.decode("2f9e5043a872a6b35f08ed33d2df5df1118ea7cc092318026db6495c403fac00")
         );
         return jws.compact();
     }

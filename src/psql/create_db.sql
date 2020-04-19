@@ -22,6 +22,7 @@ CREATE TABLE public.account
     grade real,
     cook_status boolean NOT NULL,
     id_login bigint NOT NULL,
+    language varchar(2) DEFAULT 'EN' NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_login) REFERENCES public.login (id)
 );
@@ -80,17 +81,6 @@ CREATE TABLE public.dish_grades
     PRIMARY KEY (id),
     FOREIGN KEY (id_dish) REFERENCES public.dish (id),
     FOREIGN KEY (id_owner) REFERENCES public.account (id)
-);
-
-CREATE TABLE public.system_logs
-(
-    id bigserial NOT NULL,
-    method text NOT NULL,
-    link text NOT NULL,
-    subject_id bigint,
-    creation_date date NOT NULL,
-    payload text,
-    PRIMARY KEY(id)
 );
 
 /*hasla dla kolejnych userów to:

@@ -28,7 +28,7 @@ public class RatingService {
     }
 
     public Optional<Rating> getRating(int id){
-        return Optional.ofNullable(ratingRepository.getOne(id));
+        return Optional.of(ratingRepository.getOne(id));
     }
 
     public void updateRating(Rating rating) {
@@ -40,6 +40,6 @@ public class RatingService {
     }
 
     public Optional<List<Rating>> getRatings() {
-        return Optional.ofNullable(ratingRepository.findAll());
+        return Optional.of(ratingRepository.findAll());
     }
 }
