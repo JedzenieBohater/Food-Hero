@@ -1,6 +1,6 @@
 import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER } from '../actions/session'
 import { RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/errors'
-import {CHANGE_LANGUAGE} from '../actions/language'
+import { CHANGE_LANGUAGE } from '../actions/language'
 import { en, pl } from '../languages'
 
 const nullSession = { userID: null, accessToken: null, refreshToken: null }
@@ -11,12 +11,12 @@ export function sessionReducer(state = nullSession, { type, user }) {
     case LOGOUT_CURRENT_USER:
       return {
         ...state,
-        ...nullSession
+        ...nullSession,
       }
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
-        ...user
+        ...user,
       }
     default:
       return state
@@ -35,13 +35,13 @@ export function errorReducer(state = '', { message, type }) {
   }
 }
 
-export function languageReducer(state = en, {short, type}) {
+export function languageReducer(state = en, { short, type }) {
   Object.freeze(state)
-  switch(type){
+  switch (type) {
     case CHANGE_LANGUAGE:
-      if(short === "pl"){
+      if (short === 'pl') {
         return pl
-      } else{
+      } else {
         return en
       }
     default:

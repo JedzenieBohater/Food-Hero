@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-export const Home = (props) => {
+export const Home = props => {
   return (
     <div>
       <div className="main">
@@ -11,9 +11,9 @@ export const Home = (props) => {
             <Link to="search">
               <div className="img-container">
                 <div className="img-main-section">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/static/images/want-eat.jpeg`} 
-                    className="img-main-section" 
+                  <img
+                    src={`${process.env.PUBLIC_URL}/static/images/want-eat.jpeg`}
+                    className="img-main-section"
                   />
                 </div>
 
@@ -28,9 +28,9 @@ export const Home = (props) => {
             <Link to="/search">
               <div className="img-container">
                 <div className="img-main-section">
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/static/images/want-cook.jpeg`} 
-                    className="img-main-section" 
+                  <img
+                    src={`${process.env.PUBLIC_URL}/static/images/want-cook.jpeg`}
+                    className="img-main-section"
                   />
                 </div>
 
@@ -45,20 +45,24 @@ export const Home = (props) => {
 
           <div className="section">
             <div className="text-section">
-              <div style={{ width: "100%", textAlign: "center" }}>
-                <img src={`${process.env.PUBLIC_URL}/static/images/food_Hero.png`} />
+              <div style={{ width: '100%', textAlign: 'center' }}>
+                <img
+                  src={`${process.env.PUBLIC_URL}/static/images/food_Hero.png`}
+                />
               </div>
               <p className="quote">{props.lang.quote}</p>
-              <p style={{ textAlign: "center" }}>{props.lang.hero}</p>
+              <p style={{ textAlign: 'center' }}>{props.lang.hero}</p>
               <p>{props.lang.what}</p>
               <p>{props.lang.society}</p>
               <p>{props.lang.makeOrder}</p>
               <p>{props.lang.makeDish}</p>
               <h3>{props.lang.try}</h3>
             </div>
-            <div className="btn-container" style={{ margin: "auto" }}>
+            <div className="btn-container" style={{ margin: 'auto' }}>
               <Link to="/register">
-                <button className="btn btn-register">{props.lang.register}</button>
+                <button className="btn btn-register">
+                  {props.lang.register}
+                </button>
               </Link>
             </div>
           </div>
@@ -69,7 +73,7 @@ export const Home = (props) => {
 }
 
 const mapStateToProps = ({ languageReducer }) => ({
-  lang: languageReducer.home
+  lang: languageReducer.home,
 })
 
 export default connect(mapStateToProps)(Home)

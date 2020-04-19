@@ -76,6 +76,12 @@ export default {
         what: "Czego szukasz:",
         localization: "Lokalizacja:",
         search: "Szukaj",
-        filters: "Filtry"
+        filters: "Filtry",
+        price: "Cena",
+        category: "Kategoria",
+        status: "Status",
+        rating: "Ocena",
+        name: "Name",
+        send: "Filtruj"
     }
 }
