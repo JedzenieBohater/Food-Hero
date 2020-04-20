@@ -1,13 +1,10 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
-// <Link to={"offer/" + props.id}>
 
 export default props => {
 
   var redirectToOfferDetails = () => {
-    console.log(props.id)
+    // console.log(props.id)
   }
-  console.log(props.id)
   return (
     <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails()}>
       <div className="flexrow">

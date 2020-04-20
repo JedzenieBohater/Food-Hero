@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import List from './List'
+import Table from './Table'
 import { connect } from 'react-redux'
+
 import a from './exampledata.json'
 
 //const data = a.offers
@@ -123,12 +125,12 @@ export const Search = props => {
                 </td>
               </tr>
             </table>
-            <input className="description" type="submit" value={props.lang.send}/>
+            <input className="description" type="submit" value={props.lang.send} />
           </form>
         </div>
         <div className="content-box col75 centering">
           {data ? (
-            data.map(offer => (
+            <Table data={data.map(offer => (
               <List
                 key={offer.id}
                 id={offer.id}
@@ -141,7 +143,8 @@ export const Search = props => {
                 price={offer.price}
                 description={offer.description}
               ></List>
-            ))
+            ))} />
+
           ) : (
               <div id="dots1">
                 <span></span>
@@ -155,6 +158,9 @@ export const Search = props => {
     </div>
   )
 }
+
+
+
 
 const mapStateToProps = ({ languageReducer }) => ({
   lang: languageReducer.search,

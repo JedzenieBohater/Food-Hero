@@ -83,5 +83,9 @@ export default {
         rating: "Ocena",
         name: "Name",
         send: "Filtruj"
+    },
+    table:
+    {
+        page: "Strona"
     }
 }
