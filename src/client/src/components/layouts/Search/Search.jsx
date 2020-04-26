@@ -3,7 +3,7 @@ import List from './List'
 import Table from './Table'
 import { connect } from 'react-redux'
 
-import a from './exampledata.json'
+//import a from './exampledata.json'
 
 //const data = a.offers
 
@@ -29,16 +29,16 @@ export const Search = props => {
     var data = new FormData(event.target)
     var data2 = new FormData(event.target)
     for (var key of data2) {
-      if (key[1] == '') data.delete(key[0])
+      if (key[1] === '') data.delete(key[0])
     }
     const params = new URLSearchParams(data).toString()
 
     console.log(params)
 
-    getData('/offers' + '?' + params)
+    getData('/offers?' + params)
   }
 
-  console.log(data)
+  //console.log(data)
   return (
     <div>
       <div className="content-box searchmain flexing search">
@@ -53,6 +53,7 @@ export const Search = props => {
           {props.lang.filters}
           <form onSubmit={handleSubmit}>
             <table>
+              <tbody>
               <tr>
                 <td>{props.lang.name}</td>
                 <td> : </td>
@@ -124,6 +125,7 @@ export const Search = props => {
                   />
                 </td>
               </tr>
+              </tbody>
             </table>
             <input className="description" type="submit" value={props.lang.send} />
           </form>

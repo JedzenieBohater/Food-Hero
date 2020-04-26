@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { register } from '../../../utils/session'
-import { connect } from 'react-redux'
+import React from 'react'
+//import { useState } from 'react'
+//import { register } from '../../../utils/session'
+//import { connect } from 'react-redux'
 
 export const AddOffer = props => {
   function readURL(input) {
@@ -22,7 +23,7 @@ export const AddOffer = props => {
     var request = new XMLHttpRequest();
   request.open("POST", "/offers/add");
   request.send(data);
-  if(request.status == 200)
+  if(request.status === 200)
     {
     alert("dodano oferte")
     }
@@ -48,7 +49,7 @@ export const AddOffer = props => {
                 className="addpic"
                 id="blah"
                 src="http://placehold.it/180"
-                alt="your image"
+                alt=" "
               />
               <div>
                 <input type="file" id="imgInp" onChange={readURL} />

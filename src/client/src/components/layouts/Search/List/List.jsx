@@ -1,9 +1,11 @@
 import React from 'react'
+//import {withRouter} from 'react-router-dom'
 
-export default props => {
+var List = props => {
 
   var redirectToOfferDetails = () => {
-    // console.log(props.id)
+    //console.log(props.id)
+    //props.history.push("/offer/" + props.id);
   }
   return (
     <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails()}>
@@ -46,3 +48,8 @@ export default props => {
     </div>
   )
 }
+
+
+
+//export default withRouter(List)
+export default List

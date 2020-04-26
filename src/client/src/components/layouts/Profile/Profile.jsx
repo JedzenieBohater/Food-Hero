@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import logo from '../../../static/images/logolarge.png'
 import user from './userinstance.json'
@@ -13,7 +13,7 @@ const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
 
 export const Profile = props => {
   const [view, setView] = useState('profile')
-  const [email, setEmail] = useState(user.email)
+  //const [email, setEmail] = useState(user.email)
   const [firstname, setFirstname] = useState(user.firstname)
   const [lastname, setLastname] = useState(user.lastname)
   const [description, setDescription] = useState(user.description)
