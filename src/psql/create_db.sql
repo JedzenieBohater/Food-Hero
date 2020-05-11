@@ -22,7 +22,7 @@ CREATE TABLE public.account
     grade real,
     cook_status boolean NOT NULL,
     id_login bigint NOT NULL,
-    language varchar(2) DEFAULT 'EN' NOT NULL,
+    language varchar(2) DEFAULT 'EN',
     PRIMARY KEY (id),
     FOREIGN KEY (id_login) REFERENCES public.login (id)
 );

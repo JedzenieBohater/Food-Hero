@@ -1,7 +1,6 @@
 package FoodHero.controller;
 
 import FoodHero.model.Account;
-import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Account.POJOS.AccountDetails;
 import FoodHero.service.Login.LoginService;

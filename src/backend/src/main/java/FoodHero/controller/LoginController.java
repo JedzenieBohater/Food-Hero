@@ -33,13 +33,14 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> createLogin(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<String> createLogin(@RequestBody Map<String, Object> payload, @RequestHeader("accept-language") String language) {
         if (payload == null) {
             return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
         }
-        if (loginService.createLogin(payload) == ReturnCode.OK) {
+        ReturnCode returnCode = loginService.createLogin(payload, language.substring(0, 2));
+        if (returnCode == ReturnCode.OK) {
             return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin created successfully.", HttpStatus.OK);
-        } else if (loginService.createLogin(payload) == ReturnCode.CONFLICT_WITH_DB) {
+        } else if (returnCode == ReturnCode.CONFLICT_WITH_DB) {
             return new ResponseEntity<>(ReturnCode.CONFLICT_WITH_DB.toString() + "\nEmail is being used.", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(ReturnCode.INCORRECT_DATA.toString() + "\nWrong json payload.", HttpStatus.BAD_REQUEST);
