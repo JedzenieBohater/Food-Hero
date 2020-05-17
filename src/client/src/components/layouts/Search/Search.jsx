@@ -13,7 +13,9 @@ export const Search = props => {
   function getData(url) {
     fetch(url)
       .then((response) => {
-        return response.json();
+        if(response.ok)
+          return response.json();
+        else return undefined;
       })
       .then((myJson) => {
         setData(myJson);
@@ -38,7 +40,6 @@ export const Search = props => {
     getData('/offers?' + params)
   }
 
-  //console.log(data)
   return (
     <div>
       <div className="content-box searchmain flexing search">
