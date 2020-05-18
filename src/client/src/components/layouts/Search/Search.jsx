@@ -40,9 +40,13 @@ export const Search = props => {
     getData('/offers?' + params)
   }
 
+  function clickOffer(id) {
+    window.location.pathname = '/offer/'+id;
+  }
+
   return (
     <div>
-      <div className="content-box searchmain flexing search">
+      <div className="searchmain content-box  flexing search">
         <label htmlFor="what">{props.lang.what} </label>
         <input id="what" type="text" />
         <label htmlFor="localization">{props.lang.localization} </label>
@@ -145,6 +149,7 @@ export const Search = props => {
                 grade={offer.grade}
                 price={offer.price}
                 description={offer.description}
+                onClick={() => clickOffer(offer.id)}
               ></List>
             ))} />
 
@@ -156,6 +161,7 @@ export const Search = props => {
                 <span></span>
               </div>
             )}
+
         </div>
       </div>
     </div>
