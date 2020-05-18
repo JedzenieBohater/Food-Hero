@@ -6,6 +6,7 @@ import Home from './Home'
 import Search from './Search'
 import Profile from './Profile'
 import AddOffer from './AddOffer'
+import Offer from './Offer'
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   Search,
   Profile,
   AddOffer,
+  Offer,
 }

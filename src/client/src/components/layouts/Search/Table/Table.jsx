@@ -26,7 +26,7 @@ class Table extends React.Component {
     return (
       <div>
         {itemsToDisplay}
-        <button onClick={() => this.setPage(this.state.currentPage - 1)} disable={this.state.currentPage === 1 ? "true" : "false"}>&lt;</button>
+        <button onClick={() => this.setPage(this.state.currentPage - 1)} disabled={this.state.currentPage === 1 ? true : false}>&lt;</button>
         <label>{this.props.lang.page}: {this.state.currentPage}</label>
         <button onClick={() => this.setPage(this.state.currentPage + 1)} disabled={this.state.currentPage === pageCount ? true : false}>&gt;</button>
       </div>

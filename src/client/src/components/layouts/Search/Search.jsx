@@ -141,7 +141,7 @@ export const Search = props => {
                 title={offer.name}
                 cook={offer.firstname + " " + offer.lastname}
                 date={offer.day}
-                location={offer.localization}
+                localization={offer.localization}
                 grade={offer.grade}
                 price={offer.price}
                 description={offer.description}
