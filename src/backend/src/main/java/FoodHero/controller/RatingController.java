@@ -16,7 +16,7 @@ import java.util.Optional;
 public abstract class RatingController {
 
     RatingService ratingService;
-    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
+    private static final Logger LOGGER = LogManager.getLogger(RatingController.class);
 
 
     @Autowired

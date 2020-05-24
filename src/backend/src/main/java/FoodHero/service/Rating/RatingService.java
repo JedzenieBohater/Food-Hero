@@ -2,7 +2,6 @@ package FoodHero.service.Rating;
 
 import FoodHero.dao.RatingRepository;
 import FoodHero.model.Rating;
-import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
