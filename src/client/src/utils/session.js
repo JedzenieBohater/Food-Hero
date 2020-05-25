@@ -25,7 +25,7 @@ export const logout = () =>
 
 export const checkLoggedIn = async preloadedState => {
   const response = await fetch('/login/status', { credentials: 'include' })
-  const { user } = await response.json()
+  const user = await response.json()
   preloadedState = {}
   if (user) {
     preloadedState = {

@@ -14,6 +14,7 @@ services:
       - ../src/client:/usr/src/app
     depends_on:
       - app
+    stdin_open: true
 
   app:
     container_name: some_backend
