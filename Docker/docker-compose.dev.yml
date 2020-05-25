@@ -3,7 +3,7 @@ version: '3'
 services:
   client:
     container_name: some_client
-    build: 
+    build:
       context: ../src/client
       dockerfile: Dockerfile.dev
     restart: unless-stopped
@@ -12,6 +12,7 @@ services:
     volumes:
       - /usr/src/app/node_modules
       - ../src/client:/usr/src/app
+    stdin_open: true
     depends_on:
       - app
 

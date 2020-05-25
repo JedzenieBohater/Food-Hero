@@ -25,8 +25,12 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private LoginDetailsService loginDetailsService;
+
+    @Autowired
+    public SecurityConfigAuth(LoginDetailsService loginDetailsService){
+        this.loginDetailsService = loginDetailsService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

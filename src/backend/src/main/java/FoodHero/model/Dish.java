@@ -14,7 +14,7 @@ public class Dish {
     private int id;
     @ManyToOne
     @JoinColumn(name = "id_account")
-    private FoodHero.model.Account account;
+    private Account account;
     private String name;
     private String category;
     private double grade;
