@@ -23,7 +23,7 @@ export default props => {
 
 
   useEffect(() => {
-    getOffer(window.location.pathname);
+    getOffer("/offers/"+window.location.pathname.split("/").pop());
   }, []);
 
   const select = useRef();
