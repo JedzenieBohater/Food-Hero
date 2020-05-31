@@ -12,9 +12,9 @@ services:
     volumes:
       - /usr/src/app/node_modules
       - ../src/client:/usr/src/app
-    stdin_open: true
     depends_on:
       - app
+    stdin_open: true
 
   app:
     container_name: some_backend
