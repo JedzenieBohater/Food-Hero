@@ -11,20 +11,19 @@ export const Search = props => {
   const [data, setData] = useState(undefined)
 
   function getData(url) {
-    fetch(url)
-      .then((response) => {
-        if(response.ok)
-          return response.json();
-        else return undefined;
+    fetch(`/api${url}`)
+      .then(response => {
+        if (response.ok) return response.json()
+        else return undefined
       })
-      .then((myJson) => {
-        setData(myJson);
-      });
+      .then(myJson => {
+        setData(myJson)
+      })
   }
 
   useEffect(() => {
-    getData('/offers');
-  }, []);
+    getData('/offers')
+  }, [])
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -40,8 +39,8 @@ export const Search = props => {
     getData('/offers?' + params)
   }
 
-  function clickOffer(id) {
-    window.location.pathname = '/offer/'+id;
+  const clickOffer = id => {
+    props.history.push(`/offer/${id}`)
   }
 
   return (
@@ -59,117 +58,122 @@ export const Search = props => {
           <form onSubmit={handleSubmit}>
             <table>
               <tbody>
-              <tr>
-                <td>{props.lang.name}</td>
-                <td> : </td>
-                <td>
-                  <input
-                    className="textfilter"
-                    id="name"
-                    name="SearchName"
-                    type="text"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>{props.lang.price}</td>
-                <td> : </td>
-                <td className="center">
-                  <input
-                    className="numberfilter"
-                    name="MinPrice"
-                    type="number"
-                  />
-                  -
-                  <input
-                    className="numberfilter"
-                    name="MaxPrice"
-                    type="number"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>{props.lang.localization}</td>
-                <td> : </td>
-                <td>
-                  <input
-                    className="textfilter"
-                    name="Localization"
-                    type="text"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>{props.lang.category}</td>
-                <td> : </td>
-                <td>
-                  <input className="textfilter" name="Category" type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>{props.lang.status}</td>
-                <td> : </td>
-                <td>
-                  <input className="textfilter" name="Status" type="checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>{props.lang.rating}</td>
-                <td> : </td>
-                <td className="center">
-                  <input
-                    className="numberfilter"
-                    name="MinRating"
-                    type="number"
-                  />
-                  -
-                  <input
-                    className="numberfilter"
-                    name="MaxRating"
-                    type="number"
-                  />
-                </td>
-              </tr>
+                <tr>
+                  <td>{props.lang.name}</td>
+                  <td> : </td>
+                  <td>
+                    <input
+                      className="textfilter"
+                      id="name"
+                      name="SearchName"
+                      type="text"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>{props.lang.price}</td>
+                  <td> : </td>
+                  <td className="center">
+                    <input
+                      className="numberfilter"
+                      name="MinPrice"
+                      type="number"
+                    />
+                    -
+                    <input
+                      className="numberfilter"
+                      name="MaxPrice"
+                      type="number"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>{props.lang.localization}</td>
+                  <td> : </td>
+                  <td>
+                    <input
+                      className="textfilter"
+                      name="Localization"
+                      type="text"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>{props.lang.category}</td>
+                  <td> : </td>
+                  <td>
+                    <input className="textfilter" name="Category" type="text" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>{props.lang.status}</td>
+                  <td> : </td>
+                  <td>
+                    <input
+                      className="textfilter"
+                      name="Status"
+                      type="checkbox"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>{props.lang.rating}</td>
+                  <td> : </td>
+                  <td className="center">
+                    <input
+                      className="numberfilter"
+                      name="MinRating"
+                      type="number"
+                    />
+                    -
+                    <input
+                      className="numberfilter"
+                      name="MaxRating"
+                      type="number"
+                    />
+                  </td>
+                </tr>
               </tbody>
             </table>
-            <input className="description" type="submit" value={props.lang.send} />
+            <input
+              className="description"
+              type="submit"
+              value={props.lang.send}
+            />
           </form>
         </div>
         <div className="content-box col75 centering">
           {data ? (
-            <Table data={data.map(offer => (
-              <List
-                key={offer.id}
-                id={offer.id}
-                picture={offer.picture}
-                title={offer.name}
-                cook={offer.firstname + " " + offer.lastname}
-                date={offer.day}
-                localization={offer.localization}
-                grade={offer.grade}
-                price={offer.price}
-                description={offer.description}
-                onClick={() => clickOffer(offer.id)}
-              ></List>
-            ))} />
-
+            <Table
+              data={data.map(offer => (
+                <List
+                  key={offer.id}
+                  id={offer.id}
+                  picture={offer.picture}
+                  title={offer.name}
+                  cook={offer.firstname + ' ' + offer.lastname}
+                  date={offer.day}
+                  localization={offer.localization}
+                  grade={offer.grade}
+                  price={offer.price}
+                  description={offer.description}
+                  onClick={() => clickOffer(offer.id)}
+                ></List>
+              ))}
+            />
           ) : (
-              <div id="dots1">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            )}
-
+            <div id="dots1">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          )}
         </div>
       </div>
     </div>
   )
 }
-
-
-
 
 const mapStateToProps = ({ languageReducer }) => ({
   lang: languageReducer.search,

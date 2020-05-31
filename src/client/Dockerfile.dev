@@ -2,13 +2,11 @@ FROM node:lts-alpine
 
 WORKDIR /usr/src/app
 
-ENV NPM_CONFIG_LOGLEVEL warn
-
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY package*.json ./
 
-RUN npm i --silent
+RUN npm ci -qy
 
 COPY . .
 

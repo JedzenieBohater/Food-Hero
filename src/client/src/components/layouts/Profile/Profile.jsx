@@ -24,7 +24,7 @@ export const Profile = props => {
   const [account, setAccount] = useState(null)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       let account = await getAccountData(props.session)
       setAccount(account)
       console.log(account)
@@ -37,17 +37,17 @@ export const Profile = props => {
     })()
   }, [])
 
-// dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
-// i usuniecie z listy dan w profilu
+  // dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
+  // i usuniecie z listy dan w profilu
 
   const deleteOffer = async event => {
-    var id=event.target.getAttribute('name');
-    console.log(id);
-    fetch("offer/"+id, {
-      method: 'delete'
+    var id = event.target.getAttribute('name')
+    console.log(id)
+    fetch('/api/offer/' + id, {
+      method: 'delete',
     }).then(response => {
-      if(response.status===200){
-        alert("oferta została usunięta")
+      if (response.status === 200) {
+        alert('oferta została usunięta')
       }
     })
   }
@@ -188,7 +188,8 @@ export const Profile = props => {
       <>
         {user.dishlist.map(dish => (
           <div className="flexing">
-            <List className="col75"
+            <List
+              className="col75"
               id={dish.id}
               picture={dish.picture}
               title={dish.title}
@@ -198,7 +199,9 @@ export const Profile = props => {
               ocena={dish.grade}
               opis={dish.description}
             ></List>
-            <button name={dish.id} onClick={deleteOffer}>Delete</button>
+            <button name={dish.id} onClick={deleteOffer}>
+              Delete
+            </button>
           </div>
         ))}
       </>
