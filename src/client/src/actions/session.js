@@ -27,16 +27,13 @@ export const register = user => async dispatch => {
   const response = await ApiUtils.register(user)
   const data = await response.json()
 
-  if (!response.ok)
-    //return dispatch(receiveCurrentUser(data))
-    return dispatch(receiveErrors(data))
+  if (!response.ok) return dispatch(receiveErrors(data))
 }
 
 export const logout = () => async dispatch => {
   const response = await ApiUtils.logout()
-  const data = await response.json()
 
   if (response.ok) return dispatch(logoutCurrentUser())
 
-  return dispatch(receiveErrors(data))
+  return dispatch(receiveErrors('Problem while logging out'))
 }

@@ -18,7 +18,7 @@ export const login = user =>
 
 export const logout = () =>
   fetch('/api/logout', {
-    method: 'DELETE',
+    method: 'POST',
   })
 
 export const checkLoggedIn = async preloadedState => {
