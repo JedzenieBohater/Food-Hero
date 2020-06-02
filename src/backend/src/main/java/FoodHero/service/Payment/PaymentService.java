@@ -11,7 +11,7 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
     @Autowired
-    public PaymentService(@Lazy PaymentRepository paymentRepository){
+    public PaymentService(@Lazy PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
 }

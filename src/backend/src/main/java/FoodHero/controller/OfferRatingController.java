@@ -1,9 +1,7 @@
 package FoodHero.controller;
 
 import FoodHero.model.OfferRating;
-import FoodHero.model.Rating;
 import FoodHero.service.Rating.OfferRatingService;
-import FoodHero.service.Rating.RatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,12 @@ import java.util.Optional;
 @RequestMapping("/offer_rating")
 public abstract class OfferRatingController {
 
-    OfferRatingService offerRatingService;
     private static final Logger LOGGER = LogManager.getLogger(OfferRatingController.class);
+    OfferRatingService offerRatingService;
 
 
     @Autowired
-    public OfferRatingController(OfferRatingService offerRatingService){
+    public OfferRatingController(OfferRatingService offerRatingService) {
         this.offerRatingService = offerRatingService;
     }
 

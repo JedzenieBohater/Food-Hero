@@ -3,7 +3,6 @@ package FoodHero.service.Login;
 import FoodHero.dao.LoginRepository;
 import FoodHero.model.Login;
 import FoodHero.model.LoginDetails;
-import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,12 @@ import java.util.Optional;
 @Service
 public class LoginDetailsService implements UserDetailsService {
 
-    private LoginRepository loginRepository;
     private static final Logger LOGGER = LogManager.getLogger(LoginDetailsService.class);
+    private LoginRepository loginRepository;
 
 
     @Autowired
-    public LoginDetailsService(LoginRepository loginRepository){
+    public LoginDetailsService(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
     }
 

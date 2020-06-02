@@ -5,7 +5,10 @@ import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Utils.ReturnCode;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,29 +21,28 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.xml.bind.DatatypeConverter;
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.*;
 
 @Service
 public class LoginService {
 
+    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
     LoginRepository loginRepository;
     AccountService accountService;
-    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
 
 
     @Autowired
-    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService){
+    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService) {
         this.loginRepository = loginRepository;
         this.accountService = accountService;
     }
 
     public int getIdByEmail(String email) {
-        if(loginRepository.getByEmail(email).isPresent()){
+        if (loginRepository.getByEmail(email).isPresent()) {
             return loginRepository.getByEmail(email).get().getId();
         }
         return -1;
@@ -176,7 +178,7 @@ public class LoginService {
             );
 
             Properties textProps = new Properties();
-            switch (language){
+            switch (language) {
                 case "en":
                     textProps.load(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("/languages/en.properties")), StandardCharsets.ISO_8859_1));
                     break;
@@ -191,7 +193,7 @@ public class LoginService {
                     message.setSubject(textProps.getProperty("subjectReset"));
                     content = textProps.getProperty("infoReset");
                     content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/forget/confirm?token=" + jwt + "\">foodhero.com</a>");
-                    message.setContent(content + "<br>" +textProps.getProperty("ending"), "text/html;charset=UTF-8");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
                     break;
                 case "emailChange":
                     message.setSubject(textProps.getProperty("subjectConfirm"));
@@ -199,13 +201,13 @@ public class LoginService {
                             + "<a target=\"_blank\" href = \"localhost:18080/login/forget/confirm?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
                     content = textProps.getProperty("infoConfirm");
                     content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/email/confirm?token=" + jwt + "\">foodhero.com</a>");
-                    message.setContent(content + "<br>" +textProps.getProperty("ending"), "text/html;charset=UTF-8");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
                     break;
                 case "activate":
                     message.setSubject(textProps.getProperty("subjectActivate"));
                     content = textProps.getProperty("infoActivate");
                     content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/activate?token=" + jwt + "\">foodhero.com</a>");
-                    message.setContent(content + "<br>" +textProps.getProperty("ending"), "text/html;charset=UTF-8");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
                     break;
             }
 

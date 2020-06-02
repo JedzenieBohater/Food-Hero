@@ -13,12 +13,12 @@ import java.util.Optional;
 
 @Service
 public class OfferRatingService {
-    private OfferRatingRepository offerRatingRepository;
     private static final Logger LOGGER = LogManager.getLogger(OfferRatingService.class);
+    private OfferRatingRepository offerRatingRepository;
 
 
     @Autowired
-    public OfferRatingService(@Lazy OfferRatingRepository offerRatingRepository){
+    public OfferRatingService(@Lazy OfferRatingRepository offerRatingRepository) {
         this.offerRatingRepository = offerRatingRepository;
     }
 
@@ -26,7 +26,7 @@ public class OfferRatingService {
         offerRatingRepository.save(offerRating);
     }
 
-    public Optional<OfferRating> getOfferRating(int id){
+    public Optional<OfferRating> getOfferRating(int id) {
         return Optional.of(offerRatingRepository.getOne(id));
     }
 

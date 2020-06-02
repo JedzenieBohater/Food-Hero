@@ -38,6 +38,8 @@ public class Account {
     @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountRating> ratingList;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dish> dishes;
 
     public Account() {
     }
@@ -46,6 +48,14 @@ public class Account {
         this.login = login;
         this.creation_date = java.sql.Date.valueOf(java.time.LocalDate.now());
         this.cookStatus = false;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     public int getId() {

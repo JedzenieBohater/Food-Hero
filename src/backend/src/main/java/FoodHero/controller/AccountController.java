@@ -21,9 +21,9 @@ import java.util.Map;
 @RequestMapping("/account")
 public class AccountController {
 
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
     AccountService accountService;
     LoginService loginService;
-    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
 
     @Autowired
     public AccountController(AccountService accountService, LoginService loginService) {

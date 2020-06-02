@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "login")
-public class Login{
+public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
@@ -25,10 +25,10 @@ public class Login{
     @OneToOne(mappedBy = "login", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Account account;
 
-    public Login(){
+    public Login() {
     }
 
-    public Login(String email, String password){
+    public Login(String email, String password) {
         this.email = email;
         this.password = password;
         this.setIs_active(true);

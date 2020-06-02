@@ -11,7 +11,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService){
+    public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 }

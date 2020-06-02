@@ -28,7 +28,7 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
     private LoginDetailsService loginDetailsService;
 
     @Autowired
-    public SecurityConfigAuth(LoginDetailsService loginDetailsService){
+    public SecurityConfigAuth(LoginDetailsService loginDetailsService) {
         this.loginDetailsService = loginDetailsService;
     }
 
@@ -48,20 +48,18 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public LogoutSuccessHandler LogoutSuccHandler(){
+    public LogoutSuccessHandler LogoutSuccHandler() {
         return new LogoutSuccHandler();
     }
 
 
     @Bean
-    public RestAuthenticationSuccessHandler SuccessAuthHandler()
-    {
+    public RestAuthenticationSuccessHandler SuccessAuthHandler() {
         return new RestAuthenticationSuccessHandler();
     }
 
     @Bean
-    public RestAuthenticationFailureHandler FailureAuthHandler()
-    {
+    public RestAuthenticationFailureHandler FailureAuthHandler() {
         return new RestAuthenticationFailureHandler();
     }
 
@@ -97,19 +95,19 @@ public class SecurityConfigAuth extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/login/status").hasAuthority("USER")
+                .antMatchers("/login/status").hasAuthority("USER")
                 .and()
-                    .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
+                .exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                 .and()
-                    .exceptionHandling().accessDeniedHandler(AccDeniedHandler())
+                .exceptionHandling().accessDeniedHandler(AccDeniedHandler())
                 .and()
                 .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
                 .logout()
-                    .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(true)
-                    .logoutSuccessHandler(LogoutSuccHandler());
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .logoutSuccessHandler(LogoutSuccHandler());
     }
 }

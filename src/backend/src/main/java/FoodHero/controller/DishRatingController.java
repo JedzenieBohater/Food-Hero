@@ -15,12 +15,12 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:13000")
 @RequestMapping("/dish_rating")
 public class DishRatingController {
-    DishRatingService dishRatingService;
     private static final Logger LOGGER = LogManager.getLogger(DishRatingController.class);
+    DishRatingService dishRatingService;
 
 
     @Autowired
-    public DishRatingController(DishRatingService dishRatingService){
+    public DishRatingController(DishRatingService dishRatingService) {
         this.dishRatingService = dishRatingService;
     }
 

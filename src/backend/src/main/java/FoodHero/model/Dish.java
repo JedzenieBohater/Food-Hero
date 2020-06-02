@@ -12,15 +12,18 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "id_account")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "id_account", nullable = true)
     private Account account;
     private String name;
     private String category;
     private double grade;
     private String description;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
+    private List<Offer> offers;
     @JsonIgnore
-    @OneToMany(mappedBy = "dish", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DishRating> ratingList;
 
     public int getId() {
@@ -29,6 +32,14 @@ public class Dish {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
     }
 
     public Account getAccount() {

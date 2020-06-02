@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="offer_grades")
+@Table(name = "offer_grades")
 public class OfferRating extends Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

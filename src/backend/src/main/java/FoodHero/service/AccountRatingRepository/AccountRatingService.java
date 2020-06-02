@@ -13,24 +13,24 @@ import java.util.List;
 
 @Service
 public class AccountRatingService {
-    AccountRatingRepository accountRatingRepository;
     private static final Logger LOGGER = LogManager.getLogger(AccountRatingService.class);
+    AccountRatingRepository accountRatingRepository;
 
 
     @Autowired
-    public AccountRatingService(AccountRatingRepository accountRatingRepository){
+    public AccountRatingService(AccountRatingRepository accountRatingRepository) {
         this.accountRatingRepository = accountRatingRepository;
     }
 
-    public List<AccountRating> getAllAccountRatings(){
+    public List<AccountRating> getAllAccountRatings() {
         return accountRatingRepository.findAll();
     }
 
-    public List<RatingAccountPojo> getOneAccountRatings(int id){
+    public List<RatingAccountPojo> getOneAccountRatings(int id) {
         List<AccountRating> accountRatings = getAllAccountRatings();
         List<RatingAccountPojo> ratingAccountPojoList = new ArrayList<>();
-        for (AccountRating accountRating: accountRatings){
-            if(accountRating.getAccount().getId() == id){
+        for (AccountRating accountRating : accountRatings) {
+            if (accountRating.getAccount().getId() == id) {
                 RatingAccountPojo ratingAccountPojo = new RatingAccountPojo(accountRating);
                 ratingAccountPojoList.add(ratingAccountPojo);
             }
