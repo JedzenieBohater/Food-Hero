@@ -37,6 +37,9 @@ public class LoginController {
         if (payload == null) {
             return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
         }
+        if(language == null){
+            language = "en";
+        }
         ReturnCode returnCode = loginService.createLogin(payload, language.substring(0, 2));
         if (returnCode == ReturnCode.OK) {
             return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin created successfully.", HttpStatus.OK);
