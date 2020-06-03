@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -36,6 +37,7 @@ public class OrderService {
         return null;
     }
 
+    @Transactional
     public ReturnCode deleteOrder(int id) {
         Optional<Order> optionalOrder = orderRepository.findById(id);
         if (optionalOrder.isPresent()) {

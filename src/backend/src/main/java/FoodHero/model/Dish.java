@@ -12,14 +12,15 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "id_account", nullable = true)
+    @JoinColumn(name = "id_account", nullable = false, updatable = false)
     private Account account;
     private String name;
     private String category;
     private double grade;
     private String description;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dish")
     private List<Offer> offers;
     @JsonIgnore

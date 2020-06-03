@@ -1,6 +1,7 @@
 package FoodHero.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "offer")
@@ -15,6 +16,8 @@ public class Offer {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_dish")
     private Dish dish;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Order> orderList;
     private String hours;
     private String day;
     private double price;
@@ -76,6 +79,14 @@ public class Offer {
 
     public String getLocalization() {
         return localization;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     public void setLocalization(String localisation) {

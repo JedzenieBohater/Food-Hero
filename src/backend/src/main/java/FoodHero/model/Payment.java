@@ -10,12 +10,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "id_seller", referencedColumnName = "id")
+    @JoinColumn(name = "id_seller", referencedColumnName = "id", updatable = false, insertable = false, nullable = false)
     private Account seller;
-    @OneToOne(mappedBy = "offer")
-    private Order order;
     @ManyToOne
-    @JoinColumn(name = "id_customer", referencedColumnName = "id")
+    @JoinColumn(name = "id_customer", referencedColumnName = "id", updatable = false, insertable = false, nullable = false)
     private Account customer;
     private String type;
     private String status;
@@ -36,14 +34,6 @@ public class Payment {
 
     public void setSeller(Account seller) {
         this.seller = seller;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public Account getCustomer() {

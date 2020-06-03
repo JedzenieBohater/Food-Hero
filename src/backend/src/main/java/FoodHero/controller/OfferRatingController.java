@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:13000")
 @RequestMapping("/offer_rating")
-public abstract class OfferRatingController {
+public class OfferRatingController {
 
     private static final Logger LOGGER = LogManager.getLogger(OfferRatingController.class);
     OfferRatingService offerRatingService;

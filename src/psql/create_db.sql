@@ -112,9 +112,6 @@ CREATE TABLE public.order
     FOREIGN KEY (id_payment) REFERENCES public.payment (id)
 );
 
-ALTER TABLE payment ADD id_order bigint;
-ALTER TABLE payment ADD FOREIGN KEY(id_order) REFERENCES public.order(id);
-
 
 
 
@@ -219,5 +216,5 @@ INSERT INTO offer (id_account, id_dish, hours, day, price, localization, status,
 INSERT INTO public.order (id_seller, id_offer, id_customer, amount, order_date) VALUES
     ('1', '1', '2', '1', '2020-05-22');
 
-INSERT INTO payment (id_seller, id_order, id_customer, type, status, payment_date) VALUES
-    ('1', '1', '2', 'PayU', 'Pending', '2020-05-22');
+INSERT INTO payment (id_seller, id_customer, type, status, payment_date) VALUES
+    ('1', '2', 'PayU', 'Pending', '2020-05-22');

@@ -9,18 +9,19 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_seller", referencedColumnName = "id")
     private Account seller;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_offer", referencedColumnName = "id")
     private Offer offer;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_customer", referencedColumnName = "id")
     private Account customer;
-    @OneToOne
-    @JoinColumn(name = "id_payment", referencedColumnName = "id")
-    private Payment payment;
+//    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "id_payment", referencedColumnName = "id")
+//    private Payment payment;
+    private int id_payment;
     private int amount;
     @Column(name = "order_date")
     private Date orderDate;
@@ -57,13 +58,13 @@ public class Order {
         this.customer = customer;
     }
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
+//    public Payment getPayment() {
+//        return payment;
+//    }
+//
+//    public void setPayment(Payment payment) {
+//        this.payment = payment;
+//    }
 
     public int getAmount() {
         return amount;
