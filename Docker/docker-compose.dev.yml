@@ -1,9 +1,10 @@
+#prettier-ignore
 version: '3'
 
 services:
   client:
     container_name: some_client
-    build: 
+    build:
       context: ../src/client
       dockerfile: Dockerfile.dev
     restart: unless-stopped
@@ -14,6 +15,7 @@ services:
       - ../src/client:/usr/src/app
     depends_on:
       - app
+    stdin_open: true
 
   app:
     container_name: some_backend

@@ -1,5 +1,5 @@
 export const register = user =>
-  fetch('/login/register', {
+  fetch('/api/login/register', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
@@ -8,24 +8,22 @@ export const register = user =>
   })
 
 export const login = user =>
-  fetch('/login', {
+  fetch('/api/login', {
     method: 'POST',
     body: JSON.stringify(user),
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   })
 
 export const logout = () =>
-  fetch('/logout', {
-    method: 'DELETE',
-    credentials: 'include',
+  fetch('/api/logout', {
+    method: 'POST',
   })
 
 export const checkLoggedIn = async preloadedState => {
-  const response = await fetch('/login/status', { credentials: 'include' })
-  const { user } = await response.json()
+  const response = await fetch('/api/login/status')
+  const user = await response.json()
   preloadedState = {}
   if (user) {
     preloadedState = {

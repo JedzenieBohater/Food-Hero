@@ -24,7 +24,7 @@ export const Login = ({ login, errors, lang }) => {
   if (errorMessage != null) {
     error = <label className="profileerror">{errorMessage}</label>
   }
-  if (errors != '') {
+  if (errors !== '') {
     error = <label className="profileerror">{lang.passwordincorrect}</label>
   }
 

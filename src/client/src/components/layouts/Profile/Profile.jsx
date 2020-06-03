@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import logo from '../../../static/images/logolarge.png'
+import logo from 'static/images/logolarge.png'
 import user from './userinstance.json'
 import List from '../Search/List'
-import { getAccountData, sendChangedProfile } from '../../../utils/user'
+import { getAccountData, sendChangedProfile } from 'utils/user'
+import { deleteDish, getUserDishes } from 'utils/dish'
 
 const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
   lang: languageReducer.profile,
@@ -13,43 +14,50 @@ const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
 
 export const Profile = props => {
   const [view, setView] = useState('profile')
-  const [email, setEmail] = useState(user.email)
-  const [firstname, setFirstname] = useState(user.firstname)
-  const [lastname, setLastname] = useState(user.lastname)
-  const [description, setDescription] = useState(user.description)
-  const [specialization, setSpecialization] = useState(user.specialization)
+  //const [email, setEmail] = useState(user.email)
+  const [firstname, setFirstname] = useState('none')
+  const [lastname, setLastname] = useState('none')
+  const [description, setDescription] = useState('none')
+  const [specialization, setSpecialization] = useState('none')
   const [errorMessage, setErrorMessage] = useState(null)
-  const [creationDate, setCreationDate] = useState(user.creation_date)
-  const [grade, setGrade] = useState(user.grade)
+  const [creationDate, setCreationDate] = useState('none')
+  const [grade, setGrade] = useState(0)
   const [account, setAccount] = useState(null)
+  const [dishlist, setDishlist] = useState([])
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       let account = await getAccountData(props.session)
       setAccount(account)
-      console.log(account)
       setFirstname(account.firstname)
       setLastname(account.lastname)
       setDescription(account.description)
       setSpecialization(account.specialization)
       setCreationDate(String(account.creation_date).slice(0, 10))
       setGrade(account.grade)
+
+      const dishes = await getUserDishes(props.session.userID)
+      setDishlist(dishes)
     })()
   }, [])
 
-// dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
-// i usuniecie z listy dan w profilu
+  // dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
 
-  const deleteOffer = async event => {
-    var id=event.target.getAttribute('name');
-    console.log(id);
-    fetch("offer/"+id, {
-      method: 'delete'
-    }).then(response => {
-      if(response.status===200){
-        alert("oferta została usunięta")
+  const handleDeleteDish = async (id, idx) => {
+    try {
+      const response = await deleteDish(id)
+
+      if (!response.ok) {
+        throw new Error('handleDeleteDish not ok')
       }
-    })
+
+      setDishlist(prev => [
+        ...prev.slice(0, idx),
+        ...prev.slice(idx + 1, prev.length),
+      ])
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleSubmit = async event => {
@@ -186,9 +194,10 @@ export const Profile = props => {
   if (view === 'dishlist') {
     activePanel = (
       <>
-        {user.dishlist.map(dish => (
-          <div className="flexing">
-            <List className="col75"
+        {dishlist.map((dish, idx) => (
+          <div className="flexing" key={dish.id}>
+            <List
+              className="col75"
               id={dish.id}
               picture={dish.picture}
               title={dish.title}
@@ -198,7 +207,12 @@ export const Profile = props => {
               ocena={dish.grade}
               opis={dish.description}
             ></List>
-            <button name={dish.id} onClick={deleteOffer}>Delete</button>
+            <button
+              name={dish.id}
+              onClick={() => handleDeleteDish(dish.id, idx)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </>
