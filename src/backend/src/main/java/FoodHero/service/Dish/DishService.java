@@ -4,6 +4,7 @@ import FoodHero.dao.DishRepository;
 import FoodHero.model.Account;
 import FoodHero.model.Dish;
 import FoodHero.service.Account.AccountService;
+import FoodHero.service.Offers.OfferService;
 import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,9 +19,10 @@ import java.util.Optional;
 @Service
 public class DishService {
 
+    private static final Logger LOGGER = LogManager.getLogger(DishService.class);
     private DishRepository dishRepository;
     private AccountService accountService;
-    private static final Logger LOGGER = LogManager.getLogger(DishService.class);
+    private OfferService offerService;
 
 
     @Autowired
@@ -80,7 +81,10 @@ public class DishService {
     public ReturnCode deleteDish(int id) {
         Optional<Dish> dish = dishRepository.findById(id);
         if (dish.isPresent()) {
-            dishRepository.deleteById(id);
+            //List<Offer> offers = offer
+
+            //dishRepository.deleteById(id);
+            dishRepository.delete(dish.get());
             return ReturnCode.OK;
         }
         return ReturnCode.NOT_FOUND;

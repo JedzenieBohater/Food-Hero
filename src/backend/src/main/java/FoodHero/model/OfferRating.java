@@ -3,27 +3,38 @@ package FoodHero.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
-@MappedSuperclass
-public abstract class Rating {
+@Entity
+@Table(name = "offer_grades")
+public class OfferRating extends Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
-    private int grade;
-    @Size(max = 256)
-    private String comment;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id_owner")
-    private Account reviewer;
+    @JoinColumn(name = "idOffer", referencedColumnName = "id")
+    private Offer offer;
+    private int grade;
+    private String comment;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 
     public int getGrade() {
@@ -34,19 +45,13 @@ public abstract class Rating {
         this.grade = grade;
     }
 
+    @Override
     public String getComment() {
         return comment;
     }
 
+    @Override
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Account getReviewer() {
-        return reviewer;
-    }
-
-    public void seReviewer(Account reviewer) {
-        this.reviewer = reviewer;
     }
 }

@@ -15,12 +15,12 @@ import java.util.Optional;
 @RequestMapping("/rating")
 public abstract class RatingController {
 
+    private static final Logger LOGGER = LogManager.getLogger(RatingController.class);
     RatingService ratingService;
-    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
 
 
     @Autowired
-    public RatingController(RatingService ratingService){
+    public RatingController(RatingService ratingService) {
         this.ratingService = ratingService;
     }
 

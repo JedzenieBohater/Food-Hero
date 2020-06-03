@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="account_grades")
+@Table(name = "account_grades")
 public class AccountRating extends Rating {
     @JsonIgnore
     @ManyToOne

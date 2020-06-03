@@ -8,9 +8,9 @@ public class RatingAccountPojo {
     private String comment;
     private int grade;
 
-    public RatingAccountPojo(AccountRating accountRating){
+    public RatingAccountPojo(AccountRating accountRating) {
         this.author = accountRating.getReviewer().getFirstname();
-        if(this.author == null || this.author.equals("")){
+        if (this.author == null || this.author.equals("")) {
             this.author = "Anonim";
         }
         this.comment = accountRating.getComment();

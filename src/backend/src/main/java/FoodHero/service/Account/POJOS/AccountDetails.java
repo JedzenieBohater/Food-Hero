@@ -20,7 +20,7 @@ public class AccountDetails {
     private int pendingOffers;
     private List<RatingAccountPojo> accountRatings;
 
-    public AccountDetails(Account account, int activeOffers, List<RatingAccountPojo> ratingAccountPojoList){
+    public AccountDetails(Account account, int activeOffers, List<RatingAccountPojo> ratingAccountPojoList) {
         this.firstname = account.getFirstname();
         this.lastname = account.getLastname();
         this.email = account.getLogin().getEmail();

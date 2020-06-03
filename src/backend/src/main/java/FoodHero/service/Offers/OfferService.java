@@ -14,17 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class OfferService {
 
+    private static final Logger LOGGER = LogManager.getLogger(OfferService.class);
     OfferRepository offerRepository;
     DishService dishService;
     AccountService accountService;
-    private static final Logger LOGGER = LogManager.getLogger(OfferService.class);
 
 
     @Autowired
@@ -33,6 +35,8 @@ public class OfferService {
         this.dishService = dishService;
         this.accountService = accountService;
     }
+
+//    public ReturnCode setImage(int id, File file)
 
     public int getNumberOfActiveOffersAccount(int id) {
         List<Offer> offers = offerRepository.findAll();
@@ -178,9 +182,42 @@ public class OfferService {
         return ReturnCode.INCORRECT_DATA;
     }
 
-    public ReturnCode updateOffer(int id, Map<String, Object> payload){
-        //TODO dokonczyc
-        return null;
+    public ReturnCode updateOffer(int id, Map<String, Object> payload) {
+        Optional<Offer> optionalOffer = offerRepository.findById(id);
+        if (!optionalOffer.isPresent()) {
+            return ReturnCode.NOT_FOUND;
+        }
+        Offer offer = optionalOffer.get();
+
+        try {
+            if (payload.get("day") != null && !payload.get("day").equals("")) {
+                offer.setDay((String) payload.get("day"));
+            }
+            if (payload.get("price") != null && !payload.get("price").equals("")) {
+                offer.setPrice((Double) payload.get("price"));
+            }
+            if (payload.get("localization") != null && !payload.get("localization").equals("")) {
+                offer.setLocalization((String) payload.get("localization"));
+            }
+            if (payload.get("status") != null && !payload.get("status").equals("")) {
+                offer.setStatus((Boolean) payload.get("status"));
+            }
+            if (payload.get("periodic") != null && !payload.get("periodic").equals("")) {
+                offer.setPeriodic((Boolean) payload.get("periodic"));
+            }
+            if (payload.get("limitation") != null && !payload.get("limitation").equals("")) {
+                offer.setLimit((Integer) payload.get("limitation"));
+            }
+            if (payload.get("preparation") != null && !payload.get("preparation").equals("")) {
+                offer.setPreparation((Integer) payload.get("preparation"));
+            }
+            if (payload.get("deliverycost") != null && !payload.get("deliverycost").equals("")) {
+                offer.setPreparation((Integer) payload.get("preparation"));
+            }
+        } catch (NumberFormatException e) {
+            return ReturnCode.INCORRECT_DATA;
+        }
+        return ReturnCode.OK;
     }
 
     public ReturnCode deleteOffer(int id) {
@@ -199,8 +236,8 @@ public class OfferService {
         return null;
     }
 
-    public Offer getOffer(int id){
-        if(offerRepository.findById(id).isPresent()){
+    public Offer getOffer(int id) {
+        if (offerRepository.findById(id).isPresent()) {
             return offerRepository.findById(id).get();
         }
         return null;

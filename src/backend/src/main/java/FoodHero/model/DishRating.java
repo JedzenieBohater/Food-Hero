@@ -6,14 +6,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="dish_grades")
+@Table(name = "dish_grades")
 public class DishRating extends Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private int id;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDish", referencedColumnName = "id")
     private Dish dish;
     private int grade;

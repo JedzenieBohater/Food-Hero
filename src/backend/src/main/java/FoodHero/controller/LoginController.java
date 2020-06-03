@@ -11,14 +11,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
-    LoginService loginService;
     private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+    LoginService loginService;
 
     @Autowired
     public LoginController(LoginService loginService) {
@@ -33,13 +35,17 @@ public class LoginController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> createLogin(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<String> createLogin(@RequestBody Map<String, Object> payload, @RequestHeader("accept-language") String language) {
         if (payload == null) {
             return new ResponseEntity<>(ReturnCode.MISSING_ARG.toString() + "\nLack of json payload.", HttpStatus.BAD_REQUEST);
         }
-        if (loginService.createLogin(payload) == ReturnCode.OK) {
+        if (language == null) {
+            language = "en";
+        }
+        ReturnCode returnCode = loginService.createLogin(payload, language.substring(0, 2));
+        if (returnCode == ReturnCode.OK) {
             return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin created successfully.", HttpStatus.OK);
-        } else if (loginService.createLogin(payload) == ReturnCode.CONFLICT_WITH_DB) {
+        } else if (returnCode == ReturnCode.CONFLICT_WITH_DB) {
             return new ResponseEntity<>(ReturnCode.CONFLICT_WITH_DB.toString() + "\nEmail is being used.", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(ReturnCode.INCORRECT_DATA.toString() + "\nWrong json payload.", HttpStatus.BAD_REQUEST);
@@ -135,8 +141,7 @@ public class LoginController {
                 return new ResponseEntity<>(ReturnCode.OK.toString() + "\nLogin deleted successfully", HttpStatus.OK);
             }
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nLogin not found", HttpStatus.NOT_FOUND);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to delete login", HttpStatus.FORBIDDEN);
         }
     }

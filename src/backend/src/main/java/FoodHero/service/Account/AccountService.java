@@ -1,9 +1,7 @@
 package FoodHero.service.Account;
 
-import FoodHero.controller.OfferController;
 import FoodHero.dao.AccountRepository;
 import FoodHero.model.Account;
-import FoodHero.model.AccountRating;
 import FoodHero.model.Dish;
 import FoodHero.model.Offer;
 import FoodHero.service.Account.POJOS.AccountDetails;
@@ -18,22 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AccountService {
+    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
     AccountRepository accountRepository;
     DishService dishService;
     AccountRatingService accountRatingService;
     OfferService offerService;
-    private static final Logger LOGGER = LogManager.getLogger(AccountService.class);
 
 
     @Autowired
-    public AccountService(@Lazy AccountRepository accountRepository, @Lazy DishService dishService, @Lazy AccountRatingService accountRatingService, @Lazy OfferService offerService){
+    public AccountService(@Lazy AccountRepository accountRepository, @Lazy DishService dishService, @Lazy AccountRatingService accountRatingService, @Lazy OfferService offerService) {
         this.accountRepository = accountRepository;
         this.dishService = dishService;
         this.accountRatingService = accountRatingService;
@@ -44,9 +39,8 @@ public class AccountService {
         accountRepository.save(account);
     }
 
-    public AccountDetails getAccountWithGrades(int id){
-        if(!accountRepository.findById(id).isPresent())
-        {
+    public AccountDetails getAccountWithGrades(int id) {
+        if (!accountRepository.findById(id).isPresent()) {
             return null;
         }
         Account account = accountRepository.findById(id).get();
@@ -55,8 +49,8 @@ public class AccountService {
         return new AccountDetails(account, activeOffers, ratingAccountPojoList);
     }
 
-    public Account getAccount(int id){
-        if(accountRepository.findById(id).isPresent()){
+    public Account getAccount(int id) {
+        if (accountRepository.findById(id).isPresent()) {
             return accountRepository.findById(id).get();
         }
         return null;
@@ -65,8 +59,8 @@ public class AccountService {
     public List<Offer> getAccountOffers(int id) {
         List<Offer> allOffers = offerService.getAllOfferRaw();
         List<Offer> accountOffers = new ArrayList<>();
-        for (Offer offer: allOffers){
-            if(offer.getAccount().getId() == id){
+        for (Offer offer : allOffers) {
+            if (offer.getAccount().getId() == id) {
                 accountOffers.add(offer);
             }
         }
@@ -76,8 +70,8 @@ public class AccountService {
     public List<Dish> getAccountDishes(int id) {
         List<Dish> allDishes = dishService.getAllDishRaw();
         List<Dish> accountDishes = new ArrayList<>();
-        for (Dish dish: allDishes){
-            if(dish.getAccount().getId() == id){
+        for (Dish dish : allDishes) {
+            if (dish.getAccount().getId() == id) {
                 accountDishes.add(dish);
             }
         }
@@ -86,7 +80,7 @@ public class AccountService {
 
     public ReturnCode updateAccount(int id, Map<String, Object> payload) {
         Optional<Account> accountOptional = accountRepository.findById(id);
-        if (!accountOptional.isPresent()){
+        if (!accountOptional.isPresent()) {
             return ReturnCode.NOT_FOUND;
         }
         Account account = accountOptional.get();
@@ -110,6 +104,15 @@ public class AccountService {
         }
         if (payload.get("cook_status") != null && !payload.get("cook_status").equals("")) {
             account.setCookStatus((Boolean) payload.get("cook_status"));
+        }
+        if (payload.get("cook_status") != null && !payload.get("cook_status").equals("")) {
+            account.setCookStatus((Boolean) payload.get("cook_status"));
+        }
+        Set<String> languages = new HashSet<>(Arrays.asList("pl", "en"));
+        if (payload.get("language") != null && !payload.get("language").equals("")) {
+            if (languages.contains(payload.get("language"))) {
+                account.setLastname((String) payload.get("language"));
+            }
         }
         accountRepository.save(account);
         return ReturnCode.OK;
