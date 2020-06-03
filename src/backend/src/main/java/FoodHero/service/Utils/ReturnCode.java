@@ -7,13 +7,14 @@ public enum ReturnCode {
     INCORRECT_DATA(103, "Incorrect data in json payload."),
     NOT_FOUND(104, "Requested data not found"),
     INVALID_TOKEN(105, "Invalid token"),
-    NO_ACCESS(106, "User has not got access to requested resource");
+    NO_ACCESS(106, "User has not got access to requested resource"),
+    INVALID_AMOUNT_2M(107, "User ordered more than is available");
 
 
     private final int code;
     private final String description;
 
-    private ReturnCode(int code, String description) {
+    ReturnCode(int code, String description) {
         this.code = code;
         this.description = description;
     }

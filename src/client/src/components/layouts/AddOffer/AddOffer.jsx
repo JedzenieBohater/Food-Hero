@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { register } from '../../../utils/session'
-import { connect } from 'react-redux'
+import React from 'react'
+//import { useState } from 'react'
+//import { register } from '../../../utils/session'
+//import { connect } from 'react-redux'
 
 export const AddOffer = props => {
   function readURL(input) {
@@ -8,7 +9,7 @@ export const AddOffer = props => {
     if (input.target.files && input.target.files[0]) {
       var reader = new FileReader()
 
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         document.getElementById('blah').src = e.target.result
       }
 
@@ -19,19 +20,15 @@ export const AddOffer = props => {
   const handleSubmit = async event => {
     event.preventDefault()
     var data = new FormData(event.target)
-    var request = new XMLHttpRequest();
-  request.open("POST", "/offers/add");
-  request.send(data);
-  if(request.status == 200)
-    {
-    alert("dodano oferte")
-    }
-  else
-    {
-    alert("nie udalo sie dodać oferty")
+    var request = new XMLHttpRequest()
+    request.open('POST', '/offers/add')
+    request.send(data)
+    if (request.status === 200) {
+      alert('dodano oferte')
+    } else {
+      alert('nie udalo sie dodać oferty')
     }
   }
-
 
   return (
     <div>
@@ -48,7 +45,7 @@ export const AddOffer = props => {
                 className="addpic"
                 id="blah"
                 src="http://placehold.it/180"
-                alt="your image"
+                alt=" "
               />
               <div>
                 <input type="file" id="imgInp" onChange={readURL} />
@@ -83,7 +80,9 @@ export const AddOffer = props => {
                 <textarea className="adddesc" placeholder="description" />
               </div>
               <div className="center">
-                <button className="btn-blue" onClick={handleSubmit}>add</button>
+                <button className="btn-blue" onClick={handleSubmit}>
+                  add
+                </button>
               </div>
             </div>
           </form>

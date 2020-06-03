@@ -34,10 +34,9 @@ public class SingleOffer {
         this.category = offer.getDish().getCategory();
         this.grade = offer.getDish().getGrade();
         this.gradesList = new ArrayList<>();
-        for(DishRating dishRating: offer.getDish().getRatingList()) {
+        for (DishRating dishRating : offer.getDish().getRatingList()) {
             String comment = "";
-            if(dishRating.getComment() != null)
-            {
+            if (dishRating.getComment() != null) {
                 comment = dishRating.getComment();
             }
             Pair<String, Integer> gradePair = Pair.of(comment, dishRating.getGrade());

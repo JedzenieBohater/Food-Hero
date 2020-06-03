@@ -82,5 +82,9 @@ export default {
         rating: "Rating",
         name: "Name",
         send: "Filter"
+    },
+    table:
+    {
+        page: "Page"
     }
 }

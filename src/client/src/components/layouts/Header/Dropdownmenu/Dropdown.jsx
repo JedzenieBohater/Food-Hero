@@ -37,13 +37,13 @@ class Dropdown extends Component {
         {this.state.showMenu ? (
           <ul className="menu">
             <li>
-              <Link to="profile" className="no-link-color">
+              <Link to="/profile" className="no-link-color">
                 {this.props.lang.profile}
               </Link>
             </li>
             <li>
               {' '}
-              <Link to="search" className="no-link-color">
+              <Link to="/search" className="no-link-color">
                 {this.props.lang.search}
               </Link>{' '}
             </li>

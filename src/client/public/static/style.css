@@ -24,7 +24,6 @@ a {
   border: solid;
   border-color: #0063a8;
   border-width: 2px;
-  margin: 2px;
 }
 
 .content-box-middle {
@@ -114,6 +113,8 @@ button[class$="-disabled"]:active {
 /* INPUT */
 input[type="text"],
 input[type="password"],
+input[type="number"],
+input[type="checkbox"],
 input[type="email"] {
   width: 25vw;
   height: 2vw;

@@ -9,6 +9,7 @@ import {
   Search,
   Profile,
   AddOffer,
+  Offer,
 } from './layouts'
 import { AuthRoute } from 'utils/route'
 
@@ -23,7 +24,7 @@ export default () => (
       <Route path="/search" component={Search} />
       <Route path="/profile" component={Profile} />
       <Route path="/add" component={AddOffer} />
-      <Route path="/offer/:id" component={Home} />
+      <Route path="/offer/:id" component={Offer} />
     </Switch>
   </Router>
 )

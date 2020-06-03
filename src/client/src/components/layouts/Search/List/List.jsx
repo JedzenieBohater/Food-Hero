@@ -1,13 +1,13 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
-// <Link to={"offer/" + props.id}>
+import { withRouter } from 'react-router'
 
-export default props => {
+var List = props => {
 
   var redirectToOfferDetails = () => {
-    console.log(props.id)
+    //console.log(props.id)
+    props.history.push("/offer/" + props.id);
   }
-  console.log(props.id)
+  //console.log(props)
   return (
     <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails()}>
       <div className="flexrow">
@@ -41,7 +41,7 @@ export default props => {
             <div className="marginer price">{props.price} zł</div>
             <div className="marginer">{props.cook}</div>
             <div className="marginer">{props.date}</div>
-            <div className="marginer">{props.location}</div>
+            <div className="marginer">{props.localization}</div>
           </div>
           <span className="description marginer">{props.description}</span>
         </div>
@@ -49,3 +49,8 @@ export default props => {
     </div>
   )
 }
+
+
+
+export default withRouter(List)
+//export default List

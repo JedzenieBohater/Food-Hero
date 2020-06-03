@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+//import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -14,6 +15,7 @@ export const Home = props => {
                   <img
                     src={`${process.env.PUBLIC_URL}/static/images/want-eat.jpeg`}
                     className="img-main-section"
+                    alt=""
                   />
                 </div>
 
@@ -31,6 +33,7 @@ export const Home = props => {
                   <img
                     src={`${process.env.PUBLIC_URL}/static/images/want-cook.jpeg`}
                     className="img-main-section"
+                    alt=""
                   />
                 </div>
 
@@ -48,6 +51,7 @@ export const Home = props => {
               <div style={{ width: '100%', textAlign: 'center' }}>
                 <img
                   src={`${process.env.PUBLIC_URL}/static/images/food_Hero.png`}
+                  alt=""
                 />
               </div>
               <p className="quote">{props.lang.quote}</p>

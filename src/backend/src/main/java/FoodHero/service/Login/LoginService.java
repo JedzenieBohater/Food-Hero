@@ -5,7 +5,10 @@ import FoodHero.model.Account;
 import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Utils.ReturnCode;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.TextCodec;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,33 +21,34 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.xml.bind.DatatypeConverter;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Service
 public class LoginService {
 
+    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
     LoginRepository loginRepository;
     AccountService accountService;
-    private static final Logger LOGGER = LogManager.getLogger(LoginService.class);
 
 
     @Autowired
-    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService){
+    public LoginService(@Lazy LoginRepository loginRepository, @Lazy AccountService accountService) {
         this.loginRepository = loginRepository;
         this.accountService = accountService;
     }
 
     public int getIdByEmail(String email) {
-        if(loginRepository.getByEmail(email).isPresent()){
+        if (loginRepository.getByEmail(email).isPresent()) {
             return loginRepository.getByEmail(email).get().getId();
         }
         return -1;
     }
 
-    public ReturnCode createLogin(Map<String, Object> payload) {
+    public ReturnCode createLogin(Map<String, Object> payload, String language) {
         if (payload.get("email") == null || payload.get("password") == null || payload.get("email").equals("") || payload.get("password").equals("")) {
             return ReturnCode.MISSING_ARG;
         }
@@ -58,7 +62,7 @@ public class LoginService {
 
             int id = loginRepository.getByEmail(String.valueOf(payload.get("email"))).get().getId();
             String jwt = createToken("activate", id, null);
-            sendEmail("activate", String.valueOf(payload.get("email")), jwt);
+            sendEmail("activate", String.valueOf(payload.get("email")), jwt, language);
 
             return ReturnCode.OK;
         }
@@ -72,7 +76,7 @@ public class LoginService {
         if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
             int id = loginRepository.getByEmail(String.valueOf(payload.get("email"))).get().getId();
             String jwt = createToken("activate", id, null);
-            sendEmail("activate", String.valueOf(payload.get("email")), jwt);
+            sendEmail("activate", String.valueOf(payload.get("email")), jwt, accountService.getAccount(id).getLanguage());
             return ReturnCode.OK;
         }
         return ReturnCode.NOT_FOUND;
@@ -91,7 +95,7 @@ public class LoginService {
         if (payload.get("email") != null && !payload.get("email").equals("")) {
             if (!loginRepository.getByEmail(String.valueOf(payload.get("email"))).isPresent()) {
                 String jws = createToken("emailChange", id, String.valueOf(payload.get("email")));
-                sendEmail("emailChange", login.getEmail(), jws);
+                sendEmail("emailChange", login.getEmail(), jws, accountService.getAccount(id).getLanguage());
                 return ReturnCode.OK;
             } else {
                 return ReturnCode.CONFLICT_WITH_DB;
@@ -150,14 +154,14 @@ public class LoginService {
         return ReturnCode.INVALID_TOKEN;
     }
 
-    public void sendEmail(String type, String emailTo, String jwt) {
-        Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+    public void sendEmail(String type, String emailTo, String jwt, String language) {
+        Properties mailProps = new Properties();
+        mailProps.put("mail.smtp.host", "smtp.gmail.com");
+        mailProps.put("mail.smtp.port", "587");
+        mailProps.put("mail.smtp.auth", "true");
+        mailProps.put("mail.smtp.starttls.enable", "true"); //TLS
 
-        Session session = Session.getInstance(prop,
+        Session session = Session.getInstance(mailProps,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication("foodhero7@gmail.com", "student123!");
@@ -172,27 +176,43 @@ public class LoginService {
                     Message.RecipientType.TO,
                     InternetAddress.parse(emailTo)
             );
-            //TODO ladniejsze komunikaty napisac i podpiac pod front jak juz bedzie
+
+            Properties textProps = new Properties();
+            switch (language) {
+                case "en":
+                    textProps.load(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("/languages/en.properties")), StandardCharsets.ISO_8859_1));
+                    break;
+                case "pl":
+                    textProps.load(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("/languages/pl.properties")), StandardCharsets.ISO_8859_1));
+                    break;
+            }
+            //TODO przerobic na front adresy
+            String content;
             switch (type) {
                 case "forgetPassword":
-                    message.setSubject("Zresetuj swoje hasło w FoodHero!");
+                    message.setSubject(textProps.getProperty("subjectReset"));
+                    content = textProps.getProperty("infoReset");
+                    content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/forget/confirm?token=" + jwt + "\">foodhero.com</a>");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
+                    break;
+                case "emailChange":
+                    message.setSubject(textProps.getProperty("subjectConfirm"));
                     message.setContent("Kliknij w poniższy link, aby zresetować hasło: "
                             + "<a target=\"_blank\" href = \"localhost:18080/login/forget/confirm?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
-
-                case "emailChange":
-                    message.setSubject("Potwierdź zmianę adresu email w FoodHero!");
-                    message.setContent("Kliknij w poniższy link, aby zmienić email: "
-                            + "<a target=\"_blank\" href = \"localhost:18080/login/email/confirm?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
+                    content = textProps.getProperty("infoConfirm");
+                    content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/email/confirm?token=" + jwt + "\">foodhero.com</a>");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
                     break;
                 case "activate":
-                    message.setSubject("Potwierdź utworzenie konta w FoodHero!");
-                    message.setContent("Kliknij w poniższy link, aby aktywować konto: "
-                            + "<a target=\"_blank\" href = \"localhost:18080/login/activate?token=" + jwt + "\">foodhero.com</a>", "text/html;charset=UTF-8");
+                    message.setSubject(textProps.getProperty("subjectActivate"));
+                    content = textProps.getProperty("infoActivate");
+                    content = MessageFormat.format(content, "<br><a target=\"_blank\" href = \"localhost:18080/login/activate?token=" + jwt + "\">foodhero.com</a>");
+                    message.setContent(content + "<br>" + textProps.getProperty("ending"), "text/html;charset=UTF-8");
                     break;
             }
 
             Transport.send(message);
-        } catch (MessagingException e) {
+        } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
     }

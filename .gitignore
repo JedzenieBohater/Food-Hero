@@ -1,5 +1,4 @@
 node_modules
 target
 .idea/
-package-lock.json
 /SeleniumTests/nbproject/

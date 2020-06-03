@@ -22,8 +22,7 @@ public class LoginDetails implements UserDetails {
         this.password = login.getPassword().trim();
         this.active = login.getIs_active();
         String auth = "USER";
-        if(login.getIs_admin())
-        {
+        if (login.getIs_admin()) {
             auth = auth + ",ADMIN";
         }
         this.authorities = Arrays.stream(auth.split(","))
@@ -32,7 +31,7 @@ public class LoginDetails implements UserDetails {
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

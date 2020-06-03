@@ -22,7 +22,7 @@ CREATE TABLE public.account
     grade real,
     cook_status boolean NOT NULL,
     id_login bigint NOT NULL,
-    language varchar(2) DEFAULT 'EN' NOT NULL,
+    language varchar(2) DEFAULT 'EN',
     PRIMARY KEY (id),
     FOREIGN KEY (id_login) REFERENCES public.login (id)
 );
@@ -82,6 +82,40 @@ CREATE TABLE public.dish_grades
     FOREIGN KEY (id_dish) REFERENCES public.dish (id),
     FOREIGN KEY (id_owner) REFERENCES public.account (id)
 );
+
+CREATE TABLE public.payment
+(
+    id bigserial NOT NULL,
+    id_seller bigint NOT NULL,
+    id_customer bigint NOT NULL,
+    type varchar(256) NOT NULL,
+    status varchar(256) NOT NULL,
+    payment_date date NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_seller) REFERENCES public.account (id),
+    FOREIGN KEY (id_customer) REFERENCES public.account (id)
+);
+
+CREATE TABLE public.order
+(
+    id bigserial NOT NULL,
+    id_seller bigint NOT NULL,
+    id_offer bigint NOT NULL,
+    id_customer bigint NOT NULL,
+    id_payment bigint,
+    amount integer NOT NULL,
+    order_date date NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_seller) REFERENCES public.account (id),
+    FOREIGN KEY (id_offer) REFERENCES public.offer (id),
+    FOREIGN KEY (id_customer) REFERENCES public.account (id),
+    FOREIGN KEY (id_payment) REFERENCES public.payment (id)
+);
+
+
+
+
+
 
 /*hasla dla kolejnych userów to:
   admin
@@ -178,3 +212,9 @@ INSERT INTO offer (id_account, id_dish, hours, day, price, localization, status,
     (2, 8, '16-20', 'pt', 300, 'Ciechanów ul. Widna 4', 'true', 'false', 10, 300, 15),
     (3, 9, '16-18', 'sob-nie', 300, 'Warszawa ul. Pierwsza 147', 'false', 'false', 10, 300, 15),
     (4, 10, '12-20', 'sob', 300, 'Warszawa ul. Malczyńskiego 420', 'true', 'true', 10, 300, 15);
+
+INSERT INTO public.order (id_seller, id_offer, id_customer, amount, order_date) VALUES
+    ('1', '1', '2', '1', '2020-05-22');
+
+INSERT INTO payment (id_seller, id_customer, type, status, payment_date) VALUES
+    ('1', '2', 'PayU', 'Pending', '2020-05-22');

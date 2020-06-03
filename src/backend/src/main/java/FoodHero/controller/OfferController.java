@@ -1,5 +1,6 @@
 package FoodHero.controller;
 
+import FoodHero.model.Login;
 import FoodHero.model.Offer;
 import FoodHero.service.Login.LoginService;
 import FoodHero.service.Offers.OfferService;
@@ -11,17 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/offers")
 public class OfferController {
 
+    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
     OfferService offerService;
     LoginService loginService;
-    private static final Logger LOGGER = LogManager.getLogger(OfferController.class);
 
 
     @Autowired
@@ -85,6 +92,27 @@ public class OfferController {
         return new ResponseEntity<>(offerService.getOffersWithFilters(minPriceQuery, maxPriceQuery, minRatingQuery, maxRatingQuery, categoryQuery, statusQuery, localizationQuery, searchNameQuery), HttpStatus.OK);
     }
 
+//    @PostMapping(value = "/image/{id}")
+//    public ResponseEntity<Object> setImage(@RequestParam("file") MultipartFile file, @PathVariable("id") int id, Principal principal){
+//        Offer offer = offerService.getOffer(id);
+//        Optional<Login> optionalLogin = loginService.getLogin(loginService.getIdByEmail(principal.getName()));
+//        if(!optionalLogin.isPresent()){
+//            return ReturnCode.
+//        }
+//        if(offer.getId() == loginService.getIdByEmail(principal.getName()) || loginService.getLogin(loginService.getIdByEmail(principal.getName())).get().getIs_admin()){
+//            return ReturnCode.NOT_FOUND;
+//        }
+//                System.out.println(file.getName());
+//        try {
+//            byte[] bytes = file.getBytes();
+//            Path path = Paths.get("./dishImages/" + file.getOriginalFilename());
+//            Files.write(path, bytes);
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+
     @PostMapping(value = "/{id}")
     public ResponseEntity<Object> createOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
         if (payload == null) {
@@ -119,7 +147,7 @@ public class OfferController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal){
+    public ResponseEntity<Object> updateOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
         int userID = 0;
         if (principal != null) {
             userID = loginService.getIdByEmail(principal.getName());
@@ -127,7 +155,7 @@ public class OfferController {
             userID = -1;
         }
         Offer offer = offerService.getOffer(id);
-        if(offer != null) {
+        if (offer != null) {
             if ((userID != -1 && userID == offer.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
                 ReturnCode returnCode = offerService.updateOffer(id, payload);
                 if (returnCode == ReturnCode.NOT_FOUND) {
@@ -137,15 +165,13 @@ public class OfferController {
             } else {
                 return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to update offer", HttpStatus.FORBIDDEN);
             }
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteOffer(@PathVariable("id") int id, Principal principal){
+    public ResponseEntity<Object> deleteOffer(@PathVariable("id") int id, Principal principal) {
         int userID = 0;
         if (principal != null) {
             userID = loginService.getIdByEmail(principal.getName());
@@ -153,7 +179,7 @@ public class OfferController {
             userID = -1;
         }
         Offer offer = offerService.getOffer(id);
-        if(offer != null) {
+        if (offer != null) {
             if ((userID != -1 && userID == offer.getAccount().getId()) || (loginService.getLogin(userID).isPresent() && loginService.getLogin(userID).get().getIs_admin())) {
                 ReturnCode returnCode = offerService.deleteOffer(id);
                 if (returnCode == ReturnCode.NOT_FOUND) {
@@ -163,9 +189,7 @@ public class OfferController {
             } else {
                 return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to delete offer", HttpStatus.FORBIDDEN);
             }
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
         }
     }

@@ -1,20 +1,15 @@
 export const getAccountData = async user => {
-  const response = await fetch('/account/' + user.userID, {
-    method: 'GET',
-    credentials: 'include',
-  })
+  const response = await fetch('/api/account/' + user.userID)
   let accountData = await response.json()
   return accountData
 }
 
 export const sendChangedProfile = async (object, user) => {
-  console.log(user.userID)
-  fetch('/account/update/' + user.userID, {
+  fetch('/api/account/update/' + user.userID, {
     method: 'PUT',
     body: JSON.stringify(object),
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
   })
 }

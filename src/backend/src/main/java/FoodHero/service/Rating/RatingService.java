@@ -2,7 +2,6 @@ package FoodHero.service.Rating;
 
 import FoodHero.dao.RatingRepository;
 import FoodHero.model.Rating;
-import FoodHero.service.AccountRatingRepository.AccountRatingService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,12 @@ import java.util.Optional;
 
 @Service
 public class RatingService {
-    private RatingRepository ratingRepository;
     private static final Logger LOGGER = LogManager.getLogger(RatingService.class);
+    private RatingRepository ratingRepository;
 
 
     @Autowired
-    public RatingService(@Lazy RatingRepository ratingRepository){
+    public RatingService(@Lazy RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
 
@@ -27,7 +26,7 @@ public class RatingService {
         ratingRepository.save(rating);
     }
 
-    public Optional<Rating> getRating(int id){
+    public Optional<Rating> getRating(int id) {
         return Optional.of(ratingRepository.getOne(id));
     }
 

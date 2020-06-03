@@ -117,6 +117,11 @@
     justify-content: space-between;
 }
 
+.descpic{
+  width: 300px;
+  height:300px;
+}
+
 .pic{
     width: 128px;
     height:128px;
@@ -128,6 +133,10 @@
     margin-right: auto;
     box-sizing: border-box;
     padding-top: 10px;
+}
+
+.centering{
+  text-align: center;
 }
 
 .flexing{
@@ -159,6 +168,11 @@
 .marginer{
     margin:10px;
 }
+
+.flexjustify{
+  justify-content: center;
+}
+
 .description{
     word-break: break-all;
     display:block;
@@ -215,4 +229,20 @@ td{
 .price{
   color: green;
   font-size: 24px;
+}
+
+.ratebutton{
+  color: #ffffff;
+  border: none;
+  text-align: center;
+  padding: 2px 5px 2px 5px;
+  background-image: linear-gradient(#0073c6, #003857);
+  cursor: pointer;
+  width:100%;
+  margin-top: 5px;
+}
+
+.paybutton{
+  height:40px;
+  margin-top: 20px;
 }

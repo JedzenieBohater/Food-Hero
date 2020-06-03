@@ -1,7 +1,6 @@
 package FoodHero.controller;
 
 import FoodHero.model.Account;
-import FoodHero.model.Login;
 import FoodHero.service.Account.AccountService;
 import FoodHero.service.Account.POJOS.AccountDetails;
 import FoodHero.service.Login.LoginService;
@@ -22,9 +21,9 @@ import java.util.Map;
 @RequestMapping("/account")
 public class AccountController {
 
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
     AccountService accountService;
     LoginService loginService;
-    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
 
     @Autowired
     public AccountController(AccountService accountService, LoginService loginService) {
