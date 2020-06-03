@@ -45,14 +45,7 @@ export const Search = props => {
 
   return (
     <div>
-      <div className="searchmain content-box  flexing search">
-        <label htmlFor="what">{props.lang.what} </label>
-        <input id="what" type="text" />
-        <label htmlFor="localization">{props.lang.localization} </label>
-        <input id="localization" type="text" />
-        <button className="btn-blue">{props.lang.search} </button>
-      </div>
-      <div className="searchmain flexing">
+      <div className="searchmain flexing search">
         <div className="content-box col25 center">
           {props.lang.filters}
           <form onSubmit={handleSubmit}>
@@ -136,7 +129,7 @@ export const Search = props => {
               </tbody>
             </table>
             <input
-              className="description"
+              className="description btn-blue"
               type="submit"
               value={props.lang.send}
             />
