@@ -29,6 +29,10 @@ public enum ReturnCode {
 
     @Override
     public String toString() {
-        return "Error: " + getCode() + " " + getDescription();
+        if (this.code != 0)
+            return "Error: " + getCode() + " " + getDescription();
+        else
+            return "Code: " + getCode() + " " + getDescription();
+
     }
 }
