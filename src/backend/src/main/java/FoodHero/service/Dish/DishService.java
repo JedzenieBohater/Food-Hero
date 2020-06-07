@@ -10,8 +10,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -88,6 +97,23 @@ public class DishService {
             return ReturnCode.OK;
         }
         return ReturnCode.NOT_FOUND;
+    }
+
+    public ReturnCode uploadImage(MultipartFile file, int id){
+        String extension;
+        if(file != null && file.getOriginalFilename() != null && file.getOriginalFilename().lastIndexOf(".") == -1){
+            return ReturnCode.INCORRECT_DATA;
+        }
+        new File("./dishImages/" + id).mkdir();
+        extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        Path filepath = Paths.get("./dishImages/" + id + "/image" + extension);
+        try {
+            OutputStream outputStream = Files.newOutputStream(filepath);
+            outputStream.write(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ReturnCode.OK;
     }
 
     public List<Dish> getAllDishRaw() {

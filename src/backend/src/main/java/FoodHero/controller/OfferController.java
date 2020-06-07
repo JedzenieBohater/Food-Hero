@@ -9,11 +9,20 @@ import FoodHero.service.Utils.ReturnCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -88,7 +97,6 @@ public class OfferController {
                 searchNameQuery = searchName;
             }
         }
-
         return new ResponseEntity<>(offerService.getOffersWithFilters(minPriceQuery, maxPriceQuery, minRatingQuery, maxRatingQuery, categoryQuery, statusQuery, localizationQuery, searchNameQuery), HttpStatus.OK);
     }
 
@@ -146,6 +154,19 @@ public class OfferController {
         return new ResponseEntity<>(singleOffer, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{id}/image")
+    public ResponseEntity<Object> getImage(@PathVariable("id") int id){
+        InputStreamResource resource = null;
+        File file = new File("dishImages/" + id + "/image.jpg");
+        try {
+            resource = new InputStreamResource(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getName() + "\"").contentLength(file.length()).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
+    }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
         int userID = 0;
@@ -191,6 +212,7 @@ public class OfferController {
             }
         } else {
             return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nOffer not found", HttpStatus.NOT_FOUND);
+
         }
     }
 }

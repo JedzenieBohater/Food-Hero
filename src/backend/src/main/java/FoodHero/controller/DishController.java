@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.Map;
@@ -28,6 +29,21 @@ public class DishController {
     public DishController(DishService dishService, LoginService loginService) {
         this.dishService = dishService;
         this.loginService = loginService;
+    }
+
+    @PostMapping("/{id}/upload")
+    public ResponseEntity<Object> uplaodImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") int id, Principal principal) {
+//        if (dishService.getDish(id) == null) {
+//            return new ResponseEntity<>(ReturnCode.NOT_FOUND.toString() + "\nDish not found", HttpStatus.NOT_FOUND);
+//        }
+//        if (dishService.getDish(id).getAccount().getId() != loginService.getIdByEmail(principal.getName())) {
+//            return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to post image to dish", HttpStatus.FORBIDDEN);
+//        }
+        ReturnCode code = dishService.uploadImage(file, id);
+        if (code == ReturnCode.INCORRECT_DATA) {
+            return new ResponseEntity<>(ReturnCode.INCORRECT_DATA.toString() +"\nWrong extension", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ReturnCode.OK.toString() + "\nImage uploaded", HttpStatus.OK);
     }
 
     @PostMapping(value = "/{id}")
