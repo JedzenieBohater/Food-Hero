@@ -36,8 +36,6 @@ public class OfferService {
         this.accountService = accountService;
     }
 
-//    public ReturnCode setImage(int id, File file)
-
     public int getNumberOfActiveOffersAccount(int id) {
         List<Offer> offers = offerRepository.findAll();
         int active = 0;

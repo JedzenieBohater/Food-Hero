@@ -10,8 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,8 +65,6 @@ public class DishService {
     }
 
     public ReturnCode updateDish(int id, Map<String, Object> payload) {
-        //TODO przy przepinaniu dań między użytkownikami trzeba zadbać o to aby tylko admin mogl to zrobić.
-        //jak narazie tego nei dodaje
         Optional<Dish> dishOptional = dishRepository.findById(id);
         if (!dishOptional.isPresent()) {
             return ReturnCode.NOT_FOUND;
@@ -99,14 +95,14 @@ public class DishService {
         return ReturnCode.NOT_FOUND;
     }
 
-    public ReturnCode uploadImage(MultipartFile file, int id){
+    public ReturnCode uploadImage(MultipartFile file, int id) {
         String extension;
-        if(file != null && file.getOriginalFilename() != null && file.getOriginalFilename().lastIndexOf(".") == -1){
+        if (file != null && file.getOriginalFilename() != null && file.getOriginalFilename().lastIndexOf(".") == -1) {
             return ReturnCode.INCORRECT_DATA;
         }
         new File("./dishImages/" + id).mkdir();
-        extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        Path filepath = Paths.get("./dishImages/" + id + "/image" + extension);
+        extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).toLowerCase();
+        Path filepath = Paths.get("dishImages/" + id + "/image" + extension);
         try {
             OutputStream outputStream = Files.newOutputStream(filepath);
             outputStream.write(file.getBytes());
@@ -114,6 +110,15 @@ public class DishService {
             e.printStackTrace();
         }
         return ReturnCode.OK;
+    }
+
+    public File getImage(int id) {
+        File file = new File("dishImages/" + id + "/image.jpg");
+        if(file.exists())
+        {
+            return file;
+        }
+        return null;
     }
 
     public List<Dish> getAllDishRaw() {
