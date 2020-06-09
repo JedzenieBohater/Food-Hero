@@ -15,7 +15,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -120,6 +127,32 @@ public class AccountService {
 
     public List<Account> getAccounts() {
         return accountRepository.findAll();
+    }
+
+    public ReturnCode uploadImage(MultipartFile file, int id){
+        String extension;
+        if(file != null && file.getOriginalFilename() != null && file.getOriginalFilename().lastIndexOf(".") == -1){
+            return ReturnCode.INCORRECT_DATA;
+        }
+        new File("./accountImages/" + id).mkdir();
+        extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")).toLowerCase();
+        Path filepath = Paths.get("./accountImages/" + id + "/image" + extension);
+        try {
+            OutputStream outputStream = Files.newOutputStream(filepath);
+            outputStream.write(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ReturnCode.OK;
+    }
+
+    public File getImage(int id){
+        File file = new File("accountImages/" + id + "/image.jpg");
+        if(file.exists())
+        {
+            return file;
+        }
+        return null;
     }
 
 }

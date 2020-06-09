@@ -20,6 +20,9 @@ services:
     restart: unless-stopped
     volumes:
       - ../src/backend/target/FoodHero-Backend-1.0-SNAPSHOT.jar:/tmp/FoodHero-Backend-1.0-SNAPSHOT.jar
+      - ../src/backend/logs:/logs
+      - ../src/backend/src/main/resources/dishImages:/dishImages
+      - ../src/backend/src/main/resources/accountImages:/accountImages
     ports:
       - "18080:8080"
     depends_on:

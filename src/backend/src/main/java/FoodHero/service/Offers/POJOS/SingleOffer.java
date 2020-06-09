@@ -9,9 +9,7 @@ import java.util.List;
 
 public class SingleOffer {
 
-    //TODO linki do zdjec
     private int id;
-    private String url = "www.ToSieJeszczeZrobi.pl";
     private String firstname;
     private String lastname;
     private String name;
@@ -19,6 +17,7 @@ public class SingleOffer {
     private String category;
     private double grade;
     private List<Pair<String, Integer>> gradesList;
+    private int id_dish;
     private String day;
     private String localization;
     private double price;
@@ -42,6 +41,7 @@ public class SingleOffer {
             Pair<String, Integer> gradePair = Pair.of(comment, dishRating.getGrade());
             this.gradesList.add(gradePair);
         }
+        this.id_dish = offer.getDish().getId();
         this.day = offer.getDay();
         this.localization = offer.getLocalization();
         this.price = offer.getPrice();
@@ -55,14 +55,6 @@ public class SingleOffer {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getFirstname() {
@@ -127,6 +119,14 @@ public class SingleOffer {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public int getId_dish() {
+        return id_dish;
+    }
+
+    public void setId_dish(int id_dish) {
+        this.id_dish = id_dish;
     }
 
     public String getLocalization() {

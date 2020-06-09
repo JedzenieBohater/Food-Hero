@@ -154,19 +154,6 @@ public class OfferController {
         return new ResponseEntity<>(singleOffer, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}/image")
-    public ResponseEntity<Object> getImage(@PathVariable("id") int id){
-        InputStreamResource resource = null;
-        File file = new File("dishImages/" + id + "/image.jpg");
-        try {
-            resource = new InputStreamResource(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getName() + "\"").contentLength(file.length()).contentType(MediaType.APPLICATION_OCTET_STREAM).body(resource);
-    }
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateOffer(@PathVariable("id") int id, @RequestBody Map<String, Object> payload, Principal principal) {
         int userID = 0;
