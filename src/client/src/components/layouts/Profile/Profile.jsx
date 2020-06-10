@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import logo from 'static/images/logolarge.png'
 import user from './userinstance.json'
 import List from '../Search/List'
+import AddOffer from '../AddOffer'
 import { getAccountData, sendChangedProfile } from 'utils/user'
 import { deleteDish, getUserDishes } from 'utils/dish'
 
@@ -306,6 +307,8 @@ export const Profile = props => {
         {error}
       </form>
     )
+  } else if(view == "add"){
+    activePanel = <AddOffer/>
   }
 
   return (
@@ -320,6 +323,9 @@ export const Profile = props => {
         </button>
         <button className="btn-blue-small" onClick={() => setView('settings')}>
           {props.lang.settings}
+        </button>
+        <button className="btn-blue-small" onClick={() => setView('add')}>
+        {props.lang.add}
         </button>
       </div>
       <div className="content-box col75prof">{activePanel}</div>

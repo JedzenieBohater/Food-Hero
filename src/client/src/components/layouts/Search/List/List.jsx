@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
+import { getImage } from 'utils/dish'
 
 var List = props => {
+
+  const [dishImg, setDishImg] = useState("")
 
   var redirectToOfferDetails = () => {
     //console.log(props.id)
     props.history.push("/offer/" + props.id);
   }
+
+  useEffect(() => {
+    setDishImg(getImage(props.id))
+    console.log(props)
+  }, [])
+
   //console.log(props)
   return (
     <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails()}>
       <div className="flexrow">
         <div className="">
-          <img className="pic" alt="" src={props.picture} />
+          <img className="pic" alt="" src={dishImg} />
           <div className="star-ratings-css">
             <div
               className="star-ratings-css-top"

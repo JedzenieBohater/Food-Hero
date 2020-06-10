@@ -60,6 +60,7 @@ export default {
         profile: "Profile",
         dishlist: "Dish list",
         settings: "Settings",
+        add: "Add",
         creation: "Account created on",
         specialization: "Specialization",
         email: "E-mail",

@@ -61,6 +61,7 @@ export default {
         profile: "Profil",
         dishlist: "Lista dań",
         settings: "Ustawienia",
+        settings: "Dodaj",
         creation: "Jest z nami od",
         specialization: "Specjalność",
         email: "Adres e-mail",

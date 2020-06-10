@@ -15,3 +15,20 @@ export const getUserDishes = async id => {
 }
 
 export const deleteDish = id => fetch(`/api/dish/${id}`, { method: 'DELETE' })
+
+
+
+export const getImage = async id => {
+  const response = await fetch(`/api/dish/${id}/image`)
+  var data
+  if(response.ok){
+    data = await response.blob()
+    data = URL.createObjectURL(data)
+    console.log()
+  } else {
+    data = ""
+  }
+  
+  console.log(response)
+  return data
+}
