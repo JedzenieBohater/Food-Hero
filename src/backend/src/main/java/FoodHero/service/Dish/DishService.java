@@ -51,8 +51,10 @@ public class DishService {
             dish.setName((String) payload.get("name"));
             dish.setCategory((String) payload.get("category"));
             dish.setDescription((String) payload.get("description"));
-            dishRepository.save(dish);
-            return ReturnCode.OK;
+            Dish savedDish = dishRepository.save(dish);
+            ReturnCode returnCode = ReturnCode.OK;
+            returnCode.setDescription(String.valueOf(savedDish.getId()));
+            return returnCode;
         }
         return ReturnCode.INCORRECT_DATA;
     }
