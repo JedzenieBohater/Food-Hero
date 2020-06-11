@@ -12,7 +12,7 @@ public enum ReturnCode {
 
 
     private final int code;
-    private final String description;
+    private String description;
 
     ReturnCode(int code, String description) {
         this.code = code;
@@ -25,6 +25,10 @@ public enum ReturnCode {
 
     public int getCode() {
         return code;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
