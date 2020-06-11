@@ -147,7 +147,7 @@ public class AccountService {
     }
 
     public File getImage(int id){
-        File file = new File("accountImages/" + id + "/image.jpg");
+        File file = new File("accountImages/" + id + "/image.png");
         if(file.exists())
         {
             return file;

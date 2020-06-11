@@ -115,7 +115,7 @@ public class DishService {
     }
 
     public File getImage(int id) {
-        File file = new File("dishImages/" + id + "/image.jpg");
+        File file = new File("dishImages/" + id + "/image.png");
         if(file.exists())
         {
             return file;
