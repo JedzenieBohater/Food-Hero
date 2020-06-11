@@ -11,7 +11,7 @@ import {
   AddOffer,
   Offer,
 } from './layouts'
-import { AuthRoute } from 'utils/route'
+import { AuthRoute, ProtectedRoute } from 'utils/route'
 
 export default () => (
   <Router>
@@ -22,8 +22,7 @@ export default () => (
       <Route path="/register" component={Register} />
       <Route path="/forgottenpassword" component={ForgottenPassword} />
       <Route path="/search" component={Search} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/add" component={AddOffer} />
+      <ProtectedRoute path="/profile" component={Profile} />
       <Route path="/offer/:id" component={Offer} />
     </Switch>
   </Router>
