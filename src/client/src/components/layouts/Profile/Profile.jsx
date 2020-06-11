@@ -8,11 +8,6 @@ import AddOffer from '../AddOffer'
 import { getAccountData, sendChangedProfile } from 'utils/user'
 import { deleteDish, getUserDishes } from 'utils/dish'
 
-const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
-  lang: languageReducer.profile,
-  session: sessionReducer,
-})
-
 export const Profile = props => {
   const [view, setView] = useState('profile')
   //const [email, setEmail] = useState(user.email)
@@ -36,11 +31,14 @@ export const Profile = props => {
       setSpecialization(account.specialization)
       setCreationDate(String(account.creation_date).slice(0, 10))
       setGrade(account.grade)
-
-      const dishes = await getUserDishes(props.session.userID)
-      setDishlist(dishes)
+      updateDishList()
     })()
   }, [])
+
+  const updateDishList = async () => {
+    const dishes = await getUserDishes(props.session.userID)
+    setDishlist(dishes)
+  }
 
   // dorobić autoryzacje usuwania oferty, powiadomienie o usunieciu
 
@@ -200,14 +198,10 @@ export const Profile = props => {
             <List
               className="col75"
               id={dish.id}
-              picture={dish.picture}
-              title={dish.title}
-              wystawiajacy={dish.cook}
-              data={dish.date}
-              lokalizacja={dish.location}
-              ocena={dish.grade}
-              opis={dish.description}
-            ></List>
+              description={dish.description}
+              name={dish.name}
+              category={dish.category}
+            />
             <button
               name={dish.id}
               onClick={() => handleDeleteDish(dish.id, idx)}
@@ -307,8 +301,8 @@ export const Profile = props => {
         {error}
       </form>
     )
-  } else if(view == "add"){
-    activePanel = <AddOffer/>
+  } else if (view == 'add') {
+    activePanel = <AddOffer setView={setView} updateDishList={updateDishList} />
   }
 
   return (
@@ -325,12 +319,17 @@ export const Profile = props => {
           {props.lang.settings}
         </button>
         <button className="btn-blue-small" onClick={() => setView('add')}>
-        {props.lang.add}
+          {props.lang.add}
         </button>
       </div>
       <div className="content-box col75prof">{activePanel}</div>
     </div>
   )
 }
+
+const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
+  lang: languageReducer.profile,
+  session: sessionReducer,
+})
 
 export default connect(mapStateToProps)(Profile)
