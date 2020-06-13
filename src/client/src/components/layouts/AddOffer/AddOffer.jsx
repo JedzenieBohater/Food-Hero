@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-export const AddOffer = ({
+export const AddOffer = ( {
   sessionReducer: { userID },
+  lang,
   setView,
-  updateDishList,
+  updateDishList
 }) => {
   const [image, setImage] = useState(null)
   const [imageUrl, setImageUrl] = useState('')
   const [name, setName] = useState('')
   const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
-
   const handleImageChange = e => {
     const reader = new FileReader()
     const file = e.target.files[0]
@@ -31,7 +31,6 @@ export const AddOffer = ({
       setImageUrl('')
     }
   }
-
   const handleSubmit = async e => {
     e.preventDefault()
 
@@ -96,21 +95,21 @@ export const AddOffer = ({
             </div>
             <div className="col75">
               <div className="title">
-                <input className="addtitle" type="text" placeholder="title" />
+                <input className="addtitle" type="text" placeholder={lang.title} />
               </div>
               <div>
                 <input
                   value={name}
                   className="marginer width33"
                   type="text"
-                  placeholder="name"
+                  placeholder={lang.name}
                   onChange={e => setName(e.target.value)}
                 />
                 <input
                   value={category}
                   className="marginer width33"
                   type="text"
-                  placeholder="category"
+                  placeholder={lang.category}
                   onChange={e => setCategory(e.target.value)}
                 />
               </div>
@@ -118,13 +117,13 @@ export const AddOffer = ({
                 <textarea
                   value={description}
                   className="adddesc"
-                  placeholder="description"
+                  placeholder={lang.description}
                   onChange={e => setDescription(e.target.value)}
                 />
               </div>
               <div className="center">
                 <button type="submit" className="btn-blue">
-                  add
+                  {lang.add}
                 </button>
               </div>
             </div>
@@ -135,8 +134,9 @@ export const AddOffer = ({
   )
 }
 
-const mapStateToProps = ({ sessionReducer }) => ({
+const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
   sessionReducer,
+  lang: languageReducer.addOffer,
 })
 
 export default connect(mapStateToProps)(AddOffer)

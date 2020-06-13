@@ -1,3 +1,5 @@
+import { AddOffer } from "../components/layouts/AddOffer/AddOffer";
+
 export default {
     header:
     {
@@ -88,5 +90,22 @@ export default {
     table:
     {
         page: "Strona"
+    },
+    addOffer:
+    {
+        title: "tytuł",
+        name: "nazwa",
+        category: "kategoria",
+        description: "opis",
+        add: "Dodaj"
+    },
+    offer: 
+    {
+        offerDetails: "Szczegóły oferty",
+        rateit: "Oceń to",
+        send: "Wyślij",
+        pay: "Zapłać",
+        unavailable: "Przepraszamy, ta oferta nie jest już dostępna",
+        sent: "Ocena wysłana"
     }
 }

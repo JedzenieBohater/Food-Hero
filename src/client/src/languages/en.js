@@ -87,5 +87,22 @@ export default {
     table:
     {
         page: "Page"
+    },
+    addOffer:
+    {
+        title: "title",
+        name: "name",
+        category: "category",
+        description: "description",
+        add: "Add"
+    },
+    offer: 
+    {
+        offerDetails: "Offer details",
+        rateit: "Rate it",
+        send: "Send",
+        pay: "Pay",
+        unavailable: "Sorry, this offer is no longer available",
+        sent: "Your grade was sent"
     }
 }
