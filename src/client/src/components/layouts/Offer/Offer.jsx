@@ -7,17 +7,28 @@ export default props => {
   const [isData, setIsData] = useState(true)
   const [gradeSent, setGradeSent] = useState(false)
   const [grade, setGrade] = useState(DEFAULT_SELECT)
+  const [dishImgUrl, setDishImgUrl] = useState(null)
 
   const getOffer = async url => {
     try {
-      const response = await fetch(url)
+      let response = await fetch(url)
 
       if (!response.ok) {
         throw new Error('getOffer response not ok')
       }
 
-      const data = await response.json()
+      let data = await response.json()
       setData(data)
+
+      response = await fetch(`/api/dish/${data.id_dish}/image`)
+
+      if (!response.ok) {
+        throw new Error('Getting dish img not ok')
+      }
+
+      data = await response.blob()
+      const urlData = URL.createObjectURL(data)
+      setDishImgUrl(urlData)
     } catch (err) {
       setIsData(false)
       console.log(err)
@@ -64,7 +75,15 @@ export default props => {
             </div>
             <div className="flexrow">
               <div className="">
-                <img className="descpic" alt="" src={data.picture} />
+                <img
+                  className="descpic"
+                  alt=""
+                  src={
+                    !!dishImgUrl
+                      ? dishImgUrl
+                      : `${process.env.PUBLIC_URL}/static/images/logo.svg`
+                  }
+                />
                 {!gradeSent ? (
                   <div>
                     <div className="centering"> rateOffer it!</div>
