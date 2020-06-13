@@ -66,11 +66,21 @@ var List = props => {
         </div>
         <div className="col75">
           <div className="title">
-            <b>{props.title}</b>
+            <b>{!!props.title ? props.title : props.name}</b>
           </div>
           <div className="flexrow">
-            <div className="marginer">{props.name}</div>
-            <div className="marginer">{props.category}</div>
+            {!!props.title ? (
+              <>
+                <div className="marginer price">
+                  {!!props.price && `${props.price} zł`}
+                </div>
+                <div className="marginer">{props.cook}</div>
+                <div className="marginer">{props.date}</div>
+                <div className="marginer">{props.localization}</div>
+              </>
+            ) : (
+              <div className="marginer">{props.category}</div>
+            )}
           </div>
           <span className="description marginer">{props.description}</span>
         </div>
