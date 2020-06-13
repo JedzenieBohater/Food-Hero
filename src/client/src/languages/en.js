@@ -74,7 +74,7 @@ export default {
     search:
     {
         what: "Search:",
-        localization: "Localization:",
+        localization: "Localization",
         search: "Find",
         filters: "Filter",
         price: "Price",

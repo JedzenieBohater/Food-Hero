@@ -61,7 +61,7 @@ export default {
         profile: "Profil",
         dishlist: "Lista dań",
         settings: "Ustawienia",
-        settings: "Dodaj",
+        add: "Dodaj",
         creation: "Jest z nami od",
         specialization: "Specjalność",
         email: "Adres e-mail",
@@ -75,7 +75,7 @@ export default {
     search:
     {
         what: "Czego szukasz:",
-        localization: "Lokalizacja:",
+        localization: "Lokalizacja",
         search: "Szukaj",
         filters: "Filtry",
         price: "Cena",
