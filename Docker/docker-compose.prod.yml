@@ -1,9 +1,10 @@
+#prettier-ignore
 version: '3'
 
 services:
   client:
     container_name: some_client
-    build: 
+    build:
       context: ../src/client
       dockerfile: Dockerfile.prod
     restart: unless-stopped

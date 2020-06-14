@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from 'react'
-
+import { connect } from 'react-redux'
 const DEFAULT_SELECT = '5'
 
-export default props => {
+export const Offer = props => {
   const [data, setData] = useState(undefined)
   const [isData, setIsData] = useState(true)
   const [gradeSent, setGradeSent] = useState(false)
   const [grade, setGrade] = useState(DEFAULT_SELECT)
+  const [dishImgUrl, setDishImgUrl] = useState(null)
 
   const getOffer = async url => {
     try {
-      const response = await fetch(url)
+      let response = await fetch(url)
 
       if (!response.ok) {
         throw new Error('getOffer response not ok')
       }
 
-      const data = await response.json()
+      let data = await response.json()
       setData(data)
+
+      response = await fetch(`/api/dish/${data.id_dish}/image`)
+
+      if (!response.ok) {
+        throw new Error('Getting dish img not ok')
+      }
+
+      data = await response.blob()
+      const urlData = URL.createObjectURL(data)
+      setDishImgUrl(urlData)
     } catch (err) {
       setIsData(false)
       console.log(err)
@@ -60,14 +71,22 @@ export default props => {
               className="content-box marginer title centering"
               onClick={() => console.log(props.id)}
             >
-              Szczegóły oferty:
+              {props.lang.offerDetails}:
             </div>
             <div className="flexrow">
               <div className="">
-                <img className="descpic" alt="" src={data.picture} />
+                <img
+                  className="descpic"
+                  alt=""
+                  src={
+                    !!dishImgUrl
+                      ? dishImgUrl
+                      : `${process.env.PUBLIC_URL}/static/images/logo.svg`
+                  }
+                />
                 {!gradeSent ? (
                   <div>
-                    <div className="centering"> rateOffer it!</div>
+                    <div className="centering"> {props.lang.rateit}!</div>
                     <div className="centering">
                       <select
                         id="grade"
@@ -83,11 +102,11 @@ export default props => {
                       <span>★</span>
                     </div>
                     <button onClick={rateOffer} className="ratebutton">
-                      Send
+                      {props.lang.send}
                     </button>
                   </div>
                 ) : (
-                  <div className="centering">Your grade was sent!</div>
+                  <div className="centering">{props.lang.sent}!</div>
                 )}
               </div>
               <div className="col75">
@@ -109,7 +128,7 @@ export default props => {
               className="ratebutton paybutton"
               onClick={() => goPayment()}
             >
-              Zapłać
+              {props.lang.pay}
             </button>
           </div>
         ) : (
@@ -121,9 +140,15 @@ export default props => {
           className="content-box marginer title centering"
           onClick={() => console.log(props.id)}
         >
-          Sorry, this offer is no longer available
+          {props.lang.unavailable}
         </div>
       )}
     </div>
   )
 }
+
+const mapStateToProps = ({ languageReducer }) => ({
+  lang: languageReducer.offer,
+})
+
+export default connect(mapStateToProps)(Offer)

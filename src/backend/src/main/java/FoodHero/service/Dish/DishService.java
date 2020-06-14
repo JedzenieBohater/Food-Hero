@@ -51,8 +51,10 @@ public class DishService {
             dish.setName((String) payload.get("name"));
             dish.setCategory((String) payload.get("category"));
             dish.setDescription((String) payload.get("description"));
-            dishRepository.save(dish);
-            return ReturnCode.OK;
+            Dish savedDish = dishRepository.save(dish);
+            ReturnCode returnCode = ReturnCode.OK;
+            returnCode.setDescription(String.valueOf(savedDish.getId()));
+            return returnCode;
         }
         return ReturnCode.INCORRECT_DATA;
     }
@@ -113,7 +115,7 @@ public class DishService {
     }
 
     public File getImage(int id) {
-        File file = new File("dishImages/" + id + "/image.jpg");
+        File file = new File("dishImages/" + id + "/image.png");
         if(file.exists())
         {
             return file;

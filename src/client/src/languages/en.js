@@ -60,6 +60,7 @@ export default {
         profile: "Profile",
         dishlist: "Dish list",
         settings: "Settings",
+        add: "Add",
         creation: "Account created on",
         specialization: "Specialization",
         email: "E-mail",
@@ -73,7 +74,7 @@ export default {
     search:
     {
         what: "Search:",
-        localization: "Localization:",
+        localization: "Localization",
         search: "Find",
         filters: "Filter",
         price: "Price",
@@ -86,5 +87,22 @@ export default {
     table:
     {
         page: "Page"
+    },
+    addOffer:
+    {
+        title: "title",
+        name: "name",
+        category: "category",
+        description: "description",
+        add: "Add"
+    },
+    offer: 
+    {
+        offerDetails: "Offer details",
+        rateit: "Rate it",
+        send: "Send",
+        pay: "Pay",
+        unavailable: "Sorry, this offer is no longer available",
+        sent: "Your grade was sent"
     }
 }

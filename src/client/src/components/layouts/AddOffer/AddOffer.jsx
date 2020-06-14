@@ -1,32 +1,70 @@
-import React from 'react'
-//import { useState } from 'react'
-//import { register } from '../../../utils/session'
-//import { connect } from 'react-redux'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 
-export const AddOffer = props => {
-  function readURL(input) {
-    console.log(input.target.files)
-    if (input.target.files && input.target.files[0]) {
-      var reader = new FileReader()
+export const AddOffer = ( {
+  sessionReducer: { userID },
+  lang,
+  setView,
+  updateDishList
+}) => {
+  const [image, setImage] = useState(null)
+  const [imageUrl, setImageUrl] = useState('')
+  const [name, setName] = useState('')
+  const [category, setCategory] = useState('')
+  const [description, setDescription] = useState('')
+  const handleImageChange = e => {
+    const reader = new FileReader()
+    const file = e.target.files[0]
 
-      reader.onload = function (e) {
-        document.getElementById('blah').src = e.target.result
+    reader.onloadend = () => {
+      setImage(file)
+      setImageUrl(reader.result)
+    }
+
+    try {
+      if (!file) {
+        throw new Error('')
       }
-
-      reader.readAsDataURL(input.target.files[0])
+      reader.readAsDataURL(file)
+    } catch (err) {
+      setImage(null)
+      setImageUrl('')
     }
   }
+  const handleSubmit = async e => {
+    e.preventDefault()
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-    var data = new FormData(event.target)
-    var request = new XMLHttpRequest()
-    request.open('POST', '/offers/add')
-    request.send(data)
-    if (request.status === 200) {
-      alert('dodano oferte')
-    } else {
-      alert('nie udalo sie dodać oferty')
+    try {
+      let response = await fetch(`/api/dish/${userID}`, {
+        method: 'POST',
+        body: JSON.stringify({ name, category, description }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error('Posting a dish not ok')
+      }
+
+      const { dishID } = await response.json()
+
+      if (!!image) {
+        let formData = new FormData()
+        formData.append('imageFile', image)
+        response = await fetch(`/api/dish/${dishID}/upload`, {
+          method: 'POST',
+          body: formData,
+        })
+        if (!response.ok) {
+          throw new Error()
+        }
+      }
+
+      setView('dishlist')
+      updateDishList()
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -34,54 +72,58 @@ export const AddOffer = props => {
     <div>
       <div className="content-box flexcolumn search searchmain">
         <div className="flexrow">
-          <form
-            action="offer/add"
-            className="flexrow fullwidth"
-            method="post"
-            enctype="multipart-form/data"
-          >
+          <form className="flexrow fullwidth" onSubmit={handleSubmit}>
             <div className="col25 center">
               <img
                 className="addpic"
                 id="blah"
-                src="http://placehold.it/180"
-                alt=" "
+                src={
+                  !!imageUrl
+                    ? imageUrl
+                    : `${process.env.PUBLIC_URL}/static/images/logo.svg`
+                }
+                alt="insert image"
               />
               <div>
-                <input type="file" id="imgInp" onChange={readURL} />
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  id="imgInp"
+                  onChange={handleImageChange}
+                />
               </div>
             </div>
             <div className="col75">
               <div className="title">
-                <input
-                  className="addtitle"
-                  type="text"
-                  placeholder="title"
-                ></input>
+                <input className="addtitle" type="text" placeholder={lang.title} />
               </div>
               <div>
                 <input
+                  value={name}
                   className="marginer width33"
                   type="text"
-                  placeholder="price"
-                ></input>
+                  placeholder={lang.name}
+                  onChange={e => setName(e.target.value)}
+                />
                 <input
+                  value={category}
                   className="marginer width33"
                   type="text"
-                  placeholder="date"
-                ></input>
-                <input
-                  className="marginer width33"
-                  type="text"
-                  placeholder="localization"
-                ></input>
+                  placeholder={lang.category}
+                  onChange={e => setCategory(e.target.value)}
+                />
               </div>
               <div className="marginer">
-                <textarea className="adddesc" placeholder="description" />
+                <textarea
+                  value={description}
+                  className="adddesc"
+                  placeholder={lang.description}
+                  onChange={e => setDescription(e.target.value)}
+                />
               </div>
               <div className="center">
-                <button className="btn-blue" onClick={handleSubmit}>
-                  add
+                <button type="submit" className="btn-blue">
+                  {lang.add}
                 </button>
               </div>
             </div>
@@ -92,4 +134,9 @@ export const AddOffer = props => {
   )
 }
 
-export default AddOffer
+const mapStateToProps = ({ sessionReducer, languageReducer }) => ({
+  sessionReducer,
+  lang: languageReducer.addOffer,
+})
+
+export default connect(mapStateToProps)(AddOffer)

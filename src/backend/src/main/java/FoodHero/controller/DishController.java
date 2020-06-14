@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -88,7 +89,9 @@ public class DishController {
             } else if (returnCode == ReturnCode.INCORRECT_DATA) {
                 return new ResponseEntity<>(ReturnCode.INCORRECT_DATA.toString() + "\nWrong json payload.", HttpStatus.BAD_REQUEST);
             }
-            return new ResponseEntity<>(ReturnCode.OK.toString() + "\nDish created successfully", HttpStatus.OK);
+            Map<String, String> data = new HashMap<>();
+            data.put("dishID", returnCode.getDescription());
+            return new ResponseEntity<>(data, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(ReturnCode.NO_ACCESS.toString() + "\nYou have no permissions to post dish", HttpStatus.FORBIDDEN);
         }

@@ -1,18 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
 
 var List = props => {
+  const [dishImgUrl, setDishImgUrl] = useState(null)
 
   var redirectToOfferDetails = () => {
     //console.log(props.id)
-    props.history.push("/offer/" + props.id);
+    props.history.push('/offer/' + props.id)
   }
-  //console.log(props)
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch(`/api/dish/${props.id}/image`)
+
+        if (!response.ok) {
+          throw new Error('Getting dish img not ok')
+        }
+
+        const data = await response.blob()
+        const url = URL.createObjectURL(data)
+        setDishImgUrl(url)
+      } catch (err) {
+        console.log(err)
+      }
+    })()
+  }, [])
+
   return (
-    <div id={props.id} className="content-box flexcolumn offer" onClick={() => redirectToOfferDetails()}>
+    <div
+      id={props.id}
+      className="content-box flexcolumn offer"
+      onClick={() => redirectToOfferDetails()}
+    >
       <div className="flexrow">
         <div className="">
-          <img className="pic" alt="" src={props.picture} />
+          <img
+            className="pic"
+            alt=""
+            src={
+              !!dishImgUrl
+                ? dishImgUrl
+                : `${process.env.PUBLIC_URL}/static/images/logo.svg`
+            }
+          />
           <div className="star-ratings-css">
             <div
               className="star-ratings-css-top"
@@ -35,13 +66,21 @@ var List = props => {
         </div>
         <div className="col75">
           <div className="title">
-            <b>{props.title}</b>
+            <b>{!!props.title ? props.title : props.name}</b>
           </div>
           <div className="flexrow">
-            <div className="marginer price">{props.price} zł</div>
-            <div className="marginer">{props.cook}</div>
-            <div className="marginer">{props.date}</div>
-            <div className="marginer">{props.localization}</div>
+            {!!props.title ? (
+              <>
+                <div className="marginer price">
+                  {!!props.price && `${props.price} zł`}
+                </div>
+                <div className="marginer">{props.cook}</div>
+                <div className="marginer">{props.date}</div>
+                <div className="marginer">{props.localization}</div>
+              </>
+            ) : (
+              <div className="marginer">{props.category}</div>
+            )}
           </div>
           <span className="description marginer">{props.description}</span>
         </div>
@@ -50,7 +89,4 @@ var List = props => {
   )
 }
 
-
-
 export default withRouter(List)
-//export default List
